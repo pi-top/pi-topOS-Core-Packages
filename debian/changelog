@@ -1,4 +1,4 @@
-pt-os (0.1.0-0) jessie; urgency=low
+pt-os (0.1.0-0) stretch; urgency=low
 
   * Initial release
 
