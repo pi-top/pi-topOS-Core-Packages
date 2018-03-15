@@ -8,7 +8,7 @@ Homepage: https://pi-top.com/
 
 Package: pt-os
 Architecture: armhf
-Depends: pt-apps, pt-dev, pt-devices, pt-ui
+Depends: pt-apps, pt-dev, pt-devices, pt-ui, pt-update
 Description: pi-topOS metapackage
  The root package of pi-topOS. Contains the files and dependencies required
  to install and configure pi-topOS over the top of Raspbian.
