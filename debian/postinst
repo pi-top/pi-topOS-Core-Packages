@@ -1,0 +1,19 @@
+#!/bin/bash -e
+
+ptUpdatePrerm="/var/lib/dpkg/info/pt-update.prerm"
+ptUpdateVersion="$(dpkg -s pt-update | grep Version: | awk '{ print $2 }')"
+
+if [[ "${ptUpdateVersion}" != "1.0.0-1" ]]; then
+	echo "pt-update version was ${ptUpdateVersion} - no patch required"
+	exit 0
+fi
+
+if [[ ! -f "${ptUpdatePrerm}" ]]; then
+	echo "pt-update.prerm was not found to patch"
+	exit 0
+fi
+
+echo "Patching pt-update-deb 1.0.0-1 maintenance script..."
+sed -i -e "3,8d" "${ptUpdatePrerm}"
+
+exit 0
