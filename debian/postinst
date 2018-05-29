@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+# Patch pt-update 1.0.0-1 prerm maintainer script
+
 ptUpdatePrerm="/var/lib/dpkg/info/pt-update.prerm"
 ptUpdateVersion="$(dpkg -s pt-update | grep Version: | awk '{ print $2 }')"
 
@@ -15,5 +17,13 @@ fi
 
 echo "Patching pt-update-deb 1.0.0-1 maintenance script..."
 sed -i -e "3,8d" "${ptUpdatePrerm}"
+
+# Add the APT global setting for apt-get upgrade to install new dependencies
+
+aptConfigFile="/etc/apt/apt.conf.d/50upgrade-allow-new"
+
+if [[ ! -f "${aptConfigFile}" ]]; then
+    echo "APT::Get::Upgrade-Allow-New \"true\";" > "${aptConfigFile}"
+fi
 
 exit 0
