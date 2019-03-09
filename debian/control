@@ -9,6 +9,7 @@ Homepage: https://pi-top.com/
 Package: pt-os
 Architecture: armhf
 Depends: pt-apps, pt-libs, pt-dev, pt-devices, pt-ui, pt-update
+Recommends: neofetch
 Description: pi-topOS top-level dummy package
  The root package of pi-topOS. Contains the files and dependencies required
  to install and configure pi-topOS over the top of Raspbian.
