@@ -8,8 +8,8 @@ Homepage: https://pi-top.com/
 
 Package: pt-os
 Architecture: armhf
-Depends: neofetch, pt-apps, pt-libs, pt-dev, pt-devices,
- pt-ui, pt-update, realvnc-vnc-server
+Depends: isc-dhcp-server, neofetch, pt-apps, pt-libs,
+ pt-dev, pt-devices, pt-ui, pt-update, realvnc-vnc-server
 Recommends: pt-os-setup
 Description: pi-topOS top-level dummy package
  The root package of pi-topOS modifications to Raspbian.
