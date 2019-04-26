@@ -1,3 +1,9 @@
+pt-os (1.0.0-2) stretch; urgency=low
+
+  * Added pt-recovery
+
+ -- Mike Roberts <mike@pi-top.com>  Fri, 26 Apr 2019 14:21:23 +0100
+
 pt-os (1.0.0-1) stretch; urgency=low
 
   * Removed pt-update patch for Sirius
