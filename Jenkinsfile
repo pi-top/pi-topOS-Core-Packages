@@ -1,12 +1,12 @@
 node ('master') {
     stage ('Checkout') {
-        checkoutSubmodule()    
+        checkoutSubmodule()
     }
-    
+
     stage ('Build') {
         buildGenericPkg()
     }
-    
+
     stage ('Test') {
         checkSymLinks()
         shellcheck()
@@ -16,7 +16,7 @@ node ('master') {
             currentBuild.result = 'UNSTABLE'
         }
     }
-    
+
     stage ('Publish') {
         publishSirius()
     }
