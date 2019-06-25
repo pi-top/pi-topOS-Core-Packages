@@ -1,4 +1,4 @@
-pt-os (1.0.0-3) buster; urgency=medium
+pt-os-deb (1.0.0-3) buster; urgency=medium
 
   * Move to Buster
 
