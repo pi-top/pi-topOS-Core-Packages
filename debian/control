@@ -8,8 +8,17 @@ Homepage: https://pi-top.com/
 
 Package: pt-os
 Architecture: armhf
-Depends: isc-dhcp-server, neofetch (>= 6.0.0), pt-apps, pt-user-libs,
- pt-dev, pt-devices, pt-pma, pt-recovery, pt-ui, pt-update,
+Depends: isc-dhcp-server,
+ neofetch (>= 6.0.0),
+ pt-apps,
+ pt-dev,
+ pt-devices,
+ pt-pma,
+ pt-project-files,
+ pt-recovery,
+ pt-ui,
+ pt-update,
+ pt-user-libs,
  realvnc-vnc-server
 Recommends: pt-os-setup, pt-tour
 Description: pi-topOS top-level dummy package
