@@ -1,3 +1,9 @@
+pt-os (1.0.1-2) buster; urgency=medium
+
+  * Add disk usage analyser
+
+ -- Mike Roberts <mike@pi-top.com>  Tue, 30 Jul 2019 20:07:14 +0100
+
 pt-os (1.0.1-1) buster; urgency=medium
 
   * Move to Buster
