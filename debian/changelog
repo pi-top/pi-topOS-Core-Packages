@@ -1,4 +1,4 @@
-pt-os (1.0.1-2) buster; urgency=medium
+pt-os (1.0.1-3) buster; urgency=medium
 
   * Add disk usage analyser
 
