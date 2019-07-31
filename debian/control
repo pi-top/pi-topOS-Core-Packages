@@ -8,7 +8,8 @@ Homepage: https://pi-top.com/
 
 Package: pt-os
 Architecture: armhf
-Depends: isc-dhcp-server,
+Depends: baobab,
+ isc-dhcp-server,
  neofetch (>= 6.0.0),
  pt-apps,
  pt-dev,
