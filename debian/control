@@ -14,11 +14,11 @@ Depends: baobab,
  pt-apps,
  pt-dev,
  pt-devices,
- pt-os-updater,
  pt-pma,
  pt-project-files,
  pt-recovery,
  pt-ui,
+ pt-update,
  pt-user-libs,
  realvnc-vnc-server
 Recommends: pt-os-setup, pt-tour
