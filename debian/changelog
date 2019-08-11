@@ -1,3 +1,9 @@
+pt-os (1.0.2-3) buster; urgency=medium
+
+  * pt-update -> pt-firmware-updater, pt-os-updater
+
+ -- Mike Roberts <mike@pi-top.com>  Sun, 11 Aug 2019 12:17:19 +0100
+
 pt-os (1.0.1-3) buster; urgency=medium
 
   * Add disk usage analyser
