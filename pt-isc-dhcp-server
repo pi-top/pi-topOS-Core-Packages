@@ -1,0 +1,72 @@
+#!/bin/bash
+
+usage_and_exit() {
+  echo "Usage: ${0} start|stop"
+  exit 1
+}
+
+if [[ -z "${1}" ]]; then
+  usage_and_exit
+fi
+
+if [[ "${1}" != "start" ]] && [[ "${1}" != "stop" ]]; then
+  usage_and_exit
+fi
+
+interface_is_up() {
+  local interface="${1}"
+
+  if ip a show "${interface}" up &>/dev/null; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+stop_dhcp_server_if_running() {
+  dhcp_server_is_running() {
+    if /etc/init.d/isc-dhcp-server status &>/dev/null; then
+      return 0
+    else
+      return 1
+    fi
+  }
+
+  if dhcp_server_is_running; then
+    /etc/init.d/isc-dhcp-server stop
+  fi
+}
+
+delete_dhcp_pid_if_exists() {
+  local pid_file="/var/run/dhcpd.pid"
+
+  # Delete DHCP pid file if it exists
+  if [[ -f "${pid_file}" ]]; then
+    rm "${pid_file}"
+  fi
+}
+
+set_static_ip() {
+  local interface="${1}"
+  local ip="${2}"
+
+  ifconfig "${interface}" "${ip}"
+}
+
+main() {
+  stop_dhcp_server_if_running
+  delete_dhcp_pid_if_exists
+
+  if [[ "${1}" == "start" ]]; then
+    if interface_is_up usb0; then
+      set_static_ip usb0 192.168.64.1
+
+      /etc/init.d/isc-dhcp-server start
+    else
+      echo "No USB0 interface found - not starting DHCP server"
+      exit 0
+    fi
+  fi
+}
+
+main "$@"
