@@ -46,19 +46,31 @@ delete_dhcp_pid_if_exists() {
   fi
 }
 
+set_static_ip() {
+  local interface="${1}"
+  local ip="${2}"
+
+  ifconfig "${interface}" "${ip}"
+}
+
 main() {
   stop_dhcp_server_if_running
   delete_dhcp_pid_if_exists
 
   if [[ "${1}" == "start" ]]; then
     if interface_is_up usb0; then
+      set_static_ip usb0 192.168.64.1
+
       echo "USB0 interface is up - starting DHCP server..."
       /etc/init.d/isc-dhcp-server start
+
     else
-      echo "No USB0 interface found - doing nothing..."
-      exit 0
+
+      echo "USB0 interface is not up - doing nothing..."
+
     fi
   fi
 }
 
 main "$@"
+exit 0

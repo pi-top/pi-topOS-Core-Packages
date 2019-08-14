@@ -14,8 +14,8 @@ KillMode=process
 GuessMainPID=no
 RemainAfterExit=yes
 SuccessExitStatus=5 6
-ExecStart=/usr/bin/pt-isc-dhcp-server start
-ExecStop=/usr/bin/pt-isc-dhcp-server stop
+ExecStart=/usr/bin/pt-dhcp-server start
+ExecStop=/usr/bin/pt-dhcp-server stop
 
 [Install]
 WantedBy=multi-user.target
