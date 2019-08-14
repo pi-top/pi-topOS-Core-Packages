@@ -1,3 +1,9 @@
+pt-os (1.1.0-1) buster; urgency=medium
+
+  * Add wrapper around ISC DHCP server to work in all situations
+
+ -- Mike Roberts <mike@pi-top.com>  Wed, 14 Aug 2019 14:42:56 +0100
+
 pt-os (1.0.2-3) buster; urgency=medium
 
   * pt-update -> pt-firmware-updater, pt-os-updater
