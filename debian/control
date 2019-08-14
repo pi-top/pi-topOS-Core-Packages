@@ -13,8 +13,6 @@ Depends: baobab,
  iproute2,
  isc-dhcp-server,
  neofetch (>= 6.0.0),
-# 'ifconfig' command
- net-tools,
  pt-apps,
  pt-dev,
  pt-devices,
