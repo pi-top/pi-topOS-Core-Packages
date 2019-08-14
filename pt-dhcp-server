@@ -50,6 +50,7 @@ set_static_ip() {
   local interface="${1}"
   local ip="${2}"
 
+  echo "Setting static IP for ${interface}: ${ip}"
   ifconfig "${interface}" "${ip}"
 }
 
@@ -59,6 +60,7 @@ main() {
 
   if [[ "${1}" == "start" ]]; then
     if interface_is_up usb0; then
+
       set_static_ip usb0 192.168.64.1
 
       echo "USB0 interface is up - starting DHCP server..."
