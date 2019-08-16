@@ -65,7 +65,7 @@ main() {
       set_static_ip usb0 192.168.64.1
 
       echo "USB0 interface is up - starting DHCP server..."
-      /etc/init.d/isc-dhcp-server start
+      /etc/init.d/isc-dhcp-server start &
 
     fi
 
