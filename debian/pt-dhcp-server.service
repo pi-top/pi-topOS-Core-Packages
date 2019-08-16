@@ -5,7 +5,7 @@ After=network-online.target
 After=nss-lookup.target
 
 [Service]
-Type=oneshot
+Type=simple
 Restart=on-failure
 RestartSec=5
 TimeoutSec=5min
