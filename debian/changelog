@@ -1,3 +1,9 @@
+pt-os (1.1.1-1) buster; urgency=medium
+
+  * Use a simple service as opposed to forking.
+
+ -- Ben Pring <ben@pi-top.com>  Mon, 19 Aug 2019 13:29:51 +0100
+
 pt-os (1.1.0-1) buster; urgency=medium
 
   * Add wrapper around ISC DHCP server to work in all situations
