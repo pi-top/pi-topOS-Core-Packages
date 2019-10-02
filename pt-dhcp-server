@@ -55,23 +55,23 @@ set_static_ip() {
 }
 
 main() {
-  if interface_is_up usb0; then
+  if interface_is_up ptusb0; then
 
     stop_dhcp_server_if_running
     delete_dhcp_pid_if_exists
 
     if [[ "${1}" == "start" ]]; then
 
-      set_static_ip usb0 192.168.64.1
+      set_static_ip ptusb0 192.168.64.1
 
-      echo "USB0 interface is up - starting DHCP server..."
+      echo "USB-C interface is up - starting DHCP server..."
       /etc/init.d/isc-dhcp-server start &
 
     fi
 
   else
 
-    echo "USB0 interface is not up - doing nothing..."
+    echo "USB-C interface is not up - doing nothing..."
 
   fi
 }
