@@ -26,9 +26,9 @@ interface_is_up() {
 }
 
 stop_dhcp_server_if_running() {
-  if /etc/init.d/isc-dhcp-server status &>/dev/null; then
+  if systemctl status isc-dhcp-server &>/dev/null; then
     echo "DHCP server is running - stopping..."
-    /etc/init.d/isc-dhcp-server stop
+    systemctl stop isc-dhcp-server
   else
     echo "DHCP server is not running - doing nothing..."
   fi
@@ -64,8 +64,30 @@ main() {
 
       set_static_ip ptusb0 192.168.64.1
 
+      echo "Sleeping for 2 seconds..."
+      sleep 2
+
       echo "USB-C interface is up - starting DHCP server..."
-      /etc/init.d/isc-dhcp-server start &
+      systemctl start isc-dhcp-server
+
+      echo "Sleeping for 2 seconds..."
+      sleep 2
+
+      echo "Checking DHCP server status..."
+      resp="$(systemctl status isc-dhcp-server)"
+      exit_code="$?"
+
+      if [[ "${exit_code}" -eq 0 ]]; then
+
+        echo "DHCP server started successfully."
+
+      else
+
+        echo "DHCP server failed. Output:"
+        echo "${resp}"
+        exit 1
+
+      fi
 
     fi
 
