@@ -9,12 +9,7 @@ Homepage: https://pi-top.com/
 Package: pt-os
 Architecture: armhf
 Depends: baobab,
-# 'ip' command
- iproute2,
- isc-dhcp-server,
  neofetch (>= 6.0.0),
-# 'ifconfig' command
- net-tools,
  pt-apps,
  pt-dev,
  pt-devices,
@@ -26,6 +21,7 @@ Depends: baobab,
  pt-recovery,
  pt-ui,
  pt-user-libs,
+ pt-networking,
  realvnc-vnc-server
 Recommends: pt-os-setup, pt-tour
 Description: pi-topOS top-level dummy package
