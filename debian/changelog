@@ -1,6 +1,6 @@
-pt-os (1.2.0-1) buster; urgency=medium
+pt-os (2.0.0-1) buster; urgency=medium
 
-  * Move dhcp server into pt-networking
+  * Migrate DHCP server to pt-networking package
 
  -- Jorge Capona <jorge@pi-top.com>  Thu, 09 Apr 2020 11:17:26 -0400
 
