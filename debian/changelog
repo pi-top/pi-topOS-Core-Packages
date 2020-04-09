@@ -1,3 +1,9 @@
+pt-os (1.2.0-1) buster; urgency=medium
+
+  * Move dhcp server into pt-networking
+
+ -- Jorge Capona <jorge@pi-top.com>  Thu, 09 Apr 2020 11:17:26 -0400
+
 pt-os (1.1.3-1) buster; urgency=medium
 
   * DHCP server: init.d -> systemctl; add sleeps and debug prints
