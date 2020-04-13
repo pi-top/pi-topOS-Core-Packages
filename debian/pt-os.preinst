@@ -12,25 +12,23 @@ set -e
 # for details, see http://www.debian.org/doc/debian-policy/ or
 # the debian-policy package
 
-
 case "$1" in
-    install)
+  install) ;;
+
+  upgrade | abort-upgrade)
+    # pt-dhcp-server.service is now provided by pt-networking
+    if systemctl list-units --full -all | grep -Fq 'pt-dhcp-server.service'; then
+      systemctl stop pt-dhcp-server.service
+      systemctl disable pt-dhcp-server.service
+      rm /lib/systemd/system/pt-dhcp-server.service
+      systemctl daemon-reload
+      systemctl reset-failed
+    fi
     ;;
 
-    upgrade|abort-upgrade)
-        # pt-dhcp-server.service is now provided by pt-networking
-        if systemctl list-units --full -all | grep -Fq 'pt-dhcp-server.service'; then
-            systemctl stop pt-dhcp-server.service
-            systemctl disable pt-dhcp-server.service
-            rm /lib/systemd/system/pt-dhcp-server.service
-            systemctl daemon-reload
-            systemctl reset-failed
-        fi
-    ;;
-
-    *)
-        echo "preinst called with unknown argument \`$1'" >&2
-        exit 1
+  *)
+    echo "preinst called with unknown argument \`$1'" >&2
+    exit 1
     ;;
 esac
 
@@ -40,4 +38,3 @@ esac
 #DEBHELPER#
 
 exit 0
-
