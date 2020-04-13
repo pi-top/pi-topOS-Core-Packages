@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # see: dh_installdeb(1)
 
@@ -13,11 +13,10 @@ set -e
 # the debian-policy package
 
 case "$1" in
-  install) ;;
-
-  upgrade | abort-upgrade)
+  install | upgrade | abort-upgrade)
     # pt-dhcp-server.service is now provided by pt-networking
-    if systemctl list-units --full -all | grep -Fq 'pt-dhcp-server.service'; then
+    pt_dhcp_server_installed_by=$(dpkg -S /lib/systemd/system/pt-dhcp-server.service | cut -d ":" -f 1)
+    if [[ "${pt_dhcp_server_installed_by}" == "pt-os" ]]; then
       systemctl stop pt-dhcp-server.service
       systemctl disable pt-dhcp-server.service
       rm /lib/systemd/system/pt-dhcp-server.service
