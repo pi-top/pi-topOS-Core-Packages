@@ -1,3 +1,9 @@
+pt-os (2.0.1-1) buster; urgency=medium
+
+  * Add pt-rpi-eeprom as dependency
+
+ -- Jorge Capona <jorge@pi-top.com>  Wed, 23 Sep 2020 11:38:20 -0300
+
 pt-os (2.0.0-1) buster; urgency=medium
 
   * Migrate DHCP server to pt-networking package
