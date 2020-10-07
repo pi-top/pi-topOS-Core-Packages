@@ -1,3 +1,10 @@
+pt-os (2.0.2-1) buster; urgency=medium
+
+  * Add pt-touchscreen as dependency
+  * Remove pt-rpi-eeprom as dependency
+
+ -- Jorge Capona <jorge@pi-top.com>  Wed, 07 Oct 2020 13:27:49 -0300
+
 pt-os (2.0.1-1) buster; urgency=medium
 
   * Add pt-rpi-eeprom as dependency
