@@ -2,29 +2,31 @@ Source: pt-os
 Section: utils
 Priority: optional
 Maintainer: pi-top <deb-maintainers@pi-top.com>
-Build-Depends: debhelper (>= 7)
-Standards-Version: 3.9.8
+Build-Depends: debhelper-compat (= 12)
+Standards-Version: 4.5.0
 Homepage: https://pi-top.com/
 
 Package: pt-os
 Architecture: armhf
 Depends: ${misc:Depends},
- baobab,
  neofetch (>= 6.0.0),
  pt-apps,
  pt-dev,
  pt-devices,
- pt-firmware-updater,
  pt-os-mods,
- pt-os-updater,
  pt-pma,
  pt-project-files,
  pt-recovery,
  pt-touchscreen,
  pt-ui,
  pt-user-libs,
- pt-networking,
- realvnc-vnc-server
-Recommends: pt-os-setup, pt-tour
+ realvnc-vnc-server,
+Recommends: pt-avs,
+ pt-firmware-updater,
+ pt-os-setup,
+ pt-os-updater,
+ pt-sys-oled,
+ pt-tour,
+ pt-usb-eth-gadget,
 Description: pi-topOS top-level dummy package
  The root package of pi-topOS modifications to Raspbian.
