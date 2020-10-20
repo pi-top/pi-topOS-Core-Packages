@@ -27,6 +27,6 @@ Recommends: pt-avs,
  pt-os-updater,
  pt-sys-oled,
  pt-tour,
- pt-usb-eth-gadget,
+ pt-display-port,
 Description: pi-topOS top-level dummy package
  The root package of pi-topOS modifications to Raspbian.
