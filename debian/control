@@ -23,10 +23,10 @@ Depends: ${misc:Depends},
  realvnc-vnc-server,
 Recommends: pt-avs,
  pt-firmware-updater,
+ pt-networking,
  pt-os-setup,
  pt-os-updater,
  pt-sys-oled,
  pt-tour,
- pt-display-port,
 Description: pi-topOS top-level dummy package
  The root package of pi-topOS modifications to Raspbian.
