@@ -1,3 +1,9 @@
+pt-os (3.0.1) buster; urgency=medium
+
+  * Add pt-networking as dependecy
+
+ -- Jorge Capona <jorge@pi-top.com>  Wed, 28 Oct 2020 12:47:31 -0300
+
 pt-os (3.0.0) buster; urgency=medium
 
   * Move to compat 12
