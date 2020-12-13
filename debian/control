@@ -2,26 +2,28 @@ Source: pt-os
 Section: utils
 Priority: optional
 Maintainer: pi-top <deb-maintainers@pi-top.com>
-Build-Depends: debhelper-compat (= 12)
+Build-Depends:
+ debhelper-compat (= 12),
 Standards-Version: 4.5.0
 Homepage: https://pi-top.com/
 
 Package: pt-os
-Architecture: armhf
-Depends: ${misc:Depends},
+Architecture: any
+Depends:
+ ${misc:Depends},
  neofetch (>= 6.0.0),
  pt-apps,
  pt-dev,
  pt-devices,
  pt-os-mods,
- pt-pma,
  pt-project-files,
  pt-recovery,
  pt-touchscreen,
  pt-ui,
  pt-user-libs,
  realvnc-vnc-server,
-Recommends: pt-avs,
+Recommends:
+ pt-avs,
  pt-firmware-updater,
  pt-networking,
  pt-os-setup,
