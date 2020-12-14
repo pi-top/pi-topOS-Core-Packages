@@ -1,3 +1,10 @@
+pt-os (3.0.3) buster; urgency=medium
+
+  * Recommend 'xprintidle' screen blanking dependency
+  (only suggested by device manager to support headless configurations)
+
+ -- Mike Roberts <mike@pi-top.com>  Mon, 14 Dec 2020 19:26:28 +0000
+
 pt-os (3.0.2) buster; urgency=medium
 
   * Drop pt-pma dependency

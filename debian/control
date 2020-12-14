@@ -30,5 +30,8 @@ Recommends:
  pt-os-updater,
  pt-sys-oled,
  pt-tour,
+# Recommend screen blanking dependency
+# (only suggested by device manager to support headless configurations)
+ xprintidle,
 Description: pi-topOS top-level dummy package
  The root package of pi-topOS modifications to Raspbian.
