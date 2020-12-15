@@ -1,3 +1,9 @@
+pt-os (3.0.4) buster; urgency=medium
+
+  * Remove pt-devices in favour of SDK and device manager
+
+ -- Mike Roberts <mike@pi-top.com>  Tue, 15 Dec 2020 00:38:23 +0000
+
 pt-os (3.0.3) buster; urgency=medium
 
   * Recommend 'xprintidle' screen blanking dependency
