@@ -14,14 +14,13 @@ Depends:
  neofetch (>= 6.0.0),
  pt-apps,
  pt-dev,
- pt-device-manager,
+ pt-devices,
  pt-os-mods,
  pt-project-files,
  pt-recovery,
  pt-touchscreen,
  pt-ui,
  pt-user-libs,
- python3-pitop,
  realvnc-vnc-server,
 Recommends:
  pt-avs,
@@ -31,8 +30,5 @@ Recommends:
  pt-os-updater,
  pt-sys-oled,
  pt-tour,
-# Recommend screen blanking dependency
-# (only suggested by device manager to support headless configurations)
- xprintidle,
 Description: pi-topOS top-level dummy package
  The root package of pi-topOS modifications to Raspbian.

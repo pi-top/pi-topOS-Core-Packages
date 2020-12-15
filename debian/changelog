@@ -1,3 +1,9 @@
+pt-os (3.0.5) buster; urgency=medium
+
+  * Revert back to pt-devices; move xprintidle dependency there
+
+ -- Mike Roberts <mike@pi-top.com>  Tue, 15 Dec 2020 12:54:10 +0000
+
 pt-os (3.0.4) buster; urgency=medium
 
   * Remove pt-devices in favour of SDK and device manager
