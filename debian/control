@@ -26,7 +26,7 @@ Recommends:
  pt-avs,
  pt-firmware-updater,
  pt-networking,
- pt-os-setup,
+ pt-web-portal,
  pt-os-updater,
  pt-sys-oled,
  pt-tour,
