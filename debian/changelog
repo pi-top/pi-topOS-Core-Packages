@@ -1,11 +1,6 @@
 pt-os (3.0.6) buster; urgency=medium
 
-  [ Mike Roberts ]
-  * Allow external sources when testing shell scripts
-  * Architecture: any --> all
-
-  [ Jorge Capona ]
-  * pt-os-setup -> pt-web-portal (#9)
+  * Remove pt-os-setup in favour of pt-web-portal
 
  -- pi-top <deb-maintainers@pi-top.com>  Fri, 09 Apr 2021 16:16:16 +0000
 
