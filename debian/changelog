@@ -1,3 +1,9 @@
+pt-os (3.0.6) buster; urgency=medium
+
+  * Remove pt-os-setup in favour of pt-web-portal
+
+ -- pi-top <deb-maintainers@pi-top.com>  Fri, 09 Apr 2021 16:16:16 +0000
+
 pt-os (3.0.5) buster; urgency=medium
 
   * Revert back to pt-devices; move xprintidle dependency there
