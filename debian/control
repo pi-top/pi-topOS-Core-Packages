@@ -26,9 +26,10 @@ Recommends:
  pt-avs,
  pt-firmware-updater,
  pt-networking,
- pt-web-portal,
+ pt-os-setup,
  pt-os-updater,
  pt-sys-oled,
  pt-tour,
+ pt-web-portal,
 Description: pi-topOS top-level dummy package
  The root package of pi-topOS modifications to Raspbian.
