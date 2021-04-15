@@ -1,13 +1,6 @@
 pt-os (3.0.7) buster; urgency=medium
 
-  [ Jorge Capona ]
-  * Update workflow
-
-  [ Mike Roberts ]
-  * Standards-Version: 4.5.1
-
-  [ Jorge Capona ]
-  * Re-add pt-os-setup as recommended dependency
+  * Add pt-os-setup as recommended dependency
 
  -- pi-top <deb-maintainers@pi-top.com>  Thu, 15 Apr 2021 19:57:47 +0000
 
