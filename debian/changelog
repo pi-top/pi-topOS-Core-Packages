@@ -1,3 +1,9 @@
+pt-os (3.0.7) buster; urgency=medium
+
+  * Add pt-os-setup as recommended dependency
+
+ -- pi-top <deb-maintainers@pi-top.com>  Thu, 15 Apr 2021 19:57:47 +0000
+
 pt-os (3.0.6) buster; urgency=medium
 
   * Remove pt-os-setup in favour of pt-web-portal
