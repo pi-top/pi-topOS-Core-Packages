@@ -1,3 +1,10 @@
+pt-os (3.0.8) buster; urgency=medium
+
+  [ Jorge Capona ]
+  * Add xprintidle as dependency
+
+ -- pi-top <deb-maintainers@pi-top.com>  Thu, 22 Apr 2021 22:07:12 +0000
+
 pt-os (3.0.7) buster; urgency=medium
 
   * Add pt-os-setup as recommended dependency
