@@ -22,6 +22,9 @@ Depends:
  pt-ui,
  pt-user-libs,
  realvnc-vnc-server,
+# Recommend screen blanking dependency
+# (only suggested by device manager to support headless configurations)
+ xprintidle,
 Recommends:
  pt-avs,
  pt-firmware-updater,
