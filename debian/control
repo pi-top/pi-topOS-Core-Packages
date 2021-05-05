@@ -1,4 +1,4 @@
-Source: pt-os
+Source: pt-os-dummy-packages
 Section: utils
 Priority: optional
 Maintainer: pi-top <deb-maintainers@pi-top.com>
@@ -36,3 +36,94 @@ Recommends:
  pt-web-portal,
 Description: pi-topOS top-level dummy package
  The root package of pi-topOS modifications to Raspbian.
+
+Package: pt-apps
+Architecture: all
+Depends: ${misc:Depends},
+# Disk Usage Analyzer
+Recommends: baobab,
+# Keep display alive
+ caffeine,
+ chromium-browser,
+# VS Code
+ code,
+ gimp,
+# Multi-touch friendly calculator
+ gnome-calculator,
+ htop,
+ libreoffice-pi,
+ libreoffice-common,
+ imagemagick,
+ minecraft-pi,
+ mtpaint,
+ mu-editor,
+ pt-about,
+ pt-coder,
+ pt-settings,
+ python-games,
+ python3-minecraftpi,
+ realvnc-vnc-viewer,
+ scratch3,
+ smartsim,
+ sonic-pi,
+ touche,
+ vlc,
+Description: pi-topOS Applications
+ This package contains the files and dependencies required
+ to install and configure pi-topOS' GUI applications.
+
+Package: pt-dev
+Architecture: all
+Depends: ${misc:Depends},
+ asciinema,
+ barrier,
+ p7zip-full,
+ pt-system-tools,
+ silversearcher-ag,
+ squashfs-tools,
+ zip,
+ zsh,
+Description: pi-topOS Development Support
+ This meta package contains the files and dependencies required
+ to install and configure pi-topOS' development-related
+ components.
+
+Package: pt-devices
+Architecture: all
+Depends:
+ ${misc:Depends},
+ pt-device-manager,
+ python3-pitop,
+# Recommend screen blanking dependency
+# (only suggested by device manager to support headless configurations)
+ xprintidle,
+Description: pi-topOS Development
+ This meta package contains dependencies required to install and configure
+ pi-topOS' low-level device-related components.
+
+Package: pt-ui
+Architecture: all
+Depends: ${misc:Depends},
+ pt-plym-splash,
+ pt-ui-mods,
+Description: pi-topOS UI
+ This meta package contains the files and dependencies required
+ to install and configure pi-topOS' UI-related components.
+
+Package: pt-user-libs
+Architecture: all
+Depends:
+ ${misc:Depends},
+# pi-top Python SDK + all dependencies
+ python3-pitop-full,
+# pi-top Python SDK migration support
+ python3-pitop-migr,
+Recommends:
+# Software render for pi-top [4] OLED miniscreen
+ python3-luma-emulator,
+# Useful for graphing
+ python3-matplotlib,
+# Optional text-to-speech library
+ python3-pt-speech,
+Description: pi-topOS User Libraries
+ This meta package contains optional libraries (primarily Python) for pi-topOS

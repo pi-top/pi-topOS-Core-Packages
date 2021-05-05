@@ -1,8 +1,9 @@
-pt-os (3.0.8) buster; urgency=medium
+pt-os-dummy-packages (4.0.0) buster; urgency=medium
 
-  * Add xprintidle as dependency
+  * Rename package
+  * Build all pi-topOS dummy/light packages from this repo
 
- -- pi-top <deb-maintainers@pi-top.com>  Thu, 22 Apr 2021 22:07:12 +0000
+ -- pi-top <deb-maintainers@pi-top.com>  Wed, 05 May 2021 11:20:48 +0000
 
 pt-os (3.0.7) buster; urgency=medium
 

@@ -1,0 +1,41 @@
+#!/bin/bash
+###############################################################
+#                Unofficial 'Bash strict mode'                #
+# http://redsymbol.net/articles/unofficial-bash-strict-mode/  #
+###############################################################
+set -euo pipefail
+IFS=$'\n\t'
+###############################################################
+
+logFile="/tmp/sonic-pi-server-log.txt"
+
+try_start_server() {
+	local sonicPiServerPath="${1}"
+
+	if [[ -f "${sonicPiServerPath}" ]]; then
+		echo "Sonic Pi server found: ${sonicPiServerPath}"
+		echo "Log file: ${logFile}"
+
+		cmd="/usr/bin/ruby -E utf-8 ${sonicPiServerPath}"
+		echo
+		echo "Running Sonic Pi server in the background..."
+		echo -e "\t${cmd}"
+		echo
+		echo
+		echo "Press Ctrl+C at any time to stop."
+		echo
+		echo "Please wait for Sonic Pi Server to start..."
+		echo
+		/usr/bin/ruby -E utf-8 "${sonicPiServerPath}" 2>&1 | tee "${logFile}" | ag "Sonic Pi Server successfully booted."
+		return 0
+	else
+		echo "Sonic Pi server not found at path: ${sonicPiServerPath}"
+		return 1
+	fi
+}
+
+# Try /opt first (Sonic Pi's "sonic-pi" package preferred to RPi's "sonic-pi-server" package)
+if ! try_start_server "/opt/sonic-pi/app/server/ruby/bin/sonic-pi-server.rb" &&
+	! try_start_server "/usr/lib/sonic-pi/server/bin/sonic-pi-server.rb"; then
+	echo "The Sonic Pi server application could not be found. You may need to check for updates or re-install Sonic Pi"
+fi
