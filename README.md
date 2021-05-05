@@ -1,4 +1,4 @@
-# pt-os-dummy-packages
+# pt-os-core
 
 This Debian source package builds multiple binary packages that serve to simplify the organisation and structure of packages in pi-topOS.
 

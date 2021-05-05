@@ -1,4 +1,4 @@
-pt-os-dummy-packages (4.0.0) buster; urgency=medium
+pt-os-core (4.0.0) buster; urgency=medium
 
   * Rename package
   * Build all pi-topOS dummy/light packages from this repo

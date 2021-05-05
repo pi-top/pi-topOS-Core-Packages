@@ -1,4 +1,4 @@
-Source: pt-os-dummy-packages
+Source: pt-os-core
 Section: utils
 Priority: optional
 Maintainer: pi-top <deb-maintainers@pi-top.com>
@@ -40,8 +40,11 @@ Description: pi-topOS top-level dummy package
 Package: pt-apps
 Architecture: all
 Depends: ${misc:Depends},
+Recommends:
 # Disk Usage Analyzer
-Recommends: baobab,
+ baobab,
+# Keyboard and mouse sharing
+ barrier,
 # Keep display alive
  caffeine,
  chromium-browser,
@@ -76,7 +79,6 @@ Package: pt-dev
 Architecture: all
 Depends: ${misc:Depends},
  asciinema,
- barrier,
  p7zip-full,
  pt-system-tools,
  silversearcher-ag,
