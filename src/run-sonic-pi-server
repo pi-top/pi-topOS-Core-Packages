@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo "#################################################"
+echo "##   'run-sonic-pi-server' is now deprecated   ##"
+echo "##        Please use 'sonic-pi-server'         ##"
+echo "#################################################"
+
+exit 1
