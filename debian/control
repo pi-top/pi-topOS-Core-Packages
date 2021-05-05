@@ -84,7 +84,7 @@ Depends: ${misc:Depends},
  zip,
  zsh,
 Description: pi-topOS Development Support
- This meta package contains the files and dependencies required
+ This metapackage contains the files and dependencies required
  to install and configure pi-topOS' development-related
  components.
 
@@ -98,7 +98,7 @@ Depends:
 # (only suggested by device manager to support headless configurations)
  xprintidle,
 Description: pi-topOS Development
- This meta package contains dependencies required to install and configure
+ This metapackage contains dependencies required to install and configure
  pi-topOS' low-level device-related components.
 
 Package: pt-ui
@@ -107,7 +107,7 @@ Depends: ${misc:Depends},
  pt-plym-splash,
  pt-ui-mods,
 Description: pi-topOS UI
- This meta package contains the files and dependencies required
+ This metapackage contains the files and dependencies required
  to install and configure pi-topOS' UI-related components.
 
 Package: pt-user-libs
@@ -126,4 +126,4 @@ Recommends:
 # Optional text-to-speech library
  python3-pt-speech,
 Description: pi-topOS User Libraries
- This meta package contains optional libraries (primarily Python) for pi-topOS
+ This metapackage contains optional libraries (primarily Python) for pi-topOS
