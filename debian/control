@@ -11,34 +11,33 @@ Package: pt-os
 Architecture: all
 Depends:
  ${misc:Depends},
- neofetch (>= 6.0.0),
+ pt-recovery,
+ pt-os-mods,
+Recommends:
+# Other pt-os-core packages
  pt-apps,
  pt-dev,
  pt-devices,
- pt-os-mods,
- pt-project-files,
- pt-recovery,
- pt-touchscreen,
  pt-ui,
  pt-user-libs,
- realvnc-vnc-server,
-# Recommend screen blanking dependency
-# (only suggested by device manager to support headless configurations)
- xprintidle,
-Recommends:
+# 'Casual' dependencies
+ neofetch (>= 6.0.0),
  pt-avs,
  pt-firmware-updater,
  pt-networking,
  pt-os-updater,
+ pt-project-files,
+ pt-touchscreen,
  pt-sys-oled,
  pt-web-portal,
+# Only suggested by device manager to support headless configurations
+ xprintidle,
 Description: pi-topOS top-level dummy package
  The root package of pi-topOS modifications to Raspbian.
 
 Package: pt-apps
 Architecture: all
-Depends: ${misc:Depends},
- pt-web-portal-desktop,
+Depends: ${misc:Depends}
 Recommends:
 # Disk Usage Analyzer
  baobab,
@@ -75,7 +74,8 @@ Description: pi-topOS Applications
 
 Package: pt-dev
 Architecture: all
-Depends: ${misc:Depends},
+Depends:
+ ${misc:Depends},
  asciinema,
  p7zip-full,
  pt-system-tools,
@@ -103,9 +103,11 @@ Description: pi-topOS Development
 
 Package: pt-ui
 Architecture: all
-Depends: ${misc:Depends},
+Depends:
+ ${misc:Depends},
  pt-plym-splash,
  pt-ui-mods,
+ pt-web-portal-desktop,
 Description: pi-topOS UI
  This metapackage contains the files and dependencies required
  to install and configure pi-topOS' UI-related components.
