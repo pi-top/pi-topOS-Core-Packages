@@ -1,0 +1,2 @@
+src/pi-top-archive-keyring.asc                  /etc/apt/trusted.gpg.d/
+src/pi-top-archive-keyring.asc                  /usr/share/keyrings/

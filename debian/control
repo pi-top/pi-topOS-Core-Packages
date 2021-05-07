@@ -130,6 +130,13 @@ Recommends:
 Description: pi-topOS User Libraries
  This metapackage contains optional libraries (primarily Python) for pi-topOS
 
+Package: pt-os-archive-keyring
+Architecture: all
+Depends:
+ ${misc:Depends},
+Description: GnuPG archive keys of the pi-topOS archive
+ This package contains the archive keys used for the pi-topOS archives.
+
 Package: pi-top-4
 Architecture: all
 Depends:
