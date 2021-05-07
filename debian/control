@@ -29,10 +29,8 @@ Recommends:
  pt-avs,
  pt-firmware-updater,
  pt-networking,
- pt-os-setup,
  pt-os-updater,
  pt-sys-oled,
- pt-tour,
  pt-web-portal,
 Description: pi-topOS top-level dummy package
  The root package of pi-topOS modifications to Raspbian.
@@ -40,6 +38,7 @@ Description: pi-topOS top-level dummy package
 Package: pt-apps
 Architecture: all
 Depends: ${misc:Depends},
+ pt-web-portal-desktop,
 Recommends:
 # Disk Usage Analyzer
  baobab,
@@ -60,7 +59,6 @@ Recommends:
  minecraft-pi,
  mtpaint,
  mu-editor,
- pt-about,
  pt-coder,
  pt-settings,
  python-games,
