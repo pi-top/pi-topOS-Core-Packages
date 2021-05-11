@@ -1,3 +1,19 @@
+pt-os-core (4.0.1) buster; urgency=medium
+
+  [ Mike Roberts ]
+  * Remove install file
+  * Use latest CI workflows; update README
+  * Convert into `pt-os-dummy-packages` (#14)
+  * pt-os-dummy-packages --> pt-os-core
+  * Add pi-top-4 package (#16)
+  * Relax `pt-os` dependencies; use `pt-web-portal-desktop` (#17)
+  * Add pt-os-archive-keyring
+
+  [ Jorge Capona ]
+  * Specify files in pt-apps install file
+
+ -- pi-top <deb-maintainers@pi-top.com>  Tue, 11 May 2021 18:35:16 +0000
+
 pt-os-core (4.0.0) buster; urgency=medium
 
   * Rename package
