@@ -1,3 +1,10 @@
+pt-os-core (4.0.1) buster; urgency=medium
+
+  * Relax `pt-os` dependencies; use `pt-web-portal-desktop`
+  * Specify files in pt-apps install file
+
+ -- pi-top <deb-maintainers@pi-top.com>  Tue, 11 May 2021 18:35:16 +0000
+
 pt-os-core (4.0.0) buster; urgency=medium
 
   * Rename package
