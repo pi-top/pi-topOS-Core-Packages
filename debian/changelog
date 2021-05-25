@@ -1,3 +1,12 @@
+pt-os-core (4.0.2) buster; urgency=medium
+
+  [ Mike Roberts ]
+  * Migrate pt-system-tools
+  * Migrate pt-notifications
+  * pt-notifications depends on notify-send-ng
+
+ -- pi-top <deb-maintainers@pi-top.com>  Tue, 25 May 2021 20:51:24 +0000
+
 pt-os-core (4.0.1) buster; urgency=medium
 
   * Relax `pt-os` dependencies; use `pt-web-portal-desktop`
