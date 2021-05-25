@@ -128,14 +128,15 @@ Recommends:
 # Optional text-to-speech library
  python3-pt-speech,
 Description: pi-topOS User Libraries
- This metapackage contains optional libraries (primarily Python) for pi-topOS
+ This metapackage contains optional libraries (primarily Python) for pi-topOS.
 
 Package: pt-os-archive-keyring
 Architecture: all
 Depends:
  ${misc:Depends},
 Description: GnuPG archive keys of the pi-topOS archive
- This package contains the archive keys used for the pi-topOS archives.
+ This package contains the archive keys used for the pi-topOS apt
+ software repository archives.
 
 Package: pi-top-4
 Architecture: all
@@ -174,3 +175,15 @@ Description: pi-top system tools
  by providing notifications to the user. This package contains a background
  memory usage monitor and a service to notify users when they are using a
  preview build of pi-topOS.
+
+Package: pt-notifications
+Architecture: all
+Depends: ${misc:Depends},
+ xfce4-notifyd,
+Suggests:
+ pt-ui-mods,
+Description: pi-top Desktop Notification Service
+ Interface for showing notifications directly to the user at the desktop.
+ Handles detecting which display to target, as well as which user is
+ using the display. This service wraps around notify-send.sh to provide
+ advanced notification management.
