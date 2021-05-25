@@ -180,6 +180,7 @@ Package: pt-notifications
 Architecture: all
 Depends: ${misc:Depends},
  xfce4-notifyd,
+ notify-send-ng,
 Suggests:
  pt-ui-mods,
 Description: pi-top Desktop Notification Service
