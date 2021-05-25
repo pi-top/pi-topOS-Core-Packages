@@ -1,0 +1,11 @@
+[Unit]
+Description=Low memory monitor and warning notification
+Documentation=https://knowledgebase.pi-top.com/knowledge
+
+[Service]
+Type=simple
+Environment="DISPLAY=:0.0"
+ExecStart=/usr/lib/pt-system-tools/pt-memory-monitor
+
+[Install]
+WantedBy=graphical.target

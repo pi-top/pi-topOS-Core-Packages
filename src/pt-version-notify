@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Wait for pt-notify-send to get a display
+# TODO: wait on `pgrep Xorg` to be ready
+sleep 5
+
+show_warning() {
+	/usr/bin/pt-notify-send \
+		--expire-time=0 \
+		--icon=system-error \
+		"OOPS! Who let you in here?!" \
+		"This version of pi-topOS ('${apt_version}') is a preview build, and likely contains bugs.
+Do not use unless you know what you are doing.
+
+If you are not sure, then you probably don't."
+}
+
+apt_repo_is_public() {
+	local apt_repo_to_check="${1}"
+	if [[ "${apt_repo_to_check}" == "sirius" ]] || [[ "${apt_repo_to_check}" == "sirius-testing" ]]; then
+		return 0
+	else
+		return 1
+	fi
+}
+
+final_apt_repo_issue=$(grep "Final Apt Repo" "/etc/pt-issue" | awk -F': ' '{print $2}')
+if ! apt_repo_is_public "${final_apt_repo_issue}"; then
+	apt_version="${final_apt_repo_issue/sirius-/}"
+	show_warning
+	exit 0
+fi
+
+apt_repos_src=$(grep "apt.pi-top.com" "/etc/apt/sources.list.d/pi-top.list" | awk '{print $3}')
+if ! apt_repo_is_public "${apt_repos_src}"; then
+	apt_version="${apt_repos_src/sirius-/}"
+	show_warning
+	exit 0
+fi
+
+echo "pi-topOS version is public - doing nothing"
+exit 0

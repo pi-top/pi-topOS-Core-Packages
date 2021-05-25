@@ -2,3 +2,7 @@
 
 %:
 	dh $@
+
+override_dh_installsystemd:
+	dh_installsystemd --name=pt-memory-monitor
+	dh_installsystemd --name=pt-version-notify
