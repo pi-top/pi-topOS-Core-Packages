@@ -1,6 +1,5 @@
 pt-os-core (4.0.2) buster; urgency=medium
 
-  [ Mike Roberts ]
   * Migrate pt-system-tools
   * Migrate pt-notifications
   * pt-notifications depends on notify-send-ng
