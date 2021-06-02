@@ -2,11 +2,11 @@
 
 show_notification() {
   /usr/bin/pt-notify-send \
-		--expire-time=0 \
-		--icon=system-error \
-		"EEPROM Update" \
-		"The EEPROM of your device needs to be updated for it to work properly." \
-		--action=Update:'/usr/bin/pt-system-tools/pt-eeprom -f' || true
+    --expire-time=0 \
+    --icon=system-error \
+    "EEPROM Update" \
+    "The EEPROM of your device needs to be updated for it to work properly." \
+    --action=Update:'/usr/bin/pt-system-tools/pt-eeprom -f' || true
 }
 
 is_pi_top_4() {
@@ -19,15 +19,15 @@ is_pi_top_4() {
 }
 
 is_root() {
-	[ "${EUID}" -eq 0 ] && return 0
-	return 1
+  [ "${EUID}" -eq 0 ] && return 0
+  return 1
 }
 
 is_raspberry_pi_4() {
-	[[ ! -f /proc/device-tree/model ]] && return 1
-	model="$(tr -d '\0' </proc/device-tree/model)"
-	[[ "${model}" != *"Raspberry Pi 4"* ]] && return 1
-	return 0
+  [[ ! -f /proc/device-tree/model ]] && return 1
+  model="$(tr -d '\0' </proc/device-tree/model)"
+  [[ "${model}" != *"Raspberry Pi 4"* ]] && return 1
+  return 0
 }
 
 eeprom_needs_patching() {
@@ -89,7 +89,7 @@ if eeprom_needs_patching; then
     show_notification
   else
     set_eeprom_installation_directory
-	  patch_eeprom
+    patch_eeprom
   fi
 else
   echo "EEPROM does not require patching - doing nothing"
