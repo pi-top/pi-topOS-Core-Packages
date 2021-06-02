@@ -1,13 +1,12 @@
 #!/bin/bash
 
-show_warning() {
+show_notification() {
   /usr/bin/pt-notify-send \
-    --expire-time=0 \
-    --icon=system-error \
-    "EEPROM Update" \
-    ""
-  # TODO - add as action
-  set_eeprom_installation_directory && patch_eeprom
+		--expire-time=0 \
+		--icon=system-error \
+		"EEPROM Update" \
+		"The EEPROM of your device needs to be updated for it to work properly." \
+		--action=Update:'/usr/bin/pt-system-tools/pt-eeprom -f' || true
 }
 
 is_pi_top_4() {
@@ -87,7 +86,7 @@ if eeprom_needs_patching; then
     # Wait for pt-notify-send to get a display
     # TODO: wait on `pgrep Xorg` to be ready
     sleep 5
-    show_warning
+    show_notification
   else
     set_eeprom_installation_directory
 	  patch_eeprom
