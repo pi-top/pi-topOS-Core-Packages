@@ -1,40 +1,101 @@
 #!/bin/bash
 
-# Wait for pt-notify-send to get a display
-# TODO: wait on `pgrep Xorg` to be ready
-sleep 5
-
-patch_eeprom() {
-  tmp_dir=$(mktemp -d)
-  rpi-eeprom-config --out ${tmp_dir}/boot.conf
-
-  sed -i "s/^WAKE_ON_GPIO=.*/WAKE_ON_GPIO=0/1" ${tmp_dir}/boot.conf
-  sed -i "s/^POWER_OFF_ON_HALT=.*/POWER_OFF_ON_HALT=1/1" ${tmp_dir}/boot.conf
-
-  rpi-eeprom-config --apply ${tmp_dir}/boot.conf
-
-  rm -rf ${tmp_dir}
-}
-
 show_warning() {
   /usr/bin/pt-notify-send \
     --expire-time=0 \
     --icon=system-error \
-    "OOPS! Who let you in here?!" \
-    "This version of pi-topOS ('${apt_version}') is a preview build, and likely contains bugs.
-Do not use unless you know what you are doing.
-
-If you are not sure, then you probably don't."
-
+    "EEPROM Update" \
+    ""
   # TODO - add as action
-  patch_eeprom
+  set_eeprom_installation_directory && patch_eeprom
 }
 
-# is pi-top [4]? is EEPROM correct?
-if eeprom_needs_patching; then
-  show_warning
+is_pi_top_4() {
+  device=$(pi-top devices hub --name-only | xargs)
+  if [ "${device}" = "pi-top [4]" ]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+is_root() {
+	[ "${EUID}" -eq 0 ] && return 0
+	return 1
+}
+
+is_raspberry_pi_4() {
+	[[ ! -f /proc/device-tree/model ]] && return 1
+	model="$(tr -d '\0' </proc/device-tree/model)"
+	[[ "${model}" != *"Raspberry Pi 4"* ]] && return 1
+	return 0
+}
+
+eeprom_needs_patching() {
+  grep -q "WAKE_ON_GPIO=1" "${bootloader_config_file}" && return 0
+  grep -q "POWER_OFF_ON_HALT=0" "${bootloader_config_file}" && return 0
+  return 1
+}
+
+read_eeprom_settings() {
+  rpi-eeprom-config --out "${bootloader_config_file}"
+}
+
+set_eeprom_installation_directory() {
+  sed -i '/BOOTFS/d' /etc/default/rpi-eeprom-update
+  if [[ -d "/recovery" ]]; then
+    BOOTFS=/recovery
+  else
+    BOOTFS=/boot
+  fi
+  echo "BOOTFS=${BOOTFS}" >>/etc/default/rpi-eeprom-update
+}
+
+patch_eeprom() {
+  sed -i "s/^WAKE_ON_GPIO=.*/WAKE_ON_GPIO=0/1" ${tmp_dir}/boot.conf
+  sed -i "s/^POWER_OFF_ON_HALT=.*/POWER_OFF_ON_HALT=1/1" ${tmp_dir}/boot.conf
+  rpi-eeprom-config --apply ${tmp_dir}/boot.conf
+}
+
+
+if ! is_raspberry_pi_4; then
+  echo "Not on a Raspberry Pi 4, skipping..."
   exit 0
 fi
 
-echo "EEPROM does not require patching - doing nothing"
+if ! is_root; then
+  echo "Must run as root, exiting..."
+  exit 1
+fi
+
+force=
+while getopts “f” OPTION
+do
+  case $OPTION in
+    f)
+      force="1"
+      ;;
+  esac
+done
+
+tmp_dir=$(mktemp -d)
+bootloader_config_file="${tmp_dir}/boot.conf"
+
+read_eeprom_settings
+if eeprom_needs_patching; then
+  if [ -z $force ]; then
+    # Wait for pt-notify-send to get a display
+    # TODO: wait on `pgrep Xorg` to be ready
+    sleep 5
+    show_warning
+  else
+    set_eeprom_installation_directory
+	  patch_eeprom
+  fi
+else
+  echo "EEPROM does not require patching - doing nothing"
+fi
+
+rm -rf ${tmp_dir}
+
 exit 0
