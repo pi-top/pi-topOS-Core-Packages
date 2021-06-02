@@ -1,0 +1,11 @@
+[Unit]
+Description=pi-top [4] EEPROM Configuration Patch
+Documentation=https://knowledgebase.pi-top.com/knowledge
+
+[Service]
+Type=simple
+Environment="DISPLAY=:0.0"
+ExecStart=/usr/lib/pt-system-tools/pt-eeprom-patch
+
+[Install]
+WantedBy=graphical.target

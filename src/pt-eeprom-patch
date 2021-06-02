@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Wait for pt-notify-send to get a display
+# TODO: wait on `pgrep Xorg` to be ready
+sleep 5
+
+patch_eeprom() {
+  tmp_dir=$(mktemp -d)
+  rpi-eeprom-config --out ${tmp_dir}/boot.conf
+
+  sed -i "s/^WAKE_ON_GPIO=.*/WAKE_ON_GPIO=0/1" ${tmp_dir}/boot.conf
+  sed -i "s/^POWER_OFF_ON_HALT=.*/POWER_OFF_ON_HALT=1/1" ${tmp_dir}/boot.conf
+
+  rpi-eeprom-config --apply ${tmp_dir}/boot.conf
+
+  rm -rf ${tmp_dir}
+}
+
+show_warning() {
+  /usr/bin/pt-notify-send \
+    --expire-time=0 \
+    --icon=system-error \
+    "OOPS! Who let you in here?!" \
+    "This version of pi-topOS ('${apt_version}') is a preview build, and likely contains bugs.
+Do not use unless you know what you are doing.
+
+If you are not sure, then you probably don't."
+
+  # TODO - add as action
+  patch_eeprom
+}
+
+# is pi-top [4]? is EEPROM correct?
+if eeprom_needs_patching; then
+  show_warning
+  exit 0
+fi
+
+echo "EEPROM does not require patching - doing nothing"
+exit 0

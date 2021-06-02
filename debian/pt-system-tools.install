@@ -1,1 +1,3 @@
-src                                         /usr/lib/pt-system-tools
+src/pt-eeprom-patch                        /usr/lib/pt-system-tools
+src/pt-memory-monitor                      /usr/lib/pt-system-tools
+src/pt-version-notify                      /usr/lib/pt-system-tools
