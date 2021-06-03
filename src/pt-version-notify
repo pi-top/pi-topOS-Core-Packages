@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# Wait for pt-notify-send to get a display
-# TODO: wait on `pgrep Xorg` to be ready
-sleep 5
-
 show_warning() {
 	/usr/bin/pt-notify-send \
 		--expire-time=0 \
