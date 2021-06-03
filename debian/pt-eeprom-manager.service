@@ -6,8 +6,9 @@ Documentation=https://knowledgebase.pi-top.com/knowledge
 Type=simple
 Environment="DISPLAY=:0.0"
 # Wait for pt-notify-send to get a display
-ExecStartPre=/bin/sleep 5
+ExecStartPre=/bin/sleep 15
 ExecStart=/usr/lib/pt-system-tools/pt-eeprom
+KillMode=process
 
 [Install]
 WantedBy=graphical.target
