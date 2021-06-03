@@ -121,8 +121,6 @@ Depends:
 # pi-top Python SDK migration support
  python3-pitop-migr,
 Recommends:
-# Software render for pi-top [4] OLED miniscreen
- python3-luma-emulator,
 # Useful for graphing
  python3-matplotlib,
 # Optional text-to-speech library
