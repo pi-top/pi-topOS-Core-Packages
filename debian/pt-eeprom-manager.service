@@ -5,6 +5,8 @@ Documentation=https://knowledgebase.pi-top.com/knowledge
 [Service]
 Type=simple
 Environment="DISPLAY=:0.0"
+# Wait for pt-notify-send to get a display
+ExecStartPre=/bin/sleep 5
 ExecStart=/usr/lib/pt-system-tools/pt-eeprom
 
 [Install]

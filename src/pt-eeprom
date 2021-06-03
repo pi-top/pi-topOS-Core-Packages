@@ -56,7 +56,6 @@ patch_eeprom() {
   rpi-eeprom-config --apply ${tmp_dir}/boot.conf
 }
 
-
 if ! is_raspberry_pi_4; then
   echo "Not on a Raspberry Pi 4, skipping..."
   exit 0
@@ -68,12 +67,11 @@ if ! is_root; then
 fi
 
 force=
-while getopts “f” OPTION
-do
+while getopts "f" OPTION; do
   case $OPTION in
-    f)
-      force="1"
-      ;;
+  f)
+    force="1"
+    ;;
   esac
 done
 
@@ -83,9 +81,6 @@ bootloader_config_file="${tmp_dir}/boot.conf"
 read_eeprom_settings
 if eeprom_needs_patching; then
   if [ -z $force ]; then
-    # Wait for pt-notify-send to get a display
-    # TODO: wait on `pgrep Xorg` to be ready
-    sleep 5
     show_notification
   else
     set_eeprom_installation_directory
