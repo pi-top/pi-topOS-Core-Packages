@@ -6,7 +6,7 @@ show_notification() {
     --icon=system-error \
     "EEPROM Update" \
     "The EEPROM of your device needs to be updated for it to work properly." \
-    --action=Update:'/usr/bin/pt-system-tools/pt-eeprom -f' || true
+    --action=Update:'/usr/lib/pt-system-tools/pt-eeprom -f' || true
 }
 
 is_pi_top_4() {
