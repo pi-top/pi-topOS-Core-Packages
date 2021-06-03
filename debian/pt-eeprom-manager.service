@@ -1,5 +1,5 @@
 [Unit]
-Description=pi-top [4] EEPROM Configuration Patch
+Description=pi-top [4] EEPROM Management
 Documentation=https://knowledgebase.pi-top.com/knowledge
 
 [Service]
