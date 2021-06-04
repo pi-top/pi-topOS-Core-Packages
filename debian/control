@@ -105,6 +105,7 @@ Package: pt-ui
 Architecture: all
 Depends:
  ${misc:Depends},
+ autorandr,
  pt-plym-splash,
  pt-ui-mods,
  pt-web-portal-desktop,
