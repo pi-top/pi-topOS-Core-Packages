@@ -13,7 +13,7 @@ show_notification() {
     --icon=system-error \
     "Raspberry Pi EEPROM Requires Reconfiguration" \
     "Your Raspberry Pi's board revision requires a reconfiguration to be compatible with pi-top [4]. Please apply the configuration update and reboot." \
-    --action="Update and Reboot:/usr/lib/pt-system-tools/pt-eeprom -f && /sbin/reboot -f"
+    --action="Update and Reboot:env SUDO_ASKPASS=/usr/lib/pt-system-tools/pwdpte.sh sudo -A /usr/lib/pt-system-tools/pt-eeprom -f && env SUDO_ASKPASS=/usr/lib/pt-system-tools/pwdpte.sh sudo -A /sbin/reboot -f"
 }
 
 is_pi_top_4() {
