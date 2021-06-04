@@ -1,4 +1,11 @@
-#!/bin/bash -e
+#!/bin/bash
+###############################################################
+#                Unofficial 'Bash strict mode'                #
+# http://redsymbol.net/articles/unofficial-bash-strict-mode/  #
+###############################################################
+set -euo pipefail
+IFS=$'\n\t'
+###############################################################
 
 # Simplified from https://stackoverflow.com/a/49533938/2268426
 DEBUG=${DEBUG:-false}
