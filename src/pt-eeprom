@@ -38,6 +38,7 @@ is_raspberry_pi_4() {
 
 board_revision_requires_patched_eeprom() {
   # Board revision 1.4 onwards does not require patching
+  # https://www.raspberrypi.org/documentation/hardware/raspberrypi/revision-codes/README.md
   if grep -q "^Revision\s*:\s*[ 123][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]1[4-9a-fA-F]$" /proc/cpuinfo; then
     return 1
   else
