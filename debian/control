@@ -125,6 +125,8 @@ Recommends:
  python3-matplotlib,
 # Optional text-to-speech library
  python3-pt-speech,
+# Sonic Pi with Python
+ python3-sonic,
 Description: pi-topOS User Libraries
  This metapackage contains optional libraries (primarily Python) for pi-topOS.
 
