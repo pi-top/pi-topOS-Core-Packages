@@ -94,6 +94,8 @@ done
 tmp_dir="$(mktemp -d)"
 bootloader_config_file="${tmp_dir}/boot.conf"
 
+set_eeprom_installation_directory
+
 if board_revision_requires_patched_eeprom; then
   echo "Board revision requires patched EEPROM"
   read_eeprom_settings
@@ -101,7 +103,6 @@ if board_revision_requires_patched_eeprom; then
     if [ -z $force ]; then
       show_notification
     else
-      set_eeprom_installation_directory
       patch_eeprom
     fi
   else
