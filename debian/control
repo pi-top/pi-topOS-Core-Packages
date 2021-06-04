@@ -26,7 +26,6 @@ Recommends:
  pt-firmware-updater,
  pt-networking,
  pt-os-updater,
- pt-project-files,
  pt-touchscreen,
  pt-sys-oled,
  pt-web-portal,
