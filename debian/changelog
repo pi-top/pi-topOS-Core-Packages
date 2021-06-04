@@ -1,3 +1,13 @@
+pt-os-core (4.0.3) buster; urgency=medium
+
+  * Update control
+  * Add pi-top [4] EEPROM management
+  * Add Sonic Pi in Python as a user library recommended dependency
+  * pt-ui depends on autorandr
+  * Drop pt-project-files
+
+ -- pi-top <deb-maintainers@pi-top.com>  Fri, 04 Jun 2021 17:06:50 +0000
+
 pt-os-core (4.0.2) buster; urgency=medium
 
   * Migrate pt-system-tools
