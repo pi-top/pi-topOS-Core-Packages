@@ -29,6 +29,8 @@ Recommends:
  pt-touchscreen,
  pt-sys-oled,
  pt-web-portal,
+# Wireless Access Point support
+ rpi-wifi-ap,
 # Only suggested by device manager to support headless configurations
  xprintidle,
 Description: pi-topOS top-level dummy package
