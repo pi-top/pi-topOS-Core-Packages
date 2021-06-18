@@ -38,7 +38,8 @@ Description: pi-topOS top-level dummy package
 
 Package: pt-apps
 Architecture: all
-Depends: ${misc:Depends}
+Depends:
+ ${misc:Depends}
 Recommends:
 # Disk Usage Analyzer
  baobab,
@@ -180,7 +181,8 @@ Description: pi-top system tools
 
 Package: pt-notifications
 Architecture: all
-Depends: ${misc:Depends},
+Depends:
+ ${misc:Depends},
  xfce4-notifyd,
  notify-send-ng,
 Suggests:
@@ -190,3 +192,32 @@ Description: pi-top Desktop Notification Service
  Handles detecting which display to target, as well as which user is
  using the display. This service wraps around notify-send.sh to provide
  advanced notification management.
+
+Package: pt-touchscreen
+Architecture: all
+Depends:
+ ${misc:Depends},
+# 'cut', 'tail' commands
+ coreutils (>= 8.30-3),
+# 'grep' command
+ grep (>= 3.3-1),
+# Used when waiting for breadcrumb from udev rule
+ inotify-tools,
+# Possibly used for notifications
+ libnotify-bin,
+# Gesture support
+ touchegg,
+# Used for 'xset' and 'xrandr' commands
+ x11-xserver-utils,
+# pt-ui-mods provides a notification-wrapped call to touchegg
+Suggests: pt-ui-mods,
+# Notifications that can be interacted with
+ pt-notifications
+# Touchscreen udev rule was provided by pt-os-mods in versions < 8.0
+Replaces:
+ pt-os-mods (<< 8),
+Breaks:
+ pt-os-mods (<< 8),
+Description: pi-top Touchscreen Support
+ Dependency package for configuring anything relating to
+ touchscreen support on pi-topOS.

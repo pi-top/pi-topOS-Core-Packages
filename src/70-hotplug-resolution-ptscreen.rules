@@ -1,0 +1,6 @@
+SUBSYSTEM=="usb"                                          \
+, ACTION=="add"                                           \
+, ATTR{idVendor}=="222a"                                  \
+, ATTR{idProduct}=="0001"                                 \
+, ENV{DISPLAY}=":0"                                       \
+, RUN="/usr/bin/touch /tmp/pt-hotplug-display.breadcrumb"

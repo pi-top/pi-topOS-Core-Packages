@@ -7,3 +7,4 @@ override_dh_installsystemd:
 	dh_installsystemd --name=pt-eeprom-manager
 	dh_installsystemd --name=pt-memory-monitor
 	dh_installsystemd --name=pt-version-notify
+	dh_installsystemd --name=pt-hotplug-display

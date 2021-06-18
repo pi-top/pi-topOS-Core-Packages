@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+
+# pt-user [--user-controlling-display [--include-display-id] | <user>] [--command [--show-output] [--show-exit-code]]
+
+# $ pt-user
+# User:       root
+
+# $ pt-user --user-controlling-display
+# User:       pi
+
+# $ pt-user --user-controlling-display --include-display-id
+# User:       pi
+# Display:    :0
+
+# $ pt-user "pi"
+# User:       pi
+
+# $ pt-user --user-controlling-display --command="systemctl --user is-enabled touchegg"
+# User:       pi
+# Command:    systemctl --user is-enabled touchegg
+
+# $ pt-user "pi" --command="systemctl --user is-enabled touchegg" --show-output --show-exit-code
+# User:       pi
+# Command:    systemctl --user is-enabled touchegg
+# Output:
+# enabled
+# Exit code:  0

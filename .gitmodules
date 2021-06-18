@@ -1,0 +1,3 @@
+[submodule "tests/Bash-Automated-Testing-System"]
+	path = tests/Bash-Automated-Testing-System
+	url = git@github.com:pi-top/Bash-Automated-Testing-System.git
