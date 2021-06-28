@@ -56,19 +56,29 @@ read_eeprom_settings() {
   rpi-eeprom-config --out "${bootloader_config_file}"
 }
 
+force_conf_entry() {
+  local field="${1}"
+  local value="${2}"
+  local file="${3}"
+
+  # Delete existing entries
+  sed -i "/^${field}=/d" "${file}"
+  # Append forced entry
+  echo "${field}=${value}" >>"${file}"
+}
+
 set_eeprom_installation_directory() {
-  sed -i '/BOOTFS/d' /etc/default/rpi-eeprom-update
   if [[ -d "/recovery" ]]; then
-    BOOTFS=/recovery
+    bootfs_entry=/recovery
   else
-    BOOTFS=/boot
+    bootfs_entry=/boot
   fi
-  echo "BOOTFS=${BOOTFS}" >>/etc/default/rpi-eeprom-update
+  force_conf_entry BOOTFS "${bootfs_entry}" "/etc/default/rpi-eeprom-update"
 }
 
 patch_eeprom() {
-  sed -i "s/^WAKE_ON_GPIO=.*/WAKE_ON_GPIO=0/1" ${tmp_dir}/boot.conf
-  sed -i "s/^POWER_OFF_ON_HALT=.*/POWER_OFF_ON_HALT=1/1" ${tmp_dir}/boot.conf
+  force_conf_entry WAKE_ON_GPIO 0 "${tmp_dir}/boot.conf"
+  force_conf_entry POWER_OFF_ON_HALT 1 "${tmp_dir}/boot.conf"
   rpi-eeprom-config --apply ${tmp_dir}/boot.conf
 }
 
