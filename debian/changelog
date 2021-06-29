@@ -1,4 +1,4 @@
-pt-os-core (4.0.4) buster; urgency=medium
+pt-os-core (4.1.0) buster; urgency=medium
 
   * Migrate pt-touchscreen
   * Ensure required EEPROM settings are always set
