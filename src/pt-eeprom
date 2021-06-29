@@ -76,7 +76,7 @@ set_eeprom_installation_directory() {
 patch_eeprom() {
   force_conf_entry WAKE_ON_GPIO 0 "${tmp_dir}/boot.conf"
   force_conf_entry POWER_OFF_ON_HALT 1 "${tmp_dir}/boot.conf"
-  rpi-eeprom-config --apply ${tmp_dir}/boot.conf
+  rpi-eeprom-config --apply "${tmp_dir}/boot.conf"
 }
 
 if ! is_raspberry_pi_4; then
