@@ -1,3 +1,16 @@
+pt-os-core (4.0.4) buster; urgency=medium
+
+  [ Mike Roberts ]
+  * Add rpi-wifi-ap dependency
+  * Migrate pt-touchscreen
+  * Add submodule
+  * EEPROM: Ensure required settings are always set (#26)
+
+  [ Jorge Capona ]
+  * Revert "Add rpi-wifi-ap dependency"
+
+ -- pi-top <deb-maintainers@pi-top.com>  Tue, 29 Jun 2021 19:54:05 +0000
+
 pt-os-core (4.0.3) buster; urgency=medium
 
   * Update control
