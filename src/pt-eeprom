@@ -68,11 +68,8 @@ force_conf_entry() {
 }
 
 set_eeprom_installation_directory() {
-  if [[ -d "/recovery" ]]; then
-    bootfs_entry="/recovery"
-  else
-    bootfs_entry="/boot"
-  fi
+  bootfs_entry="/boot"
+  [[ -d "/recovery" ]] && bootfs_entry="/recovery"
   force_conf_entry BOOTFS "${bootfs_entry}" "/etc/default/rpi-eeprom-update"
 }
 
