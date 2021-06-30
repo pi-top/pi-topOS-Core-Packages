@@ -1,3 +1,9 @@
+pt-os-core (4.2.0) buster; urgency=medium
+
+  * Move pt-touchscreen back to its own source package
+
+ -- pi-top <deb-maintainers@pi-top.com>  Wed, 30 Jun 2021 14:17:23 +0100
+
 pt-os-core (4.1.0) buster; urgency=medium
 
   * Migrate pt-touchscreen
