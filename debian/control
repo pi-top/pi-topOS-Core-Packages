@@ -78,7 +78,7 @@ Depends:
  ${misc:Depends},
  asciinema,
  p7zip-full,
- pt-system-tools,
+ pt-os-core-services,
  silversearcher-ag,
  squashfs-tools,
  zip,
@@ -165,17 +165,6 @@ Recommends:
 Description: Dummy package providing full pi-top [4] support
  Root package providing full support for all of the
  functionality offered out-of-the-box with a pi-top [4].
-
-Package: pt-system-tools
-Architecture: all
-Depends:
- ${misc:Depends},
- pt-notifications,
-Description: pi-top system tools
- System tools for helping users to understand how they are using their system
- by providing notifications to the user. This package contains a background
- memory usage monitor and a service to notify users when they are using a
- preview build of pi-topOS.
 
 Package: pt-notifications
 Architecture: all

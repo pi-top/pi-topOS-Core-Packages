@@ -1,4 +1,0 @@
-src/pt-eeprom                               /usr/lib/pt-system-tools
-src/pt-memory-monitor                       /usr/lib/pt-system-tools
-src/pt-version-notify                       /usr/lib/pt-system-tools
-pkg/pwdpte.sh                               /usr/lib/pt-system-tools
