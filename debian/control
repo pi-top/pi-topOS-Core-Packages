@@ -82,6 +82,7 @@ Recommends:
  p7zip-full,
  silversearcher-ag,
  squashfs-tools,
+ vim,
  zip,
  zsh,
 Description: pi-topOS Development Support
