@@ -1,3 +1,0 @@
-#src/pt-user                                     /usr/bin/
-src/hotplug_display.sh                          /usr/lib/pt-os-mods/
-src/70-hotplug-resolution-ptscreen.rules        /lib/udev/rules.d/
