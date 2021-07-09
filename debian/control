@@ -30,6 +30,7 @@ Recommends:
  pt-touchscreen,
  pt-sys-oled,
  pt-web-portal,
+ wifi-ap-sta,
 # Only suggested by device manager to support headless configurations
  xprintidle,
 Description: pi-topOS top-level dummy package
