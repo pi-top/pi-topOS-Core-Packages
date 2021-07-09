@@ -1,7 +1,6 @@
 pt-os-core (4.2.2) buster; urgency=medium
 
   [ Mike Roberts ]
-  * Workflow: create draft release manually
   * pt-os depends on wifi-ap-sta
 
  -- pi-top <deb-maintainers@pi-top.com>  Fri, 09 Jul 2021 14:15:19 +0000
