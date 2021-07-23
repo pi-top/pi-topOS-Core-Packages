@@ -1,5 +1,6 @@
-pt-os-core (5.0.0) buster; urgency=medium
+pt-os-core (5.0.0) bullseye; urgency=medium
 
+  * Bullseye: initial release
   * pt-os: Add /etc/pi-top_os_version
 
  -- pi-top <deb-maintainers@pi-top.com>  Fri, 23 Jul 2021 11:50:00 +0100
