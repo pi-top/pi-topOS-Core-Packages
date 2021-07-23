@@ -4,6 +4,13 @@ pt-os-core (5.0.0) buster; urgency=medium
 
  -- pi-top <deb-maintainers@pi-top.com>  Fri, 23 Jul 2021 11:50:00 +0100
 
+pt-os-core (4.2.2) buster; urgency=medium
+
+  [ Mike Roberts ]
+  * pt-os depends on wifi-ap-sta
+
+ -- pi-top <deb-maintainers@pi-top.com>  Fri, 09 Jul 2021 14:15:19 +0000
+
 pt-os-core (4.2.1) buster; urgency=medium
 
   * Move all systemd services to other packages
