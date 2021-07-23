@@ -1,3 +1,14 @@
+pt-os-core (4.2.3) buster; urgency=medium
+
+  [ pre-commit-ci[bot] ]
+  * [pre-commit.ci] pre-commit autoupdate (#32)
+
+  [ Mike Roberts ]
+  * pt-os: Add `/etc/pi-top_os_version` (#33)
+  * Revert "pt-os: Add `/etc/pi-top_os_version` (#33)"
+
+ -- pi-top <deb-maintainers@pi-top.com>  Fri, 23 Jul 2021 16:27:56 +0000
+
 pt-os-core (4.2.2) buster; urgency=medium
 
   [ Mike Roberts ]
