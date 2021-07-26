@@ -1,13 +1,14 @@
-name: Release
+name: Release (Bullseye)
 
 on:
-  # Testing trigger
+  # START - testing trigger
   push:
     branches:
       - bullseye
+  # END - testing trigger
   workflow_dispatch:
     branches:
-      - master
+      - bullseye
 
 env:
   REPO: "bullseye-experimental"
