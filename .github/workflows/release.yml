@@ -36,7 +36,7 @@ jobs:
           docker run --rm \
             --volume ${{ github.workspace }}:/src \
             --volume /tmp/artifacts/bin:/build \
-            pitop/deb-build:latest
+            pitop/deb-build:buster-backports
 
       - name: Separate Debian source package files from binary
         run: |

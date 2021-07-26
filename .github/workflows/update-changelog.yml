@@ -48,7 +48,7 @@ jobs:
             --volume ${{ github.workspace }}:/src \
             -e RELEASE=1 \
             -e NEW_VERSION="${{ steps.bump-semver.outputs.new_version }}" \
-            pitop/gbp-dch-gen:latest
+            pitop/gbp-dch-gen:buster-backports
 
       - name: Commit & push changelog to master
         uses: EndBug/add-and-commit@v7
