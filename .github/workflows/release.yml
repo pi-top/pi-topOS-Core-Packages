@@ -33,8 +33,7 @@ jobs:
       - name: Download artifact
         uses: dawidd6/action-download-artifact@v2.14.0
         with:
-          workflow: Build
-          branch: master
+          workflow: Build (Bullseye)
 
       - name: Debug
         run: |
