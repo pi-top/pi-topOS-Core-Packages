@@ -14,6 +14,21 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v2.2.0
+        with:
+          fetch-depth: 0
+
+      - name: Confirm changelog version is bumped
+        run: |
+          sudo apt install -y dpkg-dev
+          echo "VERSION=$(dpkg-parsechangelog -Sversion)" >> $GITHUB_ENV
+          latest_release_tag=$(git rev-list --tags --max-count=1)
+          if [[ -n "${latest_release_tag}" ]]; then
+            latest_release_version="$(git describe --tags "${latest_release_tag}")"
+            if [[ ${{ env.VERSION }} != "${latest_release_version}" ]]; then
+              echo "Changelog needs updating. Run 'update-changelog.yml' first"
+              exit
+            fi
+          fi
 
       - name: Build Debian package
         run: |
