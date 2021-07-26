@@ -14,6 +14,7 @@ env:
   OS: "Debian"
 
 jobs:
+  # TODO: replace with dawidd6/action-download-artifact
   build-debian:
     runs-on: ubuntu-20.04
     steps:
@@ -48,7 +49,7 @@ jobs:
           name: "${{ env.GITHUB_REPOSITORY_NAME }}-#${{ env.GITHUB_SHA_SHORT }}-deb"
           path: "/tmp/artifacts/bin/"
 
-  create-draft-release:
+  release:
     runs-on: ubuntu-20.04
     needs: build-debian
     steps:
@@ -99,6 +100,6 @@ jobs:
 
           PACKAGECLOUD_TOKEN=${{ secrets.PACKAGECLOUD_TOKEN }} \
             package_cloud \
-              push \
+              push --verbose \
               pi-top/${{ env.REPO }}/${{ env.OS }}/{{ env.VERSION }} \
               $(find ./deb -name "*.dsc")
