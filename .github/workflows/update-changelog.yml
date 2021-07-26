@@ -11,7 +11,7 @@ on:
         default: "patch"
 
 jobs:
-  create-version-update-changelog-pr:
+  commit-updated-changelog:
     runs-on: ubuntu-20.04
     steps:
       - name: Validate version bump input string
@@ -38,7 +38,7 @@ jobs:
         id: bump-semver
         with:
           current_version: "${{ env.VERSION }}"
-          level: "${{ env.version_bump }}"
+          level: "${{ github.event.inputs.version_bump }}"
 
       # TODO - gbp-dch-gen-docker:
       #     use ignore regex (e.g. '[ci]' prefix, Dependabot)
