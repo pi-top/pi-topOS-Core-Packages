@@ -33,7 +33,7 @@ jobs:
       - name: Download artifact
         uses: dawidd6/action-download-artifact@v2.14.0
         with:
-          workflow: Build (Bullseye)
+          workflow: build.yml
 
       - name: Debug
         run: |
