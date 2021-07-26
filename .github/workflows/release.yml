@@ -35,25 +35,12 @@ jobs:
         with:
           workflow: build.yml
 
-      - name: Debug
+      - name: Organise artifact files
         run: |
           ls -laR
-
-      # - name: Download Debian binary artifacts
-      #   uses: actions/download-artifact@v2
-      #   with:
-      #       name: "${{ env.GITHUB_REPOSITORY_NAME }}-#${{ env.GITHUB_SHA_SHORT }}-deb"
-      #       path: "./deb/"
-
-      # - name: Download Debian source artifacts
-      #   uses: actions/download-artifact@v2
-      #   with:
-      #       name: "${{ env.GITHUB_REPOSITORY_NAME }}-#${{ env.GITHUB_SHA_SHORT }}-deb-src"
-      #       path: "./deb-src/"
-
-      # - name: Move files
-      #   run: |
-      #     mv ./deb-src/* ./deb/
+          mkdir deb
+          mv ${{ env.GITHUB_REPOSITORY_NAME }}*/* deb
+          rm -rf ${{ env.GITHUB_REPOSITORY_NAME }}*
 
       # - name: Create Release
       #   uses: softprops/action-gh-release@v1
@@ -62,18 +49,16 @@ jobs:
       #     name: "v${{ env.VERSION }}"
       #     draft: false
       #     prerelease: false
-      #     files: |
-      #       ./deb/*
-      #       ./deb-src/*
+      #     files: ./deb/*
       #   env:
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Publish .deb packages
-      #   run: |
-      #     sudo gem install package_cloud
+      - name: Publish .deb packages
+        run: |
+          sudo gem install package_cloud
 
-      #     PACKAGECLOUD_TOKEN=${{ secrets.PACKAGECLOUD_TOKEN }} \
-      #       package_cloud \
-      #         push --verbose \
-      #         pi-top/${{ env.REPO }}/${{ env.OS }}/{{ env.VERSION }} \
-      #         $(find ./deb -name "*.dsc")
+          PACKAGECLOUD_TOKEN=${{ secrets.PACKAGECLOUD_TOKEN }} \
+            package_cloud \
+              push --verbose \
+              pi-top/${{ env.REPO }}/${{ env.OS }}/{{ env.VERSION }} \
+              ./deb/*.dsc
