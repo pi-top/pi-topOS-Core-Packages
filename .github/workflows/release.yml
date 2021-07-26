@@ -1,4 +1,4 @@
-name: Create Draft GitHub Release
+name: Release
 
 on:
   workflow_dispatch:
@@ -22,12 +22,10 @@ jobs:
             --volume ${{ github.workspace }}:/src \
             --volume /tmp/artifacts/bin:/build \
             pitop/deb-build:latest
-
       - name: Separate Debian source package files from binary
         run: |
           mv /tmp/artifacts/bin/* /tmp/artifacts/src/
           mv /tmp/artifacts/src/*.deb /tmp/artifacts/bin/
-
       - name: Upload Debian source package files
         uses: actions/upload-artifact@v2
         with:
@@ -40,7 +38,7 @@ jobs:
           name: "${{ env.GITHUB_REPOSITORY_NAME }}-#${{ env.GITHUB_SHA_SHORT }}-deb"
           path: "/tmp/artifacts/bin/"
 
-  create-draft-release:
+  release:
     runs-on: ubuntu-20.04
     needs: build-debian
     steps:
@@ -66,13 +64,12 @@ jobs:
         run: |
           sudo apt install -y dpkg-dev
           echo "VERSION=$(dpkg-parsechangelog -Sversion)" >> $GITHUB_ENV
-
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: "v${{ env.VERSION }}"
           name: "v${{ env.VERSION }}"
-          draft: true
+          draft: false
           prerelease: false
           files: |
             ./deb/*
