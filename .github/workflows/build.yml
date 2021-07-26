@@ -8,6 +8,12 @@ on:
     branches:
       - bullseye
 
+env:
+  UPLOAD_SNAPSHOT_BUILD: "true"
+  REPO: "experimental"
+  OS_TYPE: "debian"
+  OS_VERSION: "bullseye"
+
 jobs:
   build-debian-package:
     runs-on: ubuntu-20.04
@@ -35,6 +41,26 @@ jobs:
             --volume /tmp/artifacts/bin:/build \
             -e LINTIAN_TAGS_TO_SUPPRESS="debian-changelog-line-too-long,spelling-error-in-changelog,unreleased-changelog-distribution" \
             pitop/deb-build:latest
+
+      - name: Install PackageCloud CLI
+        run: |
+          sudo gem install package_cloud
+
+      - name: Publish Debian package(s)
+        if: ${{ env.UPLOAD_SNAPSHOT_BUILD }} == "true"
+        run: |
+          cd /tmp/artifacts/bin/
+          dsc_filename=(find . -name "*.dsc" | head -n1)
+          PACKAGECLOUD_TOKEN=${{ secrets.PACKAGECLOUD_TOKEN }} \
+            package_cloud \
+              push --verbose \
+              pi-top/${{ env.REPO }}/${{ env.OS_TYPE }}/${{ env.OS_VERSION }} \
+              "${dsc_filename}"
+
+      - name: Show PackageCloud page for package
+        if: ${{ env.UPLOAD_SNAPSHOT_BUILD }} == "true"
+        run: |
+          echo "https://packagecloud.io/pi-top/${{ env.REPO }}/packages/${{ env.OS_TYPE }}/${{ env.OS_VERSION }}/${dsc_filename}"
 
       - name: Separate Debian source package files from binary
         run: |
