@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: Validate version bump input string
         run: |
-          case "${{ env.version_bump }}" in
+          case "${{ github.event.inputs.version_bump }}" in
             major|minor|patch|prerelease)
               echo "Valid input"
               ;;
