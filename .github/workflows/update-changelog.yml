@@ -1,7 +1,7 @@
-name: Update Changelog Draft PR
+name: Create Changelog Update Pull Request
 
 on:
-  push:
+  workflow_dispatch:
     branches:
       - master
 
@@ -28,5 +28,5 @@ jobs:
           commit-message: ${{ secrets.CI_CHANGELOG_BUMP_COMMIT_MESSAGE }}
           title: ${{ secrets.CI_CHANGELOG_BUMP_TITLE }}
           body: ${{ secrets.CI_CHANGELOG_BUMP_BODY }}
-          draft: true
+          draft: false
           labels: "ci"
