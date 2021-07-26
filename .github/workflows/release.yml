@@ -12,7 +12,7 @@ on:
 
 env:
   REPO: "bullseye-experimental"
-  OS: "Debian"
+  OS: "debian"
 
 jobs:
   release:
@@ -63,4 +63,4 @@ jobs:
             package_cloud \
               push --verbose \
               pi-top/${{ env.REPO }}/${{ env.OS }}/${{ env.VERSION }} \
-              ./deb/\\*.dsc
+              ./deb/*.dsc
