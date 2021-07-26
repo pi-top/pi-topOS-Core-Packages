@@ -53,7 +53,7 @@ jobs:
       #   env:
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Publish .deb packages
+      - name: Publish Debian package(s)
         run: |
           sudo gem install package_cloud
 
@@ -61,4 +61,4 @@ jobs:
             package_cloud \
               push --verbose \
               pi-top/${{ env.REPO }}/${{ env.OS }}/{{ env.VERSION }} \
-              ./deb/*.dsc
+              ./deb/\*.dsc
