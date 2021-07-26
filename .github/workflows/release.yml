@@ -56,8 +56,14 @@ jobs:
 
       - name: Publish Debian package(s)
         run: |
+          cd ./deb
+          dsc_filename=(find . -name "*.dsc" | head -n1)
           PACKAGECLOUD_TOKEN=${{ secrets.PACKAGECLOUD_TOKEN }} \
             package_cloud \
               push --verbose \
               pi-top/${{ env.REPO }}/${{ env.OS_TYPE }}/${{ env.OS_VERSION }} \
-              ./deb/*.dsc
+              "${dsc_filename}"
+
+      - name: Show PackageCloud page for package
+        run: |
+          echo "https://packagecloud.io/pi-top/${{ env.REPO }}/packages/${{ env.OS_TYPE }}/${{ env.OS_VERSION }}/${dsc_filename}"
