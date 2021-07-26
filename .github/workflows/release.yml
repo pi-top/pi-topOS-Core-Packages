@@ -22,6 +22,7 @@ jobs:
             --volume ${{ github.workspace }}:/src \
             --volume /tmp/artifacts/bin:/build \
             pitop/deb-build:latest
+
       - name: Separate Debian source package files from binary
         run: |
           mv /tmp/artifacts/bin/* /tmp/artifacts/src/

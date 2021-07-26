@@ -35,6 +35,7 @@ jobs:
             --volume /tmp/artifacts/bin:/build \
             -e LINTIAN_TAGS_TO_SUPPRESS="debian-changelog-line-too-long,spelling-error-in-changelog,unreleased-changelog-distribution" \
             pitop/deb-build:latest
+
       - name: Separate Debian source package files from binary
         run: |
           mv /tmp/artifacts/bin/* /tmp/artifacts/src/
