@@ -1,3 +1,23 @@
+pt-os-core (4.2.4) buster; urgency=medium
+
+  [ pre-commit-ci[bot] ]
+  * [pre-commit.ci] pre-commit autoupdate (#32)
+
+  [ Mike Roberts ]
+  * pt-os: Add `/etc/pi-top_os_version` (#33)
+  * Revert "pt-os: Add `/etc/pi-top_os_version` (#33)"
+  * `build.yml` + `release.yml` + `update-changelog.yml` (#34)
+  * Use github.event.inputs
+  * Use github.event.inputs
+
+  [ m-roberts ]
+  * Update changelog: v4.2.2
+
+  [ Mike Roberts ]
+  * fetch-depth: 0 for updating changelog
+
+ -- pi-top <deb-maintainers@pi-top.com>  Mon, 26 Jul 2021 16:47:18 +0000
+
 pt-os-core (4.2.3) buster; urgency=medium
 
   [ root ]
