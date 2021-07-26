@@ -14,41 +14,6 @@ env:
   OS: "Debian"
 
 jobs:
-  # TODO: replace with dawidd6/action-download-artifact
-  build-debian:
-    runs-on: ubuntu-20.04
-    steps:
-      - name: GitHub Environment Variables Action
-        uses: FranzDiebold/github-env-vars-action@v1.2.1
-
-      - name: Checkout code
-        uses: actions/checkout@v2.2.0
-
-      - name: Build Debian package
-        run: |
-          mkdir -p /tmp/artifacts/{src,bin}
-          docker run --rm \
-            --volume ${{ github.workspace }}:/src \
-            --volume /tmp/artifacts/bin:/build \
-            pitop/deb-build:latest
-
-      - name: Separate Debian source package files from binary
-        run: |
-          mv /tmp/artifacts/bin/* /tmp/artifacts/src/
-          mv /tmp/artifacts/src/*.deb /tmp/artifacts/bin/
-
-      - name: Upload Debian source package files
-        uses: actions/upload-artifact@v2
-        with:
-          name: "${{ env.GITHUB_REPOSITORY_NAME }}-#${{ env.GITHUB_SHA_SHORT }}-deb-src"
-          path: "/tmp/artifacts/src/"
-
-      - name: Upload Debian binary packages
-        uses: actions/upload-artifact@v2
-        with:
-          name: "${{ env.GITHUB_REPOSITORY_NAME }}-#${{ env.GITHUB_SHA_SHORT }}-deb"
-          path: "/tmp/artifacts/bin/"
-
   release:
     runs-on: ubuntu-20.04
     needs: build-debian
@@ -65,21 +30,31 @@ jobs:
           echo "VERSION=$(dpkg-parsechangelog -Sversion)" >> $GITHUB_ENV
           rm -rf ./*
 
-      - name: Download Debian binary artifacts
-        uses: actions/download-artifact@v2
+      - name: Download artifact
+        uses: dawidd6/action-download-artifact@v2.14.0
         with:
-            name: "${{ env.GITHUB_REPOSITORY_NAME }}-#${{ env.GITHUB_SHA_SHORT }}-deb"
-            path: "./deb/"
+          workflow: Build
+          branch: master
 
-      - name: Download Debian source artifacts
-        uses: actions/download-artifact@v2
-        with:
-            name: "${{ env.GITHUB_REPOSITORY_NAME }}-#${{ env.GITHUB_SHA_SHORT }}-deb-src"
-            path: "./deb-src/"
-
-      - name: Move files
+      - name: Debug
         run: |
-          mv ./deb-src/* ./deb/
+          ls -laR
+
+      # - name: Download Debian binary artifacts
+      #   uses: actions/download-artifact@v2
+      #   with:
+      #       name: "${{ env.GITHUB_REPOSITORY_NAME }}-#${{ env.GITHUB_SHA_SHORT }}-deb"
+      #       path: "./deb/"
+
+      # - name: Download Debian source artifacts
+      #   uses: actions/download-artifact@v2
+      #   with:
+      #       name: "${{ env.GITHUB_REPOSITORY_NAME }}-#${{ env.GITHUB_SHA_SHORT }}-deb-src"
+      #       path: "./deb-src/"
+
+      # - name: Move files
+      #   run: |
+      #     mv ./deb-src/* ./deb/
 
       # - name: Create Release
       #   uses: softprops/action-gh-release@v1
@@ -94,12 +69,12 @@ jobs:
       #   env:
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Publish .deb packages
-        run: |
-          sudo gem install package_cloud
+      # - name: Publish .deb packages
+      #   run: |
+      #     sudo gem install package_cloud
 
-          PACKAGECLOUD_TOKEN=${{ secrets.PACKAGECLOUD_TOKEN }} \
-            package_cloud \
-              push --verbose \
-              pi-top/${{ env.REPO }}/${{ env.OS }}/{{ env.VERSION }} \
-              $(find ./deb -name "*.dsc")
+      #     PACKAGECLOUD_TOKEN=${{ secrets.PACKAGECLOUD_TOKEN }} \
+      #       package_cloud \
+      #         push --verbose \
+      #         pi-top/${{ env.REPO }}/${{ env.OS }}/{{ env.VERSION }} \
+      #         $(find ./deb -name "*.dsc")
