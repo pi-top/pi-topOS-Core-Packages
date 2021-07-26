@@ -1,32 +1,60 @@
-name: Create Changelog Update Pull Request
+name: Update Changelog
 
 on:
   workflow_dispatch:
     branches:
       - master
+    inputs:
+      version_bump:
+        description: "What type of version bump is this? 'major'/'minor'/'patch'/'prerelease'/'prepatch'?"
+        required: true
+        default: "patch"
 
 jobs:
   create-version-update-changelog-pr:
     runs-on: ubuntu-20.04
     steps:
+      - name: Validate version bump input string
+        run: |
+          case "${{ env.version_bump }}" in
+            major|minor|patch|prerelease|prepatch)
+              echo "Valid input"
+              ;;
+            not_an_item)
+              echo "Error" >&2
+              exit 1
+              ;;
+          esac
+
       - name: Checkout code
         uses: actions/checkout@v2.2.0
-        with:
-          fetch-depth: 0
 
+      - name: Determine version
+        run: |
+          sudo apt install -y dpkg-dev
+          echo "VERSION=$(dpkg-parsechangelog -Sversion)" >> $GITHUB_ENV
+
+      - uses: actions-ecosystem/action-bump-semver@v1
+        id: bump-semver
+        with:
+          current_version: "${{ env.VERSION }}"
+          level: "${{ env.version_bump }}"
+
+      # TODO - gbp-dch-gen-docker:
+      #     use ignore regex (e.g. '[ci]' prefix, Dependabot)
       - name: Patch changelog (release)
         run: |
           docker run --rm \
             --volume ${{ github.workspace }}:/src \
             -e RELEASE=1 \
+            -e NEW_VERSION="${{ steps.bump-semver.outputs.new_version }}" \
             pitop/gbp-dch-gen:latest
+#            -e IGNORE_REGEX="${{ secrets.DEB_CHANGELOG_IGNORE_REGEX }}" \
 
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v3
+      - name: Commit & push changelog to master
+        uses: EndBug/add-and-commit@v7
         with:
-          branch: ${{ secrets.CI_CHANGELOG_BUMP_BRANCH }}
-          commit-message: ${{ secrets.CI_CHANGELOG_BUMP_COMMIT_MESSAGE }}
-          title: ${{ secrets.CI_CHANGELOG_BUMP_TITLE }}
-          body: ${{ secrets.CI_CHANGELOG_BUMP_BODY }}
-          draft: false
-          labels: "ci"
+          message: "Update changelog: v${{ env.VERSION }}"
+          add: 'debian/changelog'
+          push: true
+          branch: master
