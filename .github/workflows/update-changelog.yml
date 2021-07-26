@@ -42,8 +42,6 @@ jobs:
           current_version: "${{ env.VERSION }}"
           level: "${{ github.event.inputs.version_bump }}"
 
-      # TODO - gbp-dch-gen-docker:
-      #     use ignore regex (e.g. '[ci]' prefix, Dependabot)
       - name: Patch changelog (release)
         run: |
           docker run --rm \
@@ -51,7 +49,6 @@ jobs:
             -e RELEASE=1 \
             -e NEW_VERSION="${{ steps.bump-semver.outputs.new_version }}" \
             pitop/gbp-dch-gen:latest
-#            -e IGNORE_REGEX="${{ secrets.DEB_CHANGELOG_IGNORE_REGEX }}" \
 
       - name: Commit & push changelog to master
         uses: EndBug/add-and-commit@v7
