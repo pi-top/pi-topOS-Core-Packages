@@ -1,17 +1,12 @@
 name: Release (Bullseye)
 
 on:
-  # START - testing trigger
-  push:
-    branches:
-      - bullseye
-  # END - testing trigger
   workflow_dispatch:
     branches:
       - bullseye
 
 env:
-  REPO: "bullseye-experimental"
+  REPO: "experimental"
   OS_TYPE: "debian"
   OS_VERSION: "bullseye"
 
@@ -42,6 +37,8 @@ jobs:
           mv ${{ env.GITHUB_REPOSITORY_NAME }}*/* deb
           rm -rf ${{ env.GITHUB_REPOSITORY_NAME }}*
 
+      # Not releasing on GitHub until versions are final
+      #
       # - name: Create Release
       #   uses: softprops/action-gh-release@v1
       #   with:
