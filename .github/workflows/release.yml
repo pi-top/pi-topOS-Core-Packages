@@ -11,6 +11,7 @@ on:
 
 env:
   REPO: "bullseye-experimental"
+  OS: "Debian"
 
 jobs:
   build-debian:
@@ -94,5 +95,5 @@ jobs:
           PACKAGECLOUD_TOKEN=${{ secrets.PACKAGECLOUD_TOKEN }} \
             package_cloud \
               push \
-              pi-top/${{ env.REPO }} \
+              pi-top/${{ env.REPO }}/${{ env.OS }}/{{ env.VERSION }} \
               ./deb/*.deb
