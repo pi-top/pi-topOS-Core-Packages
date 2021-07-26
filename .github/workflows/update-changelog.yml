@@ -26,34 +26,26 @@ jobs:
               ;;
           esac
 
+      # ------------------------------------------------------------------------
+
       - name: Checkout code
         uses: actions/checkout@v2.2.0
         with:
           fetch-depth: 0
 
-      - name: Determine current version
-        run: |
-          sudo apt install -y dpkg-dev
-          echo "CURRENT_VERSION=$(dpkg-parsechangelog -Sversion)" >> $GITHUB_ENV
-
-      - uses: actions-ecosystem/action-bump-semver@v1
+      - name: Patch changelog (release)
         id: bump-semver
+        uses: pi-top/git-debian-changelog-bump-semver@master
         with:
-          current_version: "${{ env.CURRENT_VERSION }}"
+          release: true
           level: "${{ github.event.inputs.version_bump }}"
 
-      - name: Patch changelog (release)
-        run: |
-          docker run --rm \
-            --volume ${{ github.workspace }}:/src \
-            -e RELEASE=1 \
-            -e NEW_VERSION="${{ steps.bump-semver.outputs.new_version }}" \
-            pitop/gbp-dch-gen:buster-backports
+      # ------------------------------------------------------------------------
 
-      - name: Commit & push changelog to master
+      - name: Commit and push changelog to master
         uses: EndBug/add-and-commit@v7
         with:
-          message: "Update changelog: v${{ steps.bump-semver.outputs.new_version }}"
+          message: "Updating changelog for release: v${{ steps.bump-semver.outputs.new_version }}"
           add: 'debian/changelog'
           push: true
           branch: master
