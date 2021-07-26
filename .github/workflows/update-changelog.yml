@@ -6,7 +6,7 @@ on:
       - master
     inputs:
       version_bump:
-        description: "What type of version bump is this? 'major'/'minor'/'patch'/'prerelease'/'prepatch'?"
+        description: "What type of version bump is this? 'major'/'minor'/'patch'/'prerelease'?"
         required: true
         default: "patch"
 
@@ -17,7 +17,7 @@ jobs:
       - name: Validate version bump input string
         run: |
           case "${{ env.version_bump }}" in
-            major|minor|patch|prerelease|prepatch)
+            major|minor|patch|prerelease)
               echo "Valid input"
               ;;
             not_an_item)
