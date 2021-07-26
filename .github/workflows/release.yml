@@ -27,6 +27,7 @@ jobs:
         run: |
           mv /tmp/artifacts/bin/* /tmp/artifacts/src/
           mv /tmp/artifacts/src/*.deb /tmp/artifacts/bin/
+
       - name: Upload Debian source package files
         uses: actions/upload-artifact@v2
         with:
