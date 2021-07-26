@@ -58,6 +58,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2.2.0
 
+      - name: Determine version
+        run: |
+          sudo apt install -y dpkg-dev
+          echo "VERSION=$(dpkg-parsechangelog -Sversion)" >> $GITHUB_ENV
+          rm -rf ./*
+
       - name: Download Debian binary artifacts
         uses: actions/download-artifact@v2
         with:
@@ -70,10 +76,9 @@ jobs:
             name: "${{ env.GITHUB_REPOSITORY_NAME }}-#${{ env.GITHUB_SHA_SHORT }}-deb-src"
             path: "./deb-src/"
 
-      - name: Determine version
+      - name: Move files
         run: |
-          sudo apt install -y dpkg-dev
-          echo "VERSION=$(dpkg-parsechangelog -Sversion)" >> $GITHUB_ENV
+          mv ./deb-src/* ./deb/
 
       # - name: Create Release
       #   uses: softprops/action-gh-release@v1
@@ -92,9 +97,8 @@ jobs:
         run: |
           sudo gem install package_cloud
 
-          cd ./deb
           PACKAGECLOUD_TOKEN=${{ secrets.PACKAGECLOUD_TOKEN }} \
             package_cloud \
               push \
               pi-top/${{ env.REPO }}/${{ env.OS }}/{{ env.VERSION }} \
-              *.deb
+              $(find ./deb -name "*.dsc")
