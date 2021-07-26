@@ -31,15 +31,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Determine version
+      - name: Determine current version
         run: |
           sudo apt install -y dpkg-dev
-          echo "VERSION=$(dpkg-parsechangelog -Sversion)" >> $GITHUB_ENV
+          echo "CURRENT_VERSION=$(dpkg-parsechangelog -Sversion)" >> $GITHUB_ENV
 
       - uses: actions-ecosystem/action-bump-semver@v1
         id: bump-semver
         with:
-          current_version: "${{ env.VERSION }}"
+          current_version: "${{ env.CURRENT_VERSION }}"
           level: "${{ github.event.inputs.version_bump }}"
 
       - name: Patch changelog (release)
@@ -53,7 +53,7 @@ jobs:
       - name: Commit & push changelog to master
         uses: EndBug/add-and-commit@v7
         with:
-          message: "Update changelog: v${{ env.VERSION }}"
+          message: "Update changelog: v${{ steps.bump-semver.outputs.new_version }}"
           add: 'debian/changelog'
           push: true
           branch: master
