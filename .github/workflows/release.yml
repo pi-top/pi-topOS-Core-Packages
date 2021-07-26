@@ -62,5 +62,5 @@ jobs:
           PACKAGECLOUD_TOKEN=${{ secrets.PACKAGECLOUD_TOKEN }} \
             package_cloud \
               push --verbose \
-              pi-top/${{ env.REPO }}/${{ env.OS }}/{{ env.VERSION }} \
+              pi-top/${{ env.REPO }}/${{ env.OS }}/${{ env.VERSION }} \
               ./deb/\\*.dsc
