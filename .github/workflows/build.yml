@@ -31,7 +31,7 @@ jobs:
         uses: pi-top/action-debian-package@master
         with:
           target_architecture: ${{ matrix.target_architecture }}
-          docker_image: pitop/pi-top-os-base:bullseye
+          docker_image: pitop/deb-build-img:bullseye-develop
           path: ./artifacts
 
       # ------------------------------------------------------------------------
