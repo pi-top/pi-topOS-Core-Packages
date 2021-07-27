@@ -21,7 +21,7 @@ jobs:
           fetch-depth: 0
 
       - name: Patch changelog (snapshot)
-        uses: pi-top/git-debian-changelog-bumper@master
+        uses: pi-top/git-debian-changelog-bump-action@develop
         with:
           release: false
 
@@ -39,12 +39,12 @@ jobs:
       - name: GitHub Environment Variables Action
         uses: FranzDiebold/github-env-vars-action@v1.2.1
 
-      - name: Upload Debian package artifacts
-        uses: pi-top/debian-package-artifact-uploader@master
-        with:
-          path: ./artifacts
-          deb_only: true
-          # deb_only_name: "deb"
-          deb_src_only: true
-          # deb_src_name: "deb-src"
-          prefix: "${{ env.GITHUB_REPOSITORY_NAME }}-#${{ env.GITHUB_SHA_SHORT }}-"
+      # - name: Upload Debian package artifacts
+      #   uses: pi-top/debian-package-artifact-uploader@master
+      #   with:
+      #     path: ./artifacts
+      #     deb_only: true
+      #     # deb_only_name: "deb"
+      #     deb_src_only: true
+      #     # deb_src_name: "deb-src"
+      #     prefix: "${{ env.GITHUB_REPOSITORY_NAME }}-#${{ env.GITHUB_SHA_SHORT }}-"
