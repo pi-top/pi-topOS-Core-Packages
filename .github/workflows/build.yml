@@ -32,7 +32,7 @@ jobs:
         with:
           target_architecture: ${{ matrix.target_architecture }}
           docker_image: pitop/deb-build-img:bullseye-develop
-          path: ./artifacts
+          build_directory: ./artifacts
 
       # ------------------------------------------------------------------------
 
