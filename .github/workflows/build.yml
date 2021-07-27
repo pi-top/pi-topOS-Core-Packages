@@ -28,7 +28,7 @@ jobs:
       # ------------------------------------------------------------------------
 
       - name: Build Debian package
-        uses: pi-top/deb-build-docker@master
+        uses: pi-top/deb-build-docker@develop
         with:
           target_architecture: ${{ matrix.target_architecture }}
           docker_image: pitop/deb-build-img:bullseye-develop
