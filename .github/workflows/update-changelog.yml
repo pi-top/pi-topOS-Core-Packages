@@ -33,12 +33,15 @@ jobs:
         with:
           fetch-depth: 0
 
+      # ------------------------------------------------------------------------
+
       - name: Patch changelog (release)
-        id: bump-semver
-        uses: pi-top/git-debian-changelog-bump-semver@master
+        uses: pi-top/git-debian-changelog-bump-action@develop
         with:
           release: true
-          level: "${{ github.event.inputs.version_bump }}"
+          author_name: "pi-top"
+          author_email: "deb-maintainers@pi-top.com"
+          # version_bump: "${{ github.event.inputs.version_bump }}"
 
       # ------------------------------------------------------------------------
 

@@ -29,15 +29,6 @@ jobs:
 
       # ------------------------------------------------------------------------
 
-      - name: Patch changelog (release)
-        uses: pi-top/git-debian-changelog-bump-action@develop
-        with:
-          release: true
-          author_name: "pi-top"
-          author_email: "deb-maintainers@pi-top.com"
-
-      # ------------------------------------------------------------------------
-
       - name: Build Debian package
         uses: pi-top/action-debian-package@master
         with:
