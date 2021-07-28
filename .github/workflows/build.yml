@@ -23,7 +23,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Patch changelog (snapshot)
+      - name: Add changelog entry for latest snapshot version
         uses: pi-top/git-debian-changelog-bump-action@master
         with:
           release: false
