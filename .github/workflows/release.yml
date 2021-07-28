@@ -21,7 +21,7 @@ jobs:
           echo "LATEST_TAGGED_VERSION=$(git rev-list --tags --max-count=1)" >> $GITHUB_ENV
 
       - name: Confirm version is higher than last tagged version
-        if: env.LATEST_TAGGED_VERSION != ""
+        if: env.LATEST_TAGGED_VERSION != ''
         run: dpkg --compare-versions ${{ env.CURRENT_VERSION }} gt ${{ env.LATEST_TAGGED_VERSION }}
 
       - name: Build Debian package
