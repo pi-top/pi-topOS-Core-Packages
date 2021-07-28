@@ -26,6 +26,8 @@ jobs:
         uses: pi-top/git-debian-changelog-bump-action@develop
         with:
           release: false
+          author_name: "pi-top"
+          author_email: "deb-maintainers@pi-top.com"
 
       # ------------------------------------------------------------------------
 
