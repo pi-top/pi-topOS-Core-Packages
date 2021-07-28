@@ -4,11 +4,6 @@ on:
   workflow_dispatch:
     branches:
       - master
-    inputs:
-      version_bump:
-        description: "What type of version bump is this? 'major'/'minor'/'patch'/'prerelease'?"
-        required: true
-        default: "patch"
 
 env:
   CHANGELOG_AUTHOR_NAME: "pi-top"
@@ -18,39 +13,27 @@ jobs:
   commit-updated-changelog:
     runs-on: ubuntu-20.04
     steps:
-      - name: Validate version bump input string
-        run: |
-          case "${{ github.event.inputs.version_bump }}" in
-            major|minor|patch|prerelease)
-              echo "Valid input"
-              ;;
-            not_an_item)
-              echo "Error" >&2
-              exit 1
-              ;;
-          esac
-
-      # ------------------------------------------------------------------------
-
       - name: Checkout code
         uses: actions/checkout@v2.2.0
         with:
           fetch-depth: 0
 
-      # ------------------------------------------------------------------------
-
-      - name: Patch changelog (release)
+      - name: Update Debian changelog for release
         uses: pi-top/git-debian-changelog-bump-action@develop
         with:
           release: true
           author_name: ${{ env.CHANGELOG_AUTHOR_NAME }}
           author_email: ${{ env.CHANGELOG_AUTHOR_EMAIL }}
-          # version_bump: "${{ github.event.inputs.version_bump }}"
+
+      - name: Determine current and last tagged versions
+        run: |
+          sudo apt install -y dpkg-dev
+          echo "CURRENT_VERSION=$(dpkg-parsechangelog -Sversion)" >> $GITHUB_ENV
 
       - name: Commit and push changelog to master
         uses: EndBug/add-and-commit@v7
         with:
-          message: "Updating changelog for release: v${{ steps.bump-semver.outputs.new_version }}"
+          message: "New changelog entry: v${{ env.CURRENT_VERSION }}"
           add: 'debian/changelog'
           push: true
           branch: master
