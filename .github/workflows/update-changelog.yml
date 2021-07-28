@@ -10,6 +10,10 @@ on:
         required: true
         default: "patch"
 
+env:
+  CHANGELOG_AUTHOR_NAME: "pi-top"
+  CHANGELOG_AUTHOR_EMAIL: "deb-maintainers@pi-top.com"
+
 jobs:
   commit-updated-changelog:
     runs-on: ubuntu-20.04
@@ -39,8 +43,8 @@ jobs:
         uses: pi-top/git-debian-changelog-bump-action@develop
         with:
           release: true
-          author_name: "pi-top"
-          author_email: "deb-maintainers@pi-top.com"
+          author_name: ${{ env.CHANGELOG_AUTHOR_NAME }}
+          author_email: ${{ env.CHANGELOG_AUTHOR_EMAIL }}
           # version_bump: "${{ github.event.inputs.version_bump }}"
 
       # ------------------------------------------------------------------------
