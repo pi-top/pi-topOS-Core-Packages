@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  build-debian:
+  release:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout code
@@ -14,18 +14,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Confirm changelog version is bumped
+      - name: Determine current and last tagged versions
         run: |
           sudo apt install -y dpkg-dev
-          echo "VERSION=$(dpkg-parsechangelog -Sversion)" >> $GITHUB_ENV
-          latest_release_tag=$(git rev-list --tags --max-count=1)
-          if [[ -n "${latest_release_tag}" ]]; then
-            latest_release_version="$(git describe --tags "${latest_release_tag}")"
-            if [[ ${{ env.VERSION }} != "${latest_release_version}" ]]; then
-              echo "Changelog needs updating. Run 'update-changelog.yml' first"
-              exit
-            fi
-          fi
+          echo "CURRENT_VERSION=$(dpkg-parsechangelog -Sversion)" >> $GITHUB_ENV
+          echo "LATEST_TAGGED_VERSION=$(git rev-list --tags --max-count=1)" >> $GITHUB_ENV
+
+      - name: Confirm version is higher than last tagged version
+        run: |
+          [[ -z "${{ env.LATEST_TAGGED_VERSION}}" ]] || dpkg --compare-versions ${{ env.CURRENT_VERSION }} gt ${{ env.LATEST_TAGGED_VERSION }}
 
       # ------------------------------------------------------------------------
 
@@ -38,46 +35,19 @@ jobs:
 
       # ------------------------------------------------------------------------
 
-      # - name: Upload Debian package artifacts
-      #   uses: pi-top/debian-package-artifact-uploader@master
-      #   with:
-      #     path: ./artifacts
-      #     full_build: true
-      #     full_build_name: "dsc"
-
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
           name: "dsc"
           path: "./artifacts"
 
-################################################################################
-
-  release:
-    runs-on: ubuntu-20.04
-    needs: build-debian
-    steps:
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: "dsc"
-          path: "./artifacts"
-
-      # TODO: get from 'build-debian'
-      - uses: actions/checkout@v2.2.0
-      - name: Determine version
-        run: |
-          sudo apt install -y dpkg-dev
-          echo "VERSION=$(dpkg-parsechangelog -Sversion)" >> $GITHUB_ENV
-          rm -rf ./*
-
       # ------------------------------------------------------------------------
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: "v${{ env.VERSION }}"
-          name: "v${{ env.VERSION }}"
+          tag_name: "v${{ env.CURRENT_VERSION }}"
+          name: "v${{ env.CURRENT_VERSION }}"
           draft: false
           prerelease: false
           files: ./artifacts/*
