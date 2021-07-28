@@ -1,3 +1,33 @@
+pt-os-core (4.2.3) buster; urgency=medium
+
+  [ pre-commit-ci[bot] ]
+  * [pre-commit.ci] pre-commit autoupdate (#32)
+
+  [ Mike Roberts ]
+  * pt-os: Add `/etc/pi-top_os_version` (#33)
+  * Revert "pt-os: Add `/etc/pi-top_os_version` (#33)"
+  * `build.yml` + `release.yml` + `update-changelog.yml` (#34)
+  * Use github.event.inputs
+  * Use github.event.inputs
+
+  [ m-roberts ]
+  * Update changelog: v4.2.2
+
+  [ Mike Roberts ]
+  * fetch-depth: 0 for updating changelog
+
+  [ m-roberts ]
+  * Update changelog: v4.2.3
+
+  [ Mike Roberts ]
+  * Revert changelog to 4.2.2
+  * Drop TODO
+  * Fix version string in bump version changelog message
+  * Use buster-backports Docker images explicitly
+  * Simplify workflow files with Actions (#35)
+
+ -- pi-top <deb-maintainers@pi-top.com>  Wed, 28 Jul 2021 18:32:39 +0000
+
 pt-os-core (4.2.2) buster; urgency=medium
 
   [ Mike Roberts ]
