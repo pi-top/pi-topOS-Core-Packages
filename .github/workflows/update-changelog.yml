@@ -4,56 +4,36 @@ on:
   workflow_dispatch:
     branches:
       - master
-    inputs:
-      version_bump:
-        description: "What type of version bump is this? 'major'/'minor'/'patch'/'prerelease'?"
-        required: true
-        default: "patch"
+
+env:
+  CHANGELOG_AUTHOR_NAME: "pi-top"
+  CHANGELOG_AUTHOR_EMAIL: "deb-maintainers@pi-top.com"
 
 jobs:
   commit-updated-changelog:
     runs-on: ubuntu-20.04
     steps:
-      - name: Validate version bump input string
-        run: |
-          case "${{ github.event.inputs.version_bump }}" in
-            major|minor|patch|prerelease)
-              echo "Valid input"
-              ;;
-            not_an_item)
-              echo "Error" >&2
-              exit 1
-              ;;
-          esac
-
       - name: Checkout code
         uses: actions/checkout@v2.2.0
         with:
           fetch-depth: 0
+
+      - name: Update Debian changelog for release
+        uses: pi-top/git-debian-changelog-bump-action@master
+        with:
+          release: true
+          author_name: ${{ env.CHANGELOG_AUTHOR_NAME }}
+          author_email: ${{ env.CHANGELOG_AUTHOR_EMAIL }}
 
       - name: Determine current version
         run: |
           sudo apt install -y dpkg-dev
           echo "CURRENT_VERSION=$(dpkg-parsechangelog -Sversion)" >> $GITHUB_ENV
 
-      - uses: actions-ecosystem/action-bump-semver@v1
-        id: bump-semver
-        with:
-          current_version: "${{ env.CURRENT_VERSION }}"
-          level: "${{ github.event.inputs.version_bump }}"
-
-      - name: Patch changelog (release)
-        run: |
-          docker run --rm \
-            --volume ${{ github.workspace }}:/src \
-            -e RELEASE=1 \
-            -e NEW_VERSION="${{ steps.bump-semver.outputs.new_version }}" \
-            pitop/gbp-dch-gen:buster-backports
-
-      - name: Commit & push changelog to master
+      - name: Commit and push changelog to master
         uses: EndBug/add-and-commit@v7
         with:
-          message: "Update changelog: v${{ steps.bump-semver.outputs.new_version }}"
+          message: "New changelog entry: v${{ env.CURRENT_VERSION }}"
           add: 'debian/changelog'
           push: true
           branch: master

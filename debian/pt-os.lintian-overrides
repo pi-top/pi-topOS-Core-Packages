@@ -1,2 +1,0 @@
-pt-os: package-supports-alternative-init-but-no-init.d-script lib/systemd/system/pt-memory-monitor.service
-pt-os: package-supports-alternative-init-but-no-init.d-script lib/systemd/system/pt-version-notify.service
