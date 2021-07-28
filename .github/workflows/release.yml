@@ -30,11 +30,11 @@ jobs:
       # ------------------------------------------------------------------------
 
       - name: Build Debian package
-        uses: pi-top/action-debian-package@master
+        uses: pi-top/debian-package-build-action@develop
         with:
           target_architecture: ${{ matrix.target_architecture }}
-          docker_image: pitop/pi-top-os-base:bullseye
-          path: ./artifacts
+          docker_image: ${{ env.DEB_BUILD_DOCKER_IMAGE }}:${{ env.DEB_BUILD_DOCKER_TAG }}
+          build_directory: ./artifacts
 
       # ------------------------------------------------------------------------
 
