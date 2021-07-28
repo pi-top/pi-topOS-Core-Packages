@@ -49,22 +49,26 @@ jobs:
           docker_image: ${{ env.DEB_BUILD_DOCKER_IMAGE }}:${{ env.DEB_BUILD_DOCKER_TAG }}
           build_directory: ./artifacts
 
+      - name: Generate artifact name
+        run: |
+          echo "ARTIFACT_PREFIX=$(basename -s .dsc "$(find . -name "*.dsc")"
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: "deb"
+          name: "${{ env.ARTIFACT_PREFIX }}.deb"
           path: ./artifacts/*.deb
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: "deb-src"
+          name: "${{ env.ARTIFACT_PREFIX }}.deb-src"
           path: ./artifacts/*.tar.xz
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: "metadata"
+          name: "${{ env.ARTIFACT_PREFIX }}.metadata"
           path: |
             ./artifacts/**
             !./artifacts/*.deb
