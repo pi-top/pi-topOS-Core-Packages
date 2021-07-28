@@ -24,10 +24,20 @@ jobs:
         if: env.LATEST_TAGGED_VERSION != ''
         run: dpkg --compare-versions ${{ env.CURRENT_VERSION }} gt ${{ env.LATEST_TAGGED_VERSION }}
 
+      - name: Determine architecture to use from package info
+        # If architecture is 'all', then it can be compiled on host architecture
+        # All other pi-topOS cases require 'armhf'
+        run: |
+          target_architecture=amd64
+          if grep '^Architecture:' debian/control | grep -q -v 'all'; then
+            target_architecture=armhf
+          fi
+          echo "TARGET_ARCHITECTURE=${target_architecture}" >> $GITHUB_ENV
+
       - name: Build Debian package
         uses: pi-top/debian-package-build-action@master
         with:
-          target_architecture: ${{ matrix.target_architecture }}
+          target_architecture: ${{ env.TARGET_ARCHITECTURE }}
           docker_image: ${{ env.DEB_BUILD_DOCKER_IMAGE }}:${{ env.DEB_BUILD_DOCKER_TAG }}
           build_directory: ./artifacts
 
