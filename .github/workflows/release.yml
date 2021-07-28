@@ -5,6 +5,10 @@ on:
     branches:
       - master
 
+env:
+  DEB_BUILD_DOCKER_IMAGE: "pitop/pi-top-os-deb-build"
+  DEB_BUILD_DOCKER_TAG: "latest"
+
 jobs:
   release:
     runs-on: ubuntu-20.04
