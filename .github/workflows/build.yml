@@ -56,7 +56,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.ARTIFACT_PREFIX }}.deb
+          name: ${{ env.ARTIFACT_PREFIX }}
           path: ./artifacts/*.deb
 
       - name: Upload artifacts
