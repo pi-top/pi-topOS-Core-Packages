@@ -24,7 +24,7 @@ jobs:
           fetch-depth: 0
 
       - name: Patch changelog (snapshot)
-        uses: pi-top/git-debian-changelog-bump-action@develop
+        uses: pi-top/git-debian-changelog-bump-action@master
         with:
           release: false
           author_name: ${{ env.CHANGELOG_AUTHOR_NAME }}
