@@ -53,15 +53,22 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: "deb"
-          path: "./artifacts/*.deb"
+          path: ./artifacts/*.deb
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
           name: "deb-src"
+          path: ./artifacts/*.tar.xz
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: "metadata"
           path: |
             ./artifacts/**
             !./artifacts/*.deb
+            !./artifacts/*.tar.xz
 
       # - name: Upload artifacts
       #   uses: actions/upload-artifact@v2
