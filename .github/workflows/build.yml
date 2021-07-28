@@ -56,19 +56,19 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: "${{ env.ARTIFACT_PREFIX }}.deb"
+          name: ${{ env.ARTIFACT_PREFIX }}.deb
           path: ./artifacts/*.deb
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: "${{ env.ARTIFACT_PREFIX }}.deb-src"
+          name: ${{ env.ARTIFACT_PREFIX }}.deb-src
           path: ./artifacts/*.tar.xz
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: "${{ env.ARTIFACT_PREFIX }}.metadata"
+          name: ${{ env.ARTIFACT_PREFIX }}.metadata
           path: |
             ./artifacts/**
             !./artifacts/*.deb
