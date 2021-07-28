@@ -35,8 +35,6 @@ jobs:
           author_name: ${{ env.CHANGELOG_AUTHOR_NAME }}
           author_email: ${{ env.CHANGELOG_AUTHOR_EMAIL }}
 
-      # ------------------------------------------------------------------------
-
       - name: Build Debian package
         uses: pi-top/debian-package-build-action@develop
         with:
@@ -44,17 +42,22 @@ jobs:
           docker_image: ${{ env.DEB_BUILD_DOCKER_IMAGE }}:${{ env.DEB_BUILD_DOCKER_TAG }}
           build_directory: ./artifacts
 
-      # ------------------------------------------------------------------------
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: "deb"
+          path: "./artifacts/*.deb"
 
-      - name: GitHub Environment Variables Action
-        uses: FranzDiebold/github-env-vars-action@v1.2.1
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: "deb-src"
+          path: |
+            ./artifacts/**
+            !./artifacts/*.deb
 
-      # - name: Upload Debian package artifacts
-      #   uses: pi-top/debian-package-artifact-uploader@master
+      # - name: Upload artifacts
+      #   uses: actions/upload-artifact@v2
       #   with:
-      #     path: ./artifacts
-      #     deb_only: true
-      #     # deb_only_name: "deb"
-      #     deb_src_only: true
-      #     # deb_src_name: "deb-src"
-      #     prefix: "${{ env.GITHUB_REPOSITORY_NAME }}-#${{ env.GITHUB_SHA_SHORT }}-"
+      #     name: "dsc"
+      #     path: "./artifacts/**"

@@ -47,8 +47,6 @@ jobs:
           author_email: ${{ env.CHANGELOG_AUTHOR_EMAIL }}
           # version_bump: "${{ github.event.inputs.version_bump }}"
 
-      # ------------------------------------------------------------------------
-
       - name: Commit and push changelog to master
         uses: EndBug/add-and-commit@v7
         with:
