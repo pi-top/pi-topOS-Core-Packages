@@ -51,12 +51,12 @@ jobs:
 
       - name: Generate artifact name
         run: |
-          echo "ARTIFACT_PREFIX=$(basename -s .dsc "$(find . -name "*.dsc")")"
+          echo "ARTIFACT_PREFIX=$(basename -s .dsc "$(find . -name "*.dsc")")" >> $GITHUB_ENV
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.ARTIFACT_PREFIX }}
+          name: ${{ env.ARTIFACT_PREFIX }}.deb
           path: ./artifacts/*.deb
 
       - name: Upload artifacts
