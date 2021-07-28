@@ -18,7 +18,7 @@ jobs:
         run: |
           sudo apt install -y dpkg-dev
           echo "CURRENT_VERSION=$(dpkg-parsechangelog -Sversion)" >> $GITHUB_ENV
-          echo "LATEST_TAGGED_VERSION=$(git rev-list --tags --max-count=1)" >> $GITHUB_ENV
+          echo "LATEST_TAGGED_VERSION=$(git describe --tags --abbrev=0 2>/dev/null)" >> $GITHUB_ENV
 
       - name: Confirm version is higher than last tagged version
         if: env.LATEST_TAGGED_VERSION != ''
