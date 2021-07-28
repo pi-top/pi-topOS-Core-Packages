@@ -9,7 +9,7 @@ on:
       - master
 
 env:
-  DEB_BUILD_DOCKER_IMAGE: "pitop/deb-build-img"
+  DEB_BUILD_DOCKER_IMAGE: "pitop/deb-build"
   DEB_BUILD_DOCKER_TAG: "buster-backports-develop"
   CHANGELOG_AUTHOR_NAME: "pi-top"
   CHANGELOG_AUTHOR_EMAIL: "deb-maintainers@pi-top.com"
