@@ -8,6 +8,7 @@ on:
 env:
   CHANGELOG_AUTHOR_NAME: "pi-top"
   CHANGELOG_AUTHOR_EMAIL: "deb-maintainers@pi-top.com"
+  COMMIT_MESSAGE_PREFIX: "New changelog entry: v"
 
 jobs:
   commit-updated-changelog:
@@ -29,13 +30,18 @@ jobs:
           author_email: ${{ env.CHANGELOG_AUTHOR_EMAIL }}
           snapshot_number: ${{ steps.version.outputs.distance }}
           since: ${{ steps.version.outputs.tag_latest }}
+          ignore_regex: ${{ env. COMMIT_MESSAGE_PREFIX }}
 
       - name: Determine current version
         run: |
           sudo apt install -y dpkg-dev
           echo "CURRENT_VERSION=$(dpkg-parsechangelog -Sversion)" >> $GITHUB_ENV
 
+      # Commit as GitHub Actions bot
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "New changelog entry: v${{ env.CURRENT_VERSION }}"
+          commit_message: "${{ env.COMMIT_MESSAGE_PREFIX }}${{ env.CURRENT_VERSION }}"
           branch: master
+          commit_user_name: github-actions[bot]
+          commit_user_email: github-actions[bot]@users.noreply.github.com
+          commit_author: github-actions[bot] github-actions[bot]@users.noreply.github.com
