@@ -30,10 +30,9 @@ jobs:
           sudo apt install -y dpkg-dev
           echo "CURRENT_VERSION=$(dpkg-parsechangelog -Sversion)" >> $GITHUB_ENV
 
-      - name: Commit and push changelog to master
-        uses: EndBug/add-and-commit@v7
+      - name: Commit & Push changes
+        uses: actions-js/push@v1.2
         with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           message: "New changelog entry: v${{ env.CURRENT_VERSION }}"
-          add: 'debian/changelog'
-          push: true
           branch: master
