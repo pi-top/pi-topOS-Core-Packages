@@ -1,3 +1,10 @@
+pt-os-core (4.2.4) buster; urgency=medium
+
+  [ Mike Roberts ]
+  * New workflows (#36)
+
+ -- pi-top <deb-maintainers@pi-top.com>  Thu, 29 Jul 2021 18:52:22 +0000
+
 pt-os-core (4.2.3) buster; urgency=medium
 
   [ pre-commit-ci[bot] ]
