@@ -1,3 +1,17 @@
+pt-os-core (4.2.6) buster; urgency=medium
+
+  [ Mike Roberts ]
+  * New workflows (#36)
+
+  [ github-actions[bot] ]
+  * {New changelog entry: v4.2.4}
+  * Try another commit action
+
+  [ m-roberts ]
+  * New changelog entry: v4.2.5
+
+ -- pi-top <deb-maintainers@pi-top.com>  Thu, 29 Jul 2021 19:18:19 +0000
+
 pt-os-core (4.2.5) buster; urgency=medium
 
   [ Mike Roberts ]
