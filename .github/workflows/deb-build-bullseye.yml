@@ -83,7 +83,7 @@ jobs:
       # Upload experimental build
       - uses: docker://lpenz/ghaction-packagecloud:v0.3
         with:
-          repository: pi-top/${{ env.REPO }}/${{ env.OS }}/${{ steps.bump_changelog.outputs.version }}
+          repository: ${{ env.REPO }}/${{ env.OS }}/${{ steps.bump_changelog.outputs.version }}
         env:
           PACKAGECLOUD_TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
           files: ./deb/*.dsc
