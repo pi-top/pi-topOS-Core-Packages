@@ -28,7 +28,7 @@ jobs:
 
       - name: Add changelog entry for latest snapshot version
         id: bump_changelog
-        uses: pi-top/git-debian-changelog-bump-action@output-version
+        uses: pi-top/git-debian-changelog-bump-action@master
         with:
           release: false
           author_name: ${{ env.CHANGELOG_AUTHOR_NAME }}
@@ -83,7 +83,7 @@ jobs:
       # Upload experimental build
       - uses: docker://lpenz/ghaction-packagecloud:v0.3
         with:
-          repository: ${{ env.REPO }}/${{ env.OS }}/${{ steps.bump_changelog.outputs.version }}
+          repository: ${{ env.REPO }}/${{ env.OS }}/bullseye
         env:
           PACKAGECLOUD_TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
           files: ./deb/*.dsc
