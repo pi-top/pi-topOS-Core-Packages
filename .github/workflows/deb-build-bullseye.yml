@@ -27,7 +27,8 @@ jobs:
         uses: docker://lpenz/ghaction-version-gen:0.3
 
       - name: Add changelog entry for latest snapshot version
-        uses: pi-top/git-debian-changelog-bump-action@master
+        id: bump_changelog
+        uses: pi-top/git-debian-changelog-bump-action@output-version
         with:
           release: false
           author_name: ${{ env.CHANGELOG_AUTHOR_NAME }}
@@ -82,7 +83,7 @@ jobs:
       # Upload experimental build
       - uses: docker://lpenz/ghaction-packagecloud:v0.3
         with:
-          repository: pi-top/${{ env.REPO }}/${{ env.OS }}/{{ env.VERSION }}
+          repository: pi-top/${{ env.REPO }}/${{ env.OS }}/${{ steps.bump_changelog.outputs.version }}
         env:
           PACKAGECLOUD_TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
           files: ./deb/*.dsc
