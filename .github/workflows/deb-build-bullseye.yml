@@ -13,7 +13,7 @@ env:
   DEB_BUILD_DOCKER_TAG: "bullseye-master"
   CHANGELOG_AUTHOR_NAME: "pi-top"
   CHANGELOG_AUTHOR_EMAIL: "deb-maintainers@pi-top.com"
-  REPO: "bullseye"
+  REPO: "experimental"
   OS: "debian"
 
 jobs:
