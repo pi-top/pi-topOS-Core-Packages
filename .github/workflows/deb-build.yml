@@ -4,8 +4,6 @@ on:
   pull_request:
     branches:
       - master
-    branches-ignore:
-      - bullseye
   push:
     branches:
       - master
@@ -18,6 +16,7 @@ env:
 
 jobs:
   build-debian-package:
+    if: github.head_ref != 'bullseye'
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout code
