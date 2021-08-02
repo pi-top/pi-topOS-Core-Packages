@@ -1,4 +1,4 @@
-name: Debian Package Build
+name: Debian Package Build (Bullseye)
 
 on:
   pull_request:
