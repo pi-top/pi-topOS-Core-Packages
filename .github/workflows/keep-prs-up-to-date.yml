@@ -1,4 +1,4 @@
-name: Rebase Pull Requests to master
+name: Keep Pull Requests up-to-date with master
 
 on:
   push:
@@ -9,7 +9,7 @@ jobs:
   rebase:
     runs-on: ubuntu-20.04
     steps:
-      - uses: linhbn123/rebase-pull-requests@v1.0.1
+      - uses: maxkomarychev/pr-updater-action@v1.0.0
         with:
           # PAT needed to trigger other workflows
           token: ${{ secrets.REBASE_PAT }}
