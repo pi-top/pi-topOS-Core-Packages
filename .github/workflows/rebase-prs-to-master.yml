@@ -3,7 +3,7 @@ name: Rebase Pull Requests to master
 on:
   push:
     branches:
-      - [master]
+      - master
 
 jobs:
   rebase:
