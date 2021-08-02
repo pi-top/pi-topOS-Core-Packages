@@ -28,7 +28,6 @@ jobs:
         uses: docker://lpenz/ghaction-version-gen:0.3
 
       - name: Add changelog entry for latest snapshot version
-        id: bump_changelog
         uses: pi-top/git-debian-changelog-bump-action@master
         with:
           release: false
