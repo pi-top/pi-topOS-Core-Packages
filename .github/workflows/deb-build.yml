@@ -3,16 +3,19 @@ name: Debian Package Build
 on:
   pull_request:
     branches:
-      - master
+      - bullseye
   push:
     branches:
-      - master
+      - bullseye
 
 env:
   DEB_BUILD_DOCKER_IMAGE: "pitop/pi-top-os-deb-build"
-  DEB_BUILD_DOCKER_TAG: "latest"
+  DEB_BUILD_DOCKER_TAG: "bullseye-master"
   CHANGELOG_AUTHOR_NAME: "pi-top"
   CHANGELOG_AUTHOR_EMAIL: "deb-maintainers@pi-top.com"
+  PACKAGECLOUD_REPO: "experimental"
+  OS: "debian"
+  DISTRO: "bullseye"
 
 jobs:
   build-debian-package:
@@ -76,3 +79,11 @@ jobs:
             ./artifacts/**
             !./artifacts/*.deb
             !./artifacts/*.tar.xz
+
+      # Upload experimental build
+      - uses: docker://lpenz/ghaction-packagecloud:v0.3
+        with:
+          repository: ${{ env.PACKAGECLOUD_REPO }}/${{ env.OS }}/${{ env.DISTRO }}
+        env:
+          PACKAGECLOUD_TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
+          files: ./deb/*.dsc

@@ -14,14 +14,14 @@ Depends:
  pt-recovery,
  pt-os-mods,
 Recommends:
-# Other pt-os-core packages
+# 'pt-os-core' packages
  pt-apps,
  pt-dev,
  pt-devices,
  pt-ui,
  pt-user-libs,
-# 'Casual' dependencies
- neofetch (>= 6.0.0),
+# casual dependencies
+ neofetch,
  pt-avs,
  pt-firmware-updater,
  pt-networking,
