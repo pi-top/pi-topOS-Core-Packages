@@ -21,6 +21,7 @@ jobs:
         uses: docker://lpenz/ghaction-version-gen:0.3
 
       - name: Add changelog entry for release version
+        id: bump_changelog
         uses: pi-top/git-debian-changelog-bump-action@master
         with:
           release: true
@@ -32,12 +33,7 @@ jobs:
           ignore_regex: |
             ${{ env. COMMIT_MESSAGE_PREFIX }}
 
-      - name: Determine current version
-        run: |
-          sudo apt install -y dpkg-dev
-          echo "CURRENT_VERSION=$(dpkg-parsechangelog -Sversion)" >> $GITHUB_ENV
-
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "${{ env.COMMIT_MESSAGE_PREFIX }}${{ env.CURRENT_VERSION }}"
+          commit_message: "${{ env.COMMIT_MESSAGE_PREFIX }}${{ steps.bump_changelog.outputs.version }}"
           branch: master
