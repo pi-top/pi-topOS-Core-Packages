@@ -1,7 +1,7 @@
 name: Update Debian Package Changelog
 
 on:
-  workflow_dispatch:
+  push:
     branches:
       - master
 
@@ -11,8 +11,10 @@ env:
   COMMIT_MESSAGE_PREFIX: "New changelog entry: v"
 
 jobs:
-  commit-updated-changelog:
+  bump-changelog-on-pr:
     runs-on: ubuntu-20.04
+    # if last commit was not a merge of the changelog
+    if: ! contains(github.event.head_commit.message, env.COMMIT_MESSAGE_PREFIX)
     steps:
       - name: Checkout code
         uses: actions/checkout@v2.2.0
@@ -33,7 +35,9 @@ jobs:
           ignore_regex: |
             ${{ env. COMMIT_MESSAGE_PREFIX }}
 
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
         with:
-          commit_message: "${{ env.COMMIT_MESSAGE_PREFIX }}${{ steps.bump_changelog.outputs.version }}"
-          branch: master
+          commit-message: "${{ env.COMMIT_MESSAGE_PREFIX }}${{ steps.bump_changelog.outputs.version }}"
+          branch: bump-changelog
+          title: "${{ env.COMMIT_MESSAGE_PREFIX }}${{ steps.bump_changelog.outputs.version }}"
