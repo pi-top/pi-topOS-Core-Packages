@@ -131,6 +131,9 @@ Recommends:
  python3-pt-speech,
 # Sonic Pi with Python
  python3-sonic,
+# 'python3-sonic' built with stdeb is not currently specifying
+# this as a dependency
+ python3-osc,
 Description: pi-topOS User Libraries
  This metapackage contains optional libraries (primarily Python) for pi-topOS.
 
