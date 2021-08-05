@@ -160,7 +160,8 @@ Recommends:
 # OLED menu
  pt-sys-oled,
 # pi-top touchscreen support - note: requires a desktop environment!
- pt-touchscreen,
+# TODO: re-add with touchegg/touche
+# pt-touchscreen,
 # SDK
  python3-pitop,
 # Screen blanking for pt-device-manager - requires desktop
