@@ -25,7 +25,8 @@ Recommends:
  neofetch,
 # Additional hardware support
  pt-display-port,
- pt-touchscreen,
+# TODO: re-add with touchegg/touche
+# pt-touchscreen,
 # TODO: pt-miniscreen
  pt-sys-oled,
 # Software updaters
