@@ -94,7 +94,6 @@ Depends:
  pt-sys-oled,
 # Software updaters
  pt-firmware-updater,
- pt-os-updater,
 # TODO: re-add with touchegg/touche
 # pt-touchscreen,
 # Recommend screen blanking dependency
