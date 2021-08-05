@@ -26,7 +26,8 @@ Recommends:
 # Additional hardware support
  pt-display-port,
  pt-touchscreen,
- pt-sys-oled,  # pt-miniscreen
+# TODO: pt-miniscreen
+ pt-sys-oled,
 # Software updaters
  pt-firmware-updater,
  pt-os-updater,
