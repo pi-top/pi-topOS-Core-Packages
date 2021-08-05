@@ -122,8 +122,6 @@ Depends:
  ${misc:Depends},
 # pi-top Python SDK + all dependencies
  python3-pitop,
-# pi-top Python SDK migration support
- python3-pitop-migr,
 Recommends:
 # Useful for graphing
  python3-matplotlib,
