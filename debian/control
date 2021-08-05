@@ -19,17 +19,17 @@ Recommends:
  pt-devices,
  pt-ui,
  pt-user-libs,
-# casual dependencies
+# Required for ssh login motd (see OS build)
+# TODO: match this dependency with the file that uses it
+# 'pt-motd'?
  neofetch,
- pt-avs,
+# Additional hardware support
  pt-display-port,
- pt-firmware-updater,
- pt-os-core-services,
- pt-os-updater,
  pt-touchscreen,
- pt-sys-oled,
- pt-web-portal,
- wifi-ap-sta,
+ pt-sys-oled,  # pt-miniscreen
+# Software updaters
+ pt-firmware-updater,
+ pt-os-updater,
 # Only suggested by device manager to support headless configurations
  xprintidle,
 Description: pi-topOS top-level dummy package
