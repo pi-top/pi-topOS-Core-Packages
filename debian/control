@@ -125,8 +125,6 @@ Depends:
 Recommends:
 # Useful for graphing
  python3-matplotlib,
-# Optional text-to-speech library
- python3-pt-speech,
 # Sonic Pi with Python
  python3-python-sonic,
 # 'python3-sonic' built with stdeb is not currently specifying
