@@ -1,1 +1,2 @@
-src/pi-top_os_version     /etc/
+src/pi-top_os_version                   /etc/
+src/70-wlan-disable-powersave.rules     /lib/udev/rules.d/
