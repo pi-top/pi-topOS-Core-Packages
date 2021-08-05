@@ -49,11 +49,9 @@ Recommends:
  libreoffice-pi,
  libreoffice-common,
  imagemagick,
- minecraft-pi,
  mtpaint,
  mu-editor,
  pt-settings,
- python-games,
  python3-minecraftpi,
  realvnc-vnc-viewer,
  scratch3,
@@ -61,6 +59,9 @@ Recommends:
  sonic-pi,
  touche,
  vlc,
+# Not install on bullseye
+# python-games,
+# minecraft-pi,
 Description: pi-topOS Applications
  This package contains the files and dependencies required
  to install and configure pi-topOS' GUI applications.
