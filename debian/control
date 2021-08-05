@@ -23,15 +23,6 @@ Recommends:
 # TODO: match this dependency with the file that uses it
 # 'pt-motd'?
  neofetch,
-# Additional hardware support
- pt-display-port,
-# TODO: re-add with touchegg/touche
-# pt-touchscreen,
-# TODO: pt-miniscreen
- pt-sys-oled,
-# Software updaters
- pt-firmware-updater,
- pt-os-updater,
 # Only suggested by device manager to support headless configurations
  xprintidle,
 Description: pi-topOS top-level dummy package
@@ -97,6 +88,15 @@ Depends:
  ${misc:Depends},
  pt-device-manager,
  python3-pitop,
+# Additional hardware support
+ pt-display-port,
+# TODO: pt-miniscreen
+ pt-sys-oled,
+# Software updaters
+ pt-firmware-updater,
+ pt-os-updater,
+# TODO: re-add with touchegg/touche
+# pt-touchscreen,
 # Recommend screen blanking dependency
 # (only suggested by device manager to support headless configurations)
  xprintidle,
@@ -143,33 +143,32 @@ Description: GnuPG archive keys of the pi-topOS archive
  This package contains the archive keys used for the pi-topOS apt
  software repository archives.
 
-Package: pi-top-4
-Architecture: all
-Depends:
- ${misc:Depends},
-# Driver support - handle shutdowns, configure SPI/I2C, etc.
- pt-device-manager,
-Recommends:
-# Firmware updater will keep the device up-to-date
-# Currently requires desktop environment to work
- pt-firmware-updater,
-# Virtual Ethernet interface via USB-OTG for Display Port
- pt-display-port,
-# Pi 4 with board revisions earlier than 1.4 require a modified EEPROM to
-# power off. This service will ensure that this happens
-# pt-rpi-eeprom-updater,
-# OLED menu
- pt-sys-oled,
-# pi-top touchscreen support - note: requires a desktop environment!
-# TODO: re-add with touchegg/touche
-# pt-touchscreen,
-# SDK
- python3-pitop,
-# Screen blanking for pt-device-manager - requires desktop
- xprintidle,
-Description: Dummy package providing full pi-top [4] support
- Root package providing full support for all of the
- functionality offered out-of-the-box with a pi-top [4].
+# Package: pi-top-4
+# Architecture: all
+# Depends:
+#  ${misc:Depends},
+# # Driver support - handle shutdowns, configure SPI/I2C, etc.
+#  pt-device-manager,
+# Recommends:
+# # Firmware updater will keep the device up-to-date
+# # Currently requires desktop environment to work
+#  pt-firmware-updater,
+# # Virtual Ethernet interface via USB-OTG for Display Port
+#  pt-display-port,
+# # Pi 4 with board revisions earlier than 1.4 require a modified EEPROM to
+# # power off. This service will ensure that this happens
+# # pt-rpi-eeprom-updater,
+# # OLED menu
+#  pt-sys-oled,
+# # pi-top touchscreen support - note: requires a desktop environment!
+#  pt-touchscreen,
+# # SDK
+#  python3-pitop,
+# # Screen blanking for pt-device-manager - requires desktop
+#  xprintidle,
+# Description: Dummy package providing full pi-top [4] support
+#  Root package providing full support for all of the
+#  functionality offered out-of-the-box with a pi-top [4].
 
 Package: pt-notifications
 Architecture: all
