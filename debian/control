@@ -22,8 +22,8 @@ Recommends:
 # casual dependencies
  neofetch,
  pt-avs,
+ pt-display-port,
  pt-firmware-updater,
- pt-networking,
  pt-os-core-services,
  pt-os-updater,
  pt-touchscreen,
