@@ -71,16 +71,20 @@ Depends:
  ${misc:Depends},
 Recommends:
  asciinema,
+ debtree,
+ graphviz,
  p7zip-full,
  silversearcher-ag,
  squashfs-tools,
+ tree,
  vim,
  zip,
  zsh,
 Description: pi-topOS Development Support
  This metapackage contains the files and dependencies required
  to install and configure pi-topOS' development-related
- components.
+ components. This includes scripts that are used as part of the OS
+ build pipeline.
 
 Package: pt-devices
 Architecture: all
