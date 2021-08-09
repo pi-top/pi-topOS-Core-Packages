@@ -123,7 +123,7 @@ Architecture: all
 Depends:
  ${misc:Depends},
 # pi-top Python SDK + all dependencies
- python3-pitop,
+ python3-pitop-full,
 Recommends:
 # Useful for graphing
  python3-matplotlib,
