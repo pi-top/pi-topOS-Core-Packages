@@ -111,7 +111,7 @@ Architecture: all
 Depends:
  ${misc:Depends},
  autorandr,
- pt-plym-splash,
+ pt-os-bootsplash,
  pt-ui-mods,
  pt-web-portal-desktop,
 Description: pi-topOS UI
