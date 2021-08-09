@@ -98,7 +98,7 @@ Depends:
  pt-sys-oled,
 # Software updaters
  pt-firmware-updater,
-pt-touchscreen,
+ pt-touchscreen,
 # Recommend screen blanking dependency
 # (only suggested by device manager to support headless configurations)
  xprintidle,
