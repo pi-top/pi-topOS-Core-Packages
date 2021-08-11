@@ -15,7 +15,7 @@ Depends:
 Recommends:
 # 'pt-os-core' packages
  pt-os-apps,
- pt-dev-tools,
+ pt-os-dev-tools,
  pt-device-support,
  pt-os-ui,
  pt-os-user-libs,
@@ -67,7 +67,7 @@ Description: pi-topOS Applications
  This package contains the files and dependencies required
  to install and configure pi-topOS' GUI applications.
 
-Package: pt-dev-tools
+Package: pt-os-dev-tools
 Architecture: all
 Depends:
  ${misc:Depends},
