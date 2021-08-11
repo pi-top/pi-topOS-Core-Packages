@@ -17,8 +17,10 @@ Recommends:
  pt-apps,
  pt-dev,
  pt-devices,
- pt-ui,
+ pt-os-ui,
  pt-user-libs,
+# systemd services
+ pt-os-notify-services,
 # Required for ssh login motd (see OS build)
 # TODO: match this dependency with the file that uses it
 # 'pt-motd'?
@@ -106,13 +108,13 @@ Description: pi-topOS Development
  This metapackage contains dependencies required to install and configure
  pi-topOS' low-level device-related components.
 
-Package: pt-ui
+Package: pt-os-ui
 Architecture: all
 Depends:
  ${misc:Depends},
  autorandr,
  pt-os-bootsplash,
- pt-ui-mods,
+ pt-os-ui-mods,
  pt-web-portal-desktop,
 Description: pi-topOS UI
  This metapackage contains the files and dependencies required
@@ -177,7 +179,7 @@ Depends:
  xfce4-notifyd,
  notify-send-ng,
 Suggests:
- pt-ui-mods,
+ pt-os-ui-mods,
 Description: pi-top Desktop Notification Service
  Interface for showing notifications directly to the user at the desktop.
  Handles detecting which display to target, as well as which user is
