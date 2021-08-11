@@ -14,11 +14,11 @@ Depends:
  pt-os-mods,
 Recommends:
 # 'pt-os-core' packages
- pt-apps,
- pt-dev,
- pt-devices,
+ pt-os-apps,
+ pt-dev-tools,
+ pt-device-support,
  pt-os-ui,
- pt-user-libs,
+ pt-os-user-libs,
 # systemd services
  pt-os-notify-services,
 # Required for ssh login motd (see OS build)
@@ -30,7 +30,7 @@ Recommends:
 Description: pi-topOS top-level dummy package
  The root package of pi-topOS modifications to Raspbian.
 
-Package: pt-apps
+Package: pt-os-apps
 Architecture: all
 Depends:
  ${misc:Depends}
@@ -67,7 +67,7 @@ Description: pi-topOS Applications
  This package contains the files and dependencies required
  to install and configure pi-topOS' GUI applications.
 
-Package: pt-dev
+Package: pt-dev-tools
 Architecture: all
 Depends:
  ${misc:Depends},
@@ -88,7 +88,7 @@ Description: pi-topOS Development Support
  components. This includes scripts that are used as part of the OS
  build pipeline.
 
-Package: pt-devices
+Package: pt-device-support
 Architecture: all
 Depends:
  ${misc:Depends},
@@ -104,9 +104,9 @@ Depends:
 # Recommend screen blanking dependency
 # (only suggested by device manager to support headless configurations)
  xprintidle,
-Description: pi-topOS Development
+Description: pi-top Device Support
  This metapackage contains dependencies required to install and configure
- pi-topOS' low-level device-related components.
+ low-level device-related components for using pi-top hardware.
 
 Package: pt-os-ui
 Architecture: all
@@ -120,7 +120,7 @@ Description: pi-topOS UI
  This metapackage contains the files and dependencies required
  to install and configure pi-topOS' UI-related components.
 
-Package: pt-user-libs
+Package: pt-os-user-libs
 Architecture: all
 Depends:
  ${misc:Depends},
