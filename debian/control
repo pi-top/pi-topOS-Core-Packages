@@ -96,8 +96,7 @@ Depends:
  python3-pitop,
 # Additional hardware support
  pt-display-port,
-# TODO: pt-miniscreen
- pt-sys-oled,
+ pt-miniscreen,
 # Software updaters
  pt-firmware-updater,
  pt-touchscreen,
@@ -160,9 +159,9 @@ Description: GnuPG archive keys of the pi-topOS archive
 # # Pi 4 with board revisions earlier than 1.4 require a modified EEPROM to
 # # power off. This service will ensure that this happens
 # # pt-rpi-eeprom-updater,
-# # OLED menu
-#  pt-sys-oled,
-# # pi-top touchscreen support - note: requires a desktop environment!
+# # pi-top [4] miniscreen support
+#  pt-miniscreen,
+# # pi-top [4] touchscreen support - note: requires a desktop environment!
 #  pt-touchscreen,
 # # SDK
 #  python3-pitop,
