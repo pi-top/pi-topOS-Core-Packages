@@ -85,7 +85,7 @@ jobs:
             !./artifacts/*.tar.xz
 
       # Upload experimental build
-      - uses: pi-top/ghaction-packagecloud@master
+      - uses: pi-top/ghaction-packagecloud@main
         with:
           repository: ${{ env.PACKAGECLOUD_REPO }}/${{ env.OS }}/${{ env.DISTRO }}
           directory: ./artifacts
