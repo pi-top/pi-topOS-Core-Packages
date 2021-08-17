@@ -136,7 +136,7 @@ Recommends:
 Description: pi-topOS User Libraries
  This metapackage contains optional libraries (primarily Python) for pi-topOS.
 
-Package: pt-os-archive-keyring
+Package: pi-top-os-archive-keyring
 Architecture: all
 Depends:
  ${misc:Depends},
