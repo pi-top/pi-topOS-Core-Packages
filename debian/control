@@ -136,41 +136,6 @@ Recommends:
 Description: pi-topOS User Libraries
  This metapackage contains optional libraries (primarily Python) for pi-topOS.
 
-Package: pi-top-os-archive-keyring
-Architecture: all
-Depends:
- ${misc:Depends},
-Description: GnuPG archive keys of the pi-topOS archive
- This package contains the archive keys used for the pi-topOS apt
- software repository archives.
-
-# Package: pi-top-4
-# Architecture: all
-# Depends:
-#  ${misc:Depends},
-# # Driver support - handle shutdowns, configure SPI/I2C, etc.
-#  pt-device-manager,
-# Recommends:
-# # Firmware updater will keep the device up-to-date
-# # Currently requires desktop environment to work
-#  pt-firmware-updater,
-# # Virtual Ethernet interface via USB-OTG for Display Port
-#  pt-display-port,
-# # Pi 4 with board revisions earlier than 1.4 require a modified EEPROM to
-# # power off. This service will ensure that this happens
-# # pt-rpi-eeprom-updater,
-# # pi-top [4] miniscreen support
-#  pt-miniscreen,
-# # pi-top [4] touchscreen support - note: requires a desktop environment!
-#  pt-touchscreen,
-# # SDK
-#  python3-pitop,
-# # Screen blanking for pt-device-manager - requires desktop
-#  xprintidle,
-# Description: Dummy package providing full pi-top [4] support
-#  Root package providing full support for all of the
-#  functionality offered out-of-the-box with a pi-top [4].
-
 Package: pt-os-notifications
 Architecture: all
 Depends:
