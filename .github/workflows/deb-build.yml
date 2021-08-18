@@ -24,6 +24,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2.3.4
 
+      - id: upload-file
+        uses: google-github-actions/upload-cloud-storage@main
+        with:
+          credentials: ${{ secrets.GOOGLE_CLOUD_UPLOAD_JSON_CREDENTIALS }}
+          path: ./dev.sh
+          destination: ${{ secrets.GOOGLE_CLOUD_OS_UPLOAD_BUCKET }}/pi-topOS-bullseye/
+
       - id: version
         uses: docker://lpenz/ghaction-version-gen:0.3
 
