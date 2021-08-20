@@ -50,64 +50,46 @@ EOF
     return 0
 }
 
-grab_oled() {
-    modprobe i2c-bcm2835
-    modprobe i2c-dev
-    if i2cping 0x11; then
-        # If pi-top[4], avoid OLED from timing out
-        # Make RPi take control over OLED and reset screen
-        i2cset -y 1 0x11 0x14 3
-    fi
-}
 
-release_oled() {
-    if i2cping 0x11; then
-        # Return control of OLED to hub
-        i2cset -y 1 0x11 0x14 0
-    fi
-}
+mount -t devtmpfs none /dev
+mount -t proc proc /proc
+mount -t sysfs sys /sys
+mount -t tmpfs tmp /run
+mkdir -p /run/systemd
 
-mount_fs() {
-    mount -t devtmpfs none /dev
-    mount -t proc proc /proc
-    mount -t sysfs sys /sys
-    mount -t tmpfs tmp /run
-    mkdir -p /run/systemd
+mount /boot
+mount / -o remount,ro
 
-    mount /boot
-    mount / -o remount,ro
-}
 
-clean_cmdline() {
-    if ! grep -q splash /boot/cmdline.txt; then
-        sed -i "s/ quiet//g" /boot/cmdline.txt
-    fi
-    sed -i 's| init=/sbin/pt-os-init||' /boot/cmdline.txt
-}
+# Load kernel modules to perform i2c operations
+modprobe i2c-bcm2835
+modprobe i2c-dev
 
-leave_fs_expanded_breadcrumb() {
-    mkdir -p /etc/pi-top/
-    touch /etc/pi-top/.expandedFs
-}
+if i2cping 0x11; then
+    # If pi-top[4], avoid OLED from timing out
+    # Make RPi take control over OLED and reset screen
+    i2cset -y 1 0x11 0x14 3
+fi
 
-main() {
-    mount_fs
-    grab_oled
-    clean_cmdline
+if ! grep -q splash /boot/cmdline.txt; then
+    sed -i "s/ quiet//g" /boot/cmdline.txt
+fi
+sed -i 's| init=/sbin/pt-os-init||' /boot/cmdline.txt
 
-    mount /boot -o remount,ro
-    sync
-    echo 1 > /proc/sys/kernel/sysrq
+mount /boot -o remount,ro
+sync
 
-    expand_filesystem >>/dev/null
-    leave_fs_expanded_breadcrumb
+echo 1 > /proc/sys/kernel/sysrq
 
-    release_oled
+expand_filesystem >>/dev/null
 
-    umount /boot
-    mount / -o remount,ro
+if i2cping 0x11; then
+    # Let hub control OLED
+    i2cset -y 1 0x11 0x14 0
+fi
 
-    reboot -f
-}
+umount /boot
+mount / -o remount,ro
+sync
 
-main
+reboot -f
