@@ -82,8 +82,6 @@ sync
 echo 1 > /proc/sys/kernel/sysrq
 
 expand_filesystem >>/dev/null
-mkdir -p /etc/pi-top/
-touch /etc/pi-top/.expandedFs
 
 if i2cping 0x11; then
     # Let hub control OLED
