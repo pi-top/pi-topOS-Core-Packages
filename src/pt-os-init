@@ -50,46 +50,59 @@ EOF
     return 0
 }
 
+do_expand() {
+  mount -t devtmpfs none /dev
+  mount -t proc proc /proc
+  mount -t sysfs sys /sys
+  mount -t tmpfs tmp /run
+  mkdir -p /run/systemd
 
-mount -t devtmpfs none /dev
-mount -t proc proc /proc
-mount -t sysfs sys /sys
-mount -t tmpfs tmp /run
-mkdir -p /run/systemd
-
-mount /boot
-mount / -o remount,ro
+  mount /boot
+  mount / -o remount,ro
 
 
-# Load kernel modules to perform i2c operations
-modprobe i2c-bcm2835
-modprobe i2c-dev
+  # Load kernel modules to perform i2c operations
+  modprobe i2c-bcm2835
+  modprobe i2c-dev
 
-if i2cping 0x11; then
-    # If pi-top[4], avoid OLED from timing out
-    # Make RPi take control over OLED and reset screen
-    i2cset -y 1 0x11 0x14 3
+  if i2cping 0x11; then
+      # If pi-top[4], avoid OLED from timing out
+      # Make RPi take control over OLED and reset screen
+      i2cset -y 1 0x11 0x14 3
+  fi
+
+  if ! grep -q splash /boot/cmdline.txt; then
+     sed -i "s/ quiet//g" /boot/cmdline.txt
+  fi
+  sed -i 's| init=/sbin/pt-os-init||' /boot/cmdline.txt
+
+  mount /boot -o remount,ro
+  sync
+
+  echo 1 > /proc/sys/kernel/sysrq
+
+  expand_filesystem >>/dev/null
+
+  if i2cping 0x11; then
+      # Let hub control OLED
+      i2cset -y 1 0x11 0x14 0
+  fi
+
+  umount /boot
+  mount / -o remount,ro
+  sync
+  reboot -f
+}
+
+
+do_prepare() {
+  sed -e "s| init=[0-9a-zA-Z\/\-]*||g" /boot/cmdline.txt
+  echo "$(cat /boot/cmdline.txt) init=/sbin/pt-os-init" >/boot/cmdline.txt
+}
+
+
+if [ "$#" -eq 0 ]; then
+  do_expand
+elif [ "$1" = "prepare" ]; then
+  do_prepare
 fi
-
-if ! grep -q splash /boot/cmdline.txt; then
-    sed -i "s/ quiet//g" /boot/cmdline.txt
-fi
-sed -i 's| init=/sbin/pt-os-init||' /boot/cmdline.txt
-
-mount /boot -o remount,ro
-sync
-
-echo 1 > /proc/sys/kernel/sysrq
-
-expand_filesystem >>/dev/null
-
-if i2cping 0x11; then
-    # Let hub control OLED
-    i2cset -y 1 0x11 0x14 0
-fi
-
-umount /boot
-mount / -o remount,ro
-sync
-
-reboot -f
