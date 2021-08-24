@@ -113,7 +113,7 @@ Depends:
  ${misc:Depends},
  autorandr,
  pt-os-bootsplash,
-# pt-os-ui-mods,
+ pt-os-ui-mods,
  pt-os-web-portal-desktop,
 Description: pi-topOS UI
  This metapackage contains the files and dependencies required
