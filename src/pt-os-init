@@ -50,7 +50,22 @@ EOF
     return 0
 }
 
-do_expand() {
+do_not_timeout_oled() {
+  # Load kernel modules to perform i2c operations
+  modprobe i2c-bcm2835
+  modprobe i2c-dev
+
+  if i2cping 0x11; then
+      # If pi-top[4], avoid OLED from timing out.
+      # Put hub into shutdown mode 5 to display the rotating 4 in the OLED.
+      register_read="$(i2cget -y 1 0x11 0xA0 c)"
+      mode5_mask="0x38"
+      byte_to_write="$((register_read | mode5_mask))"
+      i2cset -y 1 0x11 0xA0 "${byte_to_write}"
+  fi
+}
+
+do_mount_all() {
   mount -t devtmpfs none /dev
   mount -t proc proc /proc
   mount -t sysfs sys /sys
@@ -59,43 +74,20 @@ do_expand() {
 
   mount /boot
   mount / -o remount,ro
-
-
-  # Load kernel modules to perform i2c operations
-  modprobe i2c-bcm2835
-  modprobe i2c-dev
-
-  if i2cping 0x11; then
-      # If pi-top[4], avoid OLED from timing out
-      # Make RPi take control over OLED and reset screen
-      i2cset -y 1 0x11 0x14 3
-  fi
-
-  if ! grep -q splash /boot/cmdline.txt; then
-     sed -i "s/ quiet//g" /boot/cmdline.txt
-  fi
-  sed -i 's| init=/sbin/pt-os-init||' /boot/cmdline.txt
-
-  mount /boot -o remount,ro
   sync
-
-  echo 1 > /proc/sys/kernel/sysrq
-
-  expand_filesystem >>/dev/null
-
-  if i2cping 0x11; then
-      # Let hub control OLED
-      i2cset -y 1 0x11 0x14 0
-  fi
-
 }
 
+do_expand() {
+  mount /boot -o remount,ro
+
+  echo 1 > /proc/sys/kernel/sysrq
+  expand_filesystem >>/dev/null
+}
 
 do_prepare() {
   sed -i -e "s| init=[^ ]*||g" /boot/cmdline.txt
   echo "$(cat /boot/cmdline.txt) init=/sbin/pt-os-init" >/boot/cmdline.txt
 }
-
 
 do_enable_wifi_card() {
   # This function creates a wpa_suppplicant.conf file in /boot.
@@ -116,17 +108,30 @@ update_config=1" > /boot/wpa_supplicant.conf
   fi
 }
 
+do_clean_cmdline() {
+  mount /boot -o remount,rw
 
+  if ! grep -q splash /boot/cmdline.txt; then
+     sed -i "s| quiet||g" /boot/cmdline.txt
+  fi
+  sed -i "s| init=/sbin/pt-os-init||" /boot/cmdline.txt
+  sed -i "s| fbcon=map:2||g" /boot/cmdline.txt
+}
 
-if [ "$#" -eq 0 ]; then
-  do_expand
-  do_enable_wifi_card
-
-  # Cleanup and reboot
+do_finish_and_reboot() {
   umount /boot
   mount / -o remount,ro
   sync
   reboot -f
+}
+
+if [ "$#" -eq 0 ]; then
+  do_mount_all
+  do_not_timeout_oled
+  do_expand
+  do_enable_wifi_card
+  do_clean_cmdline
+  do_finish_and_reboot
 elif [ "$1" = "prepare" ]; then
   do_prepare
 fi
