@@ -92,7 +92,7 @@ do_expand() {
 
 
 do_prepare() {
-  sed -i -e "s| init=[0-9a-zA-Z\/\-]*||g" /boot/cmdline.txt
+  sed -i -e "s| init=[^ ]*||g" /boot/cmdline.txt
   echo "$(cat /boot/cmdline.txt) init=/sbin/pt-os-init" >/boot/cmdline.txt
 }
 
