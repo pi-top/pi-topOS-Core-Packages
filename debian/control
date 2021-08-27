@@ -129,10 +129,7 @@ Recommends:
 # Useful for graphing
  python3-matplotlib,
 # Sonic Pi with Python
- python3-python-sonic,
-# 'python3-sonic' built with stdeb is not currently specifying
-# this as a dependency
- python3-python-osc,
+ python3-sonic,
 Description: pi-topOS User Libraries
  This metapackage contains optional libraries (primarily Python) for pi-topOS.
 
