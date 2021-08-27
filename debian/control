@@ -22,8 +22,6 @@ Recommends:
 # systemd services
  pt-os-notify-services,
 # Required for ssh login motd (see OS build)
-# TODO: match this dependency with the file that uses it
-# 'pt-motd'?
  neofetch,
 # Only suggested by device manager to support headless configurations
  xprintidle,
@@ -60,9 +58,6 @@ Recommends:
  sonic-pi,
  touche,
  vlc,
-# Not install on bullseye
-# python-games,
-# minecraft-pi,
 Description: pi-topOS Applications
  This package contains the files and dependencies required
  to install and configure pi-topOS' GUI applications.
