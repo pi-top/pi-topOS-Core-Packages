@@ -1,1 +1,0 @@
-SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", ACTION=="add", RUN+="/sbin/iw dev $name set power_save off"

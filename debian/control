@@ -11,12 +11,13 @@ Package: pt-os
 Architecture: all
 Depends:
  ${misc:Depends},
- pt-os-mods,
+ pt-os-sys-mods,
 Recommends:
 # 'pt-os-core' packages
  pt-os-apps,
  pt-os-dev-tools,
  pt-device-support,
+ pt-os-net-mods,
  pt-os-ui,
  pt-os-user-libs,
 # systemd services
@@ -26,7 +27,23 @@ Recommends:
 # Only suggested by device manager to support headless configurations
  xprintidle,
 Description: pi-topOS top-level dummy package
- The root package of pi-topOS modifications to Raspbian.
+ The root package of pi-topOS modifications to Raspberry Pi OS.
+
+Package: pt-os-init
+Architecture: all
+Depends:
+ ${misc:Depends},
+Description: pi-topOS init script
+ This package handles all initialisation of pi-topOS, such as configuring for
+ onboarding/desktop.
+
+Package: pt-os-version
+Architecture: all
+Depends:
+ ${misc:Depends},
+Description: pi-topOS version file
+ This package provides an easy-to-parse text file providing the current pi-topOS
+ version.
 
 Package: pt-os-apps
 Architecture: all
