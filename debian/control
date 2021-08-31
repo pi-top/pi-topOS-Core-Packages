@@ -12,11 +12,13 @@ Architecture: all
 Depends:
  ${misc:Depends},
  pt-os-sys-mods,
+ pt-os-version,
 Recommends:
 # 'pt-os-core' packages
+ pt-device-support,
  pt-os-apps,
  pt-os-dev-tools,
- pt-device-support,
+ pt-os-init,
  pt-os-net-mods,
  pt-os-ui,
  pt-os-user-libs,
@@ -121,12 +123,15 @@ Description: pi-top Device Support
 
 Package: pt-os-ui
 Architecture: all
+Provides: pt-os-notifications
 Depends:
  ${misc:Depends},
  autorandr,
+ notify-send-ng,
  pt-os-bootsplash,
  pt-os-ui-mods,
  pt-os-web-portal-desktop,
+ xfce4-notifyd,
 Description: pi-topOS UI
  This metapackage contains the files and dependencies required
  to install and configure pi-topOS' UI-related components.
@@ -144,17 +149,3 @@ Recommends:
  python3-sonic,
 Description: pi-topOS User Libraries
  This metapackage contains optional libraries (primarily Python) for pi-topOS.
-
-Package: pt-os-notifications
-Architecture: all
-Depends:
- ${misc:Depends},
- xfce4-notifyd,
- notify-send-ng,
-Suggests:
- pt-os-ui-mods,
-Description: pi-top Desktop Notification Service
- Interface for showing notifications directly to the user at the desktop.
- Handles detecting which display to target, as well as which user is
- using the display. This service wraps around notify-send.sh to provide
- advanced notification management.
