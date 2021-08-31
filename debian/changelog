@@ -1,6 +1,6 @@
 pt-os-core (5.0.0) bullseye; urgency=medium
 
-  * pt-os: Add /etc/pi-top_os_version
+  * Rework package structure for Bullseye
 
  -- pi-top <deb-maintainers@pi-top.com>  Fri, 23 Jul 2021 11:50:00 +0100
 
