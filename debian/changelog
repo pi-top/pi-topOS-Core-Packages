@@ -1,4 +1,4 @@
-pt-os-core (5.0.1) bullseye; urgency=medium
+pt-os-core (5.0.1-1) bullseye; urgency=medium
 
   * [pre-commit.ci] pre-commit autoupdate (#32)
   * pt-os: Add `/etc/pi-top_os_version` (#33)
