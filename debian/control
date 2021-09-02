@@ -149,3 +149,22 @@ Recommends:
  python3-sonic,
 Description: pi-topOS User Libraries
  This metapackage contains optional libraries (primarily Python) for pi-topOS.
+
+Package: pt-os-notify-services
+Architecture: all
+Depends:
+ ${misc:Depends},
+# dh_python3 does not populate with dependency for 'pt-os-version-notify' shebang
+# so we hard-code
+# ${python3:Depends},
+ python3,
+ python3-pitop,
+# Other dependencies
+ notify-send-ng,
+Recommends:
+ rpi-eeprom,
+Description: pi-topOS Notification Services
+ Simple utilities used by pi-topOS, provided by systemd services. This package
+ contains a background memory usage monitor, a service to notify users when they
+ are using a preview build of pi-topOS and a service to ensure that Raspberry Pi
+ 4s that are in use with a pi-top [4] have their EEPROM configured correctly.
