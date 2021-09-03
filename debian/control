@@ -14,39 +14,37 @@ Depends:
  pt-os-sys-mods,
  pt-os-version,
 Recommends:
-# 'pt-os-core' packages
  pt-device-support,
  pt-os-apps,
+ pt-os-desktop,
  pt-os-dev-tools,
  pt-os-init,
- pt-os-net-mods,
+ pt-os-networking,
  pt-os-ui,
  pt-os-user-libs,
-# systemd services
- pt-os-notify-services,
 # Required for ssh login motd (see OS build)
  neofetch,
- wifi-ap-sta,
-# Only suggested by device manager to support headless configurations
- xprintidle,
 Description: pi-topOS top-level dummy package
  The root package of pi-topOS modifications to Raspberry Pi OS.
 
-Package: pt-os-init
+Package: pt-device-support
 Architecture: all
 Depends:
  ${misc:Depends},
-Description: pi-topOS init script
- This package handles all initialisation of pi-topOS, such as configuring for
- onboarding/desktop.
-
-Package: pt-os-version
-Architecture: all
-Depends:
- ${misc:Depends},
-Description: pi-topOS version file
- This package provides an easy-to-parse text file providing the current pi-topOS
- version.
+ pt-device-manager,
+ python3-pitop,
+# Additional hardware support
+ pt-display-port,
+ pt-miniscreen,
+# Software updaters
+ pt-firmware-updater,
+ pt-touchscreen,
+# Recommend screen blanking dependency
+# (only suggested by device manager to support headless configurations)
+ xprintidle,
+Description: pi-top Device Support
+ This metapackage contains dependencies required to install and configure
+ low-level device-related components for using pi-top hardware.
 
 Package: pt-os-apps
 Architecture: all
@@ -82,6 +80,18 @@ Description: pi-topOS Applications
  This package contains the files and dependencies required
  to install and configure pi-topOS' GUI applications.
 
+Package: pt-os-desktop
+Architecture: all
+Depends:
+ ${misc:Depends},
+# systemd services
+ pt-os-notify-services,
+# Only suggested by device manager to support headless configurations
+ xprintidle,
+Description: pi-topOS Desktop
+ This metapackage installs packages that make use of the X11 desktop,
+ such as for notifications or querying the session's idle time.
+
 Package: pt-os-dev-tools
 Architecture: all
 Depends:
@@ -103,24 +113,41 @@ Description: pi-topOS Development Support
  components. This includes scripts that are used as part of the OS
  build pipeline.
 
-Package: pt-device-support
+Package: pt-os-init
 Architecture: all
 Depends:
  ${misc:Depends},
- pt-device-manager,
+Description: pi-topOS init script
+ This package handles all initialisation of pi-topOS, such as configuring for
+ onboarding/desktop.
+
+Package: pt-os-networking
+Architecture: all
+Depends:
+ ${misc:Depends},
+ pt-os-net-mods,
+ wifi-ap-sta,
+Description: pi-topOS Networking
+ This metapackage installs all networking-related packages of pi-topOS.
+
+Package: pt-os-notify-services
+Architecture: all
+Depends:
+ ${misc:Depends},
+# dh_python3 does not populate with dependency for 'pt-os-version-notify' shebang
+# so we hard-code
+# ${python3:Depends},
+ python3,
  python3-pitop,
-# Additional hardware support
- pt-display-port,
- pt-miniscreen,
-# Software updaters
- pt-firmware-updater,
- pt-touchscreen,
-# Recommend screen blanking dependency
-# (only suggested by device manager to support headless configurations)
- xprintidle,
-Description: pi-top Device Support
- This metapackage contains dependencies required to install and configure
- low-level device-related components for using pi-top hardware.
+# Other dependencies
+ notify-send-ng,
+Recommends:
+ rpi-eeprom,
+Description: pi-topOS Notification Services
+ Simple utilities used by pi-topOS, provided by systemd services. This package
+ contains a background memory usage monitor, a service to notify users when they
+ are using a preview build of pi-topOS and a service to ensure that Raspberry Pi
+ 4s that are in use with a pi-top [4] have their EEPROM configured correctly.
 
 Package: pt-os-ui
 Architecture: all
@@ -151,21 +178,10 @@ Recommends:
 Description: pi-topOS User Libraries
  This metapackage contains optional libraries (primarily Python) for pi-topOS.
 
-Package: pt-os-notify-services
+Package: pt-os-version
 Architecture: all
 Depends:
  ${misc:Depends},
-# dh_python3 does not populate with dependency for 'pt-os-version-notify' shebang
-# so we hard-code
-# ${python3:Depends},
- python3,
- python3-pitop,
-# Other dependencies
- notify-send-ng,
-Recommends:
- rpi-eeprom,
-Description: pi-topOS Notification Services
- Simple utilities used by pi-topOS, provided by systemd services. This package
- contains a background memory usage monitor, a service to notify users when they
- are using a preview build of pi-topOS and a service to ensure that Raspberry Pi
- 4s that are in use with a pi-top [4] have their EEPROM configured correctly.
+Description: pi-topOS Version
+ This package provides an easy-to-parse text file providing the current pi-topOS
+ version.
