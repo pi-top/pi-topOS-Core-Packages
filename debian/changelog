@@ -1,4 +1,4 @@
-pt-os-core (5.0.1-3) bullseye; urgency=medium
+pt-os-core (5.1.0-1) bullseye; urgency=medium
 
   * Add additional packages for improving maintainability (#47)
 
