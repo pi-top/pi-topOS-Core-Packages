@@ -1,3 +1,9 @@
+pt-os-core (5.0.1-2) bullseye; urgency=medium
+
+  * Add wifi-ap-sta as pt-os dependency
+
+ -- pi-top <deb-maintainers@pi-top.com>  Fri, 03 Sep 2021 11:22:02 +0000
+
 pt-os-core (5.0.1-1) bullseye; urgency=medium
 
   * Bullseye Release (#40)
@@ -10,22 +16,9 @@ pt-os-core (5.0.0) bullseye; urgency=medium
 
  -- pi-top <deb-maintainers@pi-top.com>  Fri, 23 Jul 2021 11:50:00 +0100
 
-pt-os-core (4.2.2) buster; urgency=medium
-
-  * pt-os depends on wifi-ap-sta
-
- -- pi-top <deb-maintainers@pi-top.com>  Fri, 09 Jul 2021 14:15:19 +0000
-
-pt-os-core (4.2.1) buster; urgency=medium
-
-  * Move all systemd services to other packages
-
- -- pi-top <deb-maintainers@pi-top.com>  Wed, 30 Jun 2021 14:49:14 +0000
-
 pt-os-core (4.2.0) buster; urgency=medium
 
   * Move pt-touchscreen back to its own source package
-  * Move pt-system-tools to its own source package (renamed to pt-os-core-services)
 
  -- pi-top <deb-maintainers@pi-top.com>  Wed, 30 Jun 2021 14:17:23 +0100
 
