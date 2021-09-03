@@ -97,6 +97,7 @@ Architecture: all
 Depends:
  ${misc:Depends},
 Recommends:
+ aptitude,
  asciinema,
  debtree,
  graphviz,
