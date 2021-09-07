@@ -18,8 +18,8 @@ Recommends:
  pt-os-apps,
  pt-os-desktop,
  pt-os-dev-tools,
- pt-os-init,
  pt-os-networking,
+ pt-os-onboarding,
  pt-os-ui,
  pt-os-user-libs,
 # Required for ssh login motd (see OS build)
@@ -118,9 +118,6 @@ Package: pt-os-init
 Architecture: all
 Depends:
  ${misc:Depends},
-# Required for openbox xdg autostart
-# as part of onboarding on Bullseye
- python3-xdg,
 Description: pi-topOS init script
  This package handles all initialisation of pi-topOS, such as configuring for
  onboarding/desktop.
@@ -133,6 +130,17 @@ Depends:
  wifi-ap-sta,
 Description: pi-topOS Networking
  This metapackage installs all networking-related packages of pi-topOS.
+
+Package: pt-os-onboarding
+Architecture: all
+Depends:
+ ${misc:Depends},
+ pt-os-init,
+# Required for openbox xdg autostart
+# as part of onboarding on Bullseye
+ python3-xdg,
+Description: pi-topOS Onboarding
+ This metapackage installs all onboarding-related packages of pi-topOS.
 
 Package: pt-os-notify-services
 Architecture: all
