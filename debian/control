@@ -118,6 +118,9 @@ Package: pt-os-init
 Architecture: all
 Depends:
  ${misc:Depends},
+# Required for openbox xdg autostart
+# as part of onboarding on Bullseye
+ python3-xdg,
 Description: pi-topOS init script
  This package handles all initialisation of pi-topOS, such as configuring for
  onboarding/desktop.
