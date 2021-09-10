@@ -118,7 +118,7 @@ Package: pt-os-init
 Architecture: all
 Depends:
  ${misc:Depends},
- Description: pi-topOS init script
+Description: pi-topOS init script
  This package handles all initialisation of pi-topOS, such as configuring for
  onboarding/desktop.
 
