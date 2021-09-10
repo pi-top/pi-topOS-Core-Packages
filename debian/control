@@ -118,7 +118,7 @@ Package: pt-os-init
 Architecture: all
 Depends:
  ${misc:Depends},
-Description: pi-topOS init script
+ Description: pi-topOS init script
  This package handles all initialisation of pi-topOS, such as configuring for
  onboarding/desktop.
 
@@ -139,6 +139,8 @@ Depends:
 # Required for openbox xdg autostart
 # as part of onboarding on Bullseye
  python3-xdg,
+Conflicts:
+ piwiz,
 Description: pi-topOS Onboarding
  This metapackage installs all onboarding-related packages of pi-topOS.
 
