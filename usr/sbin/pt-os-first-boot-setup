@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# shellcheck disable=SC2091
+$(return 0 >/dev/null 2>&1) && echo "Please run directly, not as a sourced script" && return 1
+
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+# shellcheck disable=SC1091
+source "${DIR}/pt-os-init-source"
+
+if [ "$#" -eq 0 ]; then
+  mount_all
+  load_i2c_modules
+  hub_handshake
+  expand
+  enable_wifi_card
+  clean_cmdline
+  remove_init
+  finish_and_reboot
+elif [ "$1" = "prepare" ]; then
+  prepare_init /usr/sbin/pt-os-first-boot-setup
+fi
