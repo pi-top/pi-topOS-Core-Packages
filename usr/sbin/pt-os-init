@@ -59,7 +59,7 @@ do_not_timeout_oled() {
       # If pi-top[4], avoid OLED from timing out.
       # Put hub into shutdown mode 5 to display the rotating 4 in the OLED.
       register_read="$(i2cget -y 1 0x11 0xA0 c)"
-      mode5_mask="0x38"
+      mode5_mask="0x28"
       byte_to_write="$((register_read | mode5_mask))"
       i2cset -y 1 0x11 0xA0 "${byte_to_write}"
   fi
