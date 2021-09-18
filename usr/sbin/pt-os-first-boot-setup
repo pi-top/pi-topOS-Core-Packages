@@ -9,8 +9,7 @@ source "${DIR}/pt-os-init-source"
 
 if [ "$#" -eq 0 ]; then
   mount_all
-  load_i2c_modules
-  hub_handshake
+  "${DIR}"/pt-hub-handshake
   expand
   enable_wifi_card
   clean_cmdline
