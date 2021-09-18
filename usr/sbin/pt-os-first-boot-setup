@@ -4,6 +4,8 @@
 $(return 0 >/dev/null 2>&1) && echo "Please run directly, not as a sourced script" && return 1
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+FILE="$(basename "${BASH_SOURCE[0]}")"
+
 # shellcheck disable=SC1091
 source "${DIR}/pt-os-init-source"
 
@@ -16,5 +18,5 @@ if [ "$#" -eq 0 ]; then
   remove_init
   finish_and_reboot
 elif [ "$1" = "prepare" ]; then
-  prepare_init /usr/sbin/pt-os-first-boot-setup
+  prepare_init "${DIR}/${FILE}"
 fi

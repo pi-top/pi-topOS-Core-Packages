@@ -3,6 +3,7 @@
 from subprocess import run
 
 import click
+from pitop.common.bitwise_ops import set_bits_high
 from pitop.common.i2c_device import I2CDevice
 from pitop.common.logger import PTLogger
 
@@ -20,8 +21,8 @@ def main(log_level):
     PTLogger.setup_logging(logger_name="pt-hub-handshake", logging_level=log_level)
 
     PTLogger.info("Loading kernel modules to perform I2C operations...")
-    run(["modprobe", "i2c-bcm2835"])
-    run(["modprobe", "i2c-dev"])
+    run(["/usr/sbin/modprobe", "i2c-bcm2835"])
+    run(["/usr/sbin/modprobe", "i2c-dev"])
 
     if run(["i2cping", "0x11"]).returncode != 0:
         PTLogger.warning("0x11 I2C ping did not respond - exiting...")
@@ -33,22 +34,23 @@ def main(log_level):
         i2c_device.set_delays(0.001, 0.001)
         i2c_device.connect()
     except Exception as e:
-        PTLogger.warning(
-            "Unable to read from hub (v3) over i2c: " + str(e))
+        PTLogger.warning("Unable to read from hub (v3) over i2c: " + str(e))
         return False
 
     PTLogger.info("Checking device ID...")
     ID__PART_NAME_REG = 0xE5
     ID__PART_NAME_VAL = 0x0607
-    if hex(i2c_device.read_unsigned_word(ID__PART_NAME_REG)) != hex(ID__PART_NAME_VAL):
+
+    read_value = i2c_device.read_unsigned_word(ID__PART_NAME_REG)
+    if hex(read_value) != hex(ID__PART_NAME_VAL):
         PTLogger.warning("Device ID not correct - exiting...")
         return False
 
     PTLogger.info("Correct Device ID - disabling USB 5V check...")
     PWR__USB_5V_TIMEOUT_REG = 0xAF
     full_word = i2c_device.read_unsigned_word(PWR__USB_5V_TIMEOUT_REG)
-    full_word = bitwise_ops.set_bits_high(0x8000, full_word)
-    i2c_device.write_byte(PWR__USB_5V_TIMEOUT_REG, full_word)
+    full_word = set_bits_high(0x8000, full_word)
+    i2c_device.write_word(PWR__USB_5V_TIMEOUT_REG, full_word)
 
     PTLogger.info("Done!")
     return True
