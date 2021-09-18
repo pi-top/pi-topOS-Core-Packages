@@ -120,8 +120,8 @@ Depends:
  ${misc:Depends},
 Description: pi-topOS init processes
  This package handles all of the init files for pi-topOS. In particular, this
- provides pi-topOS's first boot setup script, which does things such as expanding
- the filesystem.
+ provides pi-topOS's first boot setup script, which does things such as
+ expanding the filesystem.
 
 Package: pt-os-networking
 Architecture: all

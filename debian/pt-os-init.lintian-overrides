@@ -1,1 +1,3 @@
-pt-os-init: no-manual-page usr/sbin/pt-os-init
+pt-os-init: no-manual-page usr/sbin/pt-os-admin-init
+pt-os-init: no-manual-page usr/sbin/pt-os-first-boot-setup
+pt-os-init: no-manual-page usr/sbin/pt-os-init-source
