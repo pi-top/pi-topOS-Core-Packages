@@ -2,10 +2,6 @@
 
 from subprocess import run
 
-# from os import geteuid
-# from signal import SIGINT, SIGTERM
-# from sys import
-
 import click
 from pitop.common.i2c_device import I2CDevice
 from pitop.common.logger import PTLogger
