@@ -50,7 +50,7 @@ def main(log_level, cleanup):
 
     ID__MCU_SOFT_VERS_MAJOR = 0xE0
     if int(i2c_device.read_unsigned_byte(ID__MCU_SOFT_VERS_MAJOR)) > 3:
-        PTLogger.warning("Hub: entering mode 5")
+        PTLogger.info("Hub: entering mode 5...")
 
         PWR__SHUTDOWN_CTRL_REG = 0xA0
         full_byte = i2c_device.read_unsigned_byte(PWR__SHUTDOWN_CTRL_REG)
@@ -67,7 +67,7 @@ def main(log_level, cleanup):
             action = "give"
             byte_change_func = set_bits_high
 
-        PTLogger.warning(f"Requesting hub to {action} OLED control to Pi")
+        PTLogger.warning(f"Requesting hub to {action} OLED control to Pi...")
         full_byte = i2c_device.read_unsigned_byte(CTRL__UI_OLED_CTRL_REG)
         full_byte = byte_change_func(1, full_byte)
         i2c_device.write_byte(CTRL__UI_OLED_CTRL_REG, full_byte)
