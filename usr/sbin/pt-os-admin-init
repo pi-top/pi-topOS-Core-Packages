@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# This script is useful for testing the single user root shell environment
+# Append ' init=/usr/sbin/pt-os-admin-init' to '/boot/cmdline.txt' and reboot
+
+# shellcheck disable=SC2091
+$(return 0 >/dev/null 2>&1) && echo "Please run directly, not as a sourced script" && return 1
+
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+# shellcheck disable=SC1091
+source "${DIR}/pt-os-init-source"
+
+# Mount all filesystems
+mount_all
+
+# Load I2C kernel module
+load_i2c_modules
+
+# Start shell
+bash
