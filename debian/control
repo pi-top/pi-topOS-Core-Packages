@@ -123,7 +123,6 @@ Depends:
 # ${python3:Depends},
  python3,
  python3-click,
- python3-pitop,
 Description: pi-topOS init processes
  This package handles all of the init files for pi-topOS. In particular, this
  provides pi-topOS's first boot setup script, which does things such as
