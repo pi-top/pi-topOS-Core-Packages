@@ -4,7 +4,6 @@ Documentation=https://knowledgebase.pi-top.com/knowledge
 
 [Service]
 Type=simple
-Environment="DISPLAY=:0.0"
 ExecStart=/usr/lib/pt-os-notify-services/pt-os-memory-monitor
 
 [Install]
