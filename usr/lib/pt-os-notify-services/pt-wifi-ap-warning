@@ -16,6 +16,10 @@ def show_warning(ssid):
 
 def main():
     ap_info = get_ap_mode_status()
+
+    if ap_info is None:
+        return
+
     if ap_info["state"] == "active":
         show_warning(ap_info["ssid"])
 
