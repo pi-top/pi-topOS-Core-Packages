@@ -1,0 +1,24 @@
+#!/usr/bin/python3
+from pitop.common.notifications import send_notification
+from pitop.common.sys_info import get_ap_mode_status
+
+
+def show_warning(ssid):
+    send_notification(
+        title="Watch Out! Your pi-top is vulnerable!",
+        text=f"This pi-top's Wi-Fi network ('{ssid}') is currently active.\n"
+        "This can be a security issue! Switch off if you do not need it.\n"
+        "For more information, go to the knowledge base.",
+        icon_name="system-error",
+        timeout=0,
+    )
+
+
+def main():
+    ap_info = get_ap_mode_status()
+    if ap_info["state"] == "active":
+        show_warning(ap_info["ssid"])
+
+
+if __name__ == "__main__":
+    main()

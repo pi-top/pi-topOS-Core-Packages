@@ -1,29 +1,34 @@
 #!/usr/bin/python3
-
-from pitop.common.pt_os import get_pitopOS_info
 from pitop.common.notifications import send_notification
-from pitop.common.logger import PTLogger
+from pitop.common.pt_os import get_pitopOS_info
+
 
 def show_warning(version):
-	send_notification(
-		title="OOPS! Who let you in here?!",
-		text=f"This version of pi-topOS ('{version}') is a preview build, and likely contains bugs.\nDo not use unless you know what you are doing.\n\nIf you are not sure, then you probably don't.",
-		icon_name="system-error",
-		timeout=0)
+    send_notification(
+        title="OOPS! Who let you in here?!",
+        text=f"This version of pi-topOS ('{version}') is a preview build, "
+        "and likely contains bugs."
+        "\n"
+        "Do not use unless you know what you are doing."
+        "\n"
+        "\n"
+        "If you are not sure, then you probably don't.",
+        icon_name="system-error",
+        timeout=0,
+    )
+
 
 def main():
-	build_info = get_pitopOS_info()
+    build_info = get_pitopOS_info()
 
-	if build_info is None:
-		return
+    if build_info is None:
+        return
 
-	if build_info.final_repo in ("sirius", "sirius-testing"):
-		show_warning(build_info.final_repo)
-	elif build_info.build_type == "experimental-pkgcld":
-		show_warning(build_info.build_type)
-	else:
-		PTLogger.info("pi-topOS version is public - doing nothing")
+    if build_info.final_repo in ("sirius", "sirius-testing"):
+        show_warning(build_info.final_repo)
+    elif build_info.build_type == "experimental-pkgcld":
+        show_warning(build_info.build_type)
 
 
-if __name__ == '__main__':
-	main()
+if __name__ == "__main__":
+    main()
