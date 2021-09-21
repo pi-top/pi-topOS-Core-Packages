@@ -118,9 +118,15 @@ Package: pt-os-init
 Architecture: all
 Depends:
  ${misc:Depends},
-Description: pi-topOS init script
- This package handles all initialisation of pi-topOS, such as configuring for
- onboarding/desktop.
+# dh_python3 does not populate with dependencies for '/usr/bin/python3' shebang
+# so we hard-code
+# ${python3:Depends},
+ python3,
+ python3-click,
+Description: pi-topOS init processes
+ This package handles all of the init files for pi-topOS. In particular, this
+ provides pi-topOS's first boot setup script, which does things such as
+ expanding the filesystem.
 
 Package: pt-os-networking
 Architecture: all
@@ -148,7 +154,7 @@ Package: pt-os-notify-services
 Architecture: all
 Depends:
  ${misc:Depends},
-# dh_python3 does not populate with dependency for 'pt-os-version-notify' shebang
+# dh_python3 does not populate with dependencies for '/usr/bin/python3' shebang
 # so we hard-code
 # ${python3:Depends},
  python3,
