@@ -1,8 +1,5 @@
 #!/bin/bash -x
 
-# time all stages
-# log output for last runs
-
 # shellcheck disable=SC2091
 $(return 0 >/dev/null 2>&1) && echo "Please run directly, not as a sourced script" && return 1
 
@@ -14,12 +11,15 @@ source "${DIR}/pt-os-init-source"
 
 if [ "$#" -eq 0 ]; then
   mount_all
-  "${DIR}"/pt-hub-handshake
-  expand
-  enable_wifi_card
-  clean_cmdline
-  remove_init
-  "${DIR}"/pt-hub-handshake --cleanup
+  make_boot_writable
+  {
+    "${DIR}"/pt-hub-handshake
+    expand
+    enable_wifi_card
+    clean_cmdline
+    remove_init
+    "${DIR}"/pt-hub-handshake --cleanup
+  } >/boot/.os-setup-boot.log
   finish_and_reboot
 elif [ "$1" = "prepare" ]; then
   prepare_init "${DIR}/${FILE}"

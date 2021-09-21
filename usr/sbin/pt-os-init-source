@@ -75,6 +75,10 @@ mount_fs() {
   sync
 }
 
+make_boot_writable() {
+  mount /boot -o remount,rw
+}
+
 mount_all() {
   mount_virtual_fs
   mount_fs
@@ -88,7 +92,7 @@ expand() {
 }
 
 remove_init() {
-  mount /boot -o remount,rw
+  make_boot_writable
   sed -i -e "s| init=[^ ]*||g" /boot/cmdline.txt
 }
 
@@ -105,7 +109,7 @@ enable_wifi_card() {
   # boot, copying over the file to /etc/wpa_supplicant and most importantly,
   # enabling the wireless card so that AP mode runs on first boot.
 
-  mount /boot -o remount,rw
+  make_boot_writable
   mount / -o remount,ro
 
   if [ ! -f /boot/wpa_supplicant.conf ]; then
@@ -119,7 +123,7 @@ update_config=1" >/boot/wpa_supplicant.conf
 }
 
 clean_cmdline() {
-  mount /boot -o remount,rw
+  make_boot_writable
 
   if ! grep -q splash /boot/cmdline.txt; then
     sed -i "s| quiet||g" /boot/cmdline.txt
