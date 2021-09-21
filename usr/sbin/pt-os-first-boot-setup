@@ -16,6 +16,7 @@ if [ "$#" -eq 0 ]; then
   enable_wifi_card
   clean_cmdline
   remove_init
+  "${DIR}"/pt-hub-handshake --cleanup
   finish_and_reboot
 elif [ "$1" = "prepare" ]; then
   prepare_init "${DIR}/${FILE}"
