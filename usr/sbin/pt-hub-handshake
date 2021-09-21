@@ -1,56 +1,373 @@
 #!/usr/bin/python3
 
+import logging
+from fcntl import LOCK_EX, LOCK_NB, LOCK_UN, flock, ioctl
+from io import open as iopen
+from math import ceil
+from os import chmod
+from os.path import exists
+from stat import S_IWGRP, S_IWOTH, S_IWUSR
 from subprocess import run
+from threading import Lock
+from time import sleep
 
 import click
-from pitop.common.bitwise_ops import set_bits_high, set_bits_low
-from pitop.common.i2c_device import I2CDevice
-from pitop.common.logger import PTLogger
+
+
+def split_into_bytes(
+    data: int, no_of_bytes: int = -1, little_endian: bool = False, signed: bool = False
+):
+    byteorder_indicator = "little" if little_endian is True else "big"
+
+    if no_of_bytes == -1:
+        no_of_bytes = ceil(data / 255)
+    try:
+        byte_string = data.to_bytes(
+            no_of_bytes, byteorder=byteorder_indicator, signed=signed
+        )
+    except OverflowError as e:
+        print(str(e))
+        return None
+
+    return [i for i in bytearray(byte_string)]
+
+
+def join_bytes(byte_list: list, little_endian: bool = False, signed: bool = False):
+    return int.from_bytes(
+        byte_list, byteorder="little" if little_endian is True else "big", signed=signed
+    )
+
+
+def to_bits(int_to_convert: int):
+    return bin(int_to_convert)[2:]
+
+
+def get_bits(bitmask_to_get: int, bitwise_data: int):
+    return bitmask_to_get & bitwise_data
+
+
+def pad_bits(bin_str: str, no_of_bytes: int):
+    difference = (no_of_bytes * 8) - len(bin_str)
+    if difference <= 0:
+        return bin_str
+    else:
+        padding = "0" * difference
+        return padding + bin_str
+
+
+def flip_bin_string(bin_str: str):
+    flipped_bin_str = ""
+    for bit in bin_str:
+        flipped_bin_str += str(1 - int(bit))
+    return flipped_bin_str
+
+
+def from_bits(bin_str: str):
+    return int(bin_str, 2)
+
+
+def flip_bits(bitwise_data: int, no_of_bytes: int = -1):
+    bin_string_of_data = to_bits(bitwise_data)
+
+    if no_of_bytes <= 0:
+        value_to_flip = bin_string_of_data
+    else:
+        value_to_flip = pad_bits(bin_string_of_data, no_of_bytes)
+
+    flipped_bin_string = flip_bin_string(value_to_flip)
+    return from_bits(flipped_bin_string)
+
+
+def ignore_bits(bitmask_to_ignore: int, bitwise_data: int):
+    byte_size_of_data = ceil(bitwise_data.bit_length() / 8)
+    return get_bits(flip_bits(bitmask_to_ignore, byte_size_of_data), bitwise_data)
+
+
+def set_bits_low(bits_to_set_low: int, bitwise_data: int):
+    return ignore_bits(bits_to_set_low, bitwise_data)
+
+
+def set_bits_high(bits_to_set_high: int, bitwise_data: int):
+    return bits_to_set_high | bitwise_data
+
+
+class PTLock(object):
+    __lock_file_handle = None
+    __locked_by_self = False
+
+    def __init__(self, id):
+        self.path = f"/tmp/.com.pi-top.sdk.{id}.lock"
+
+        self._thread_lock = Lock()
+
+        lock_file_already_existed = exists(self.path)
+        self.__lock_file_handle = open(self.path, "w")
+        if not lock_file_already_existed:
+            chmod(self.path, S_IWUSR | S_IWGRP | S_IWOTH)
+
+    def acquire(self) -> None:
+        if self.__lock_file_handle is None:
+            return
+
+        self._thread_lock.acquire()
+        flock(self.__lock_file_handle, LOCK_EX)
+        self.__locked_by_self = True
+
+    def release(self) -> None:
+        if self.__lock_file_handle is None:
+            return
+
+        self._thread_lock.release()
+        flock(self.__lock_file_handle, LOCK_UN)
+        self.__locked_by_self = False
+
+    def is_locked(self):
+        if self.__locked_by_self:
+            return self.__locked_by_self
+
+        lock_status = False
+        try:
+            flock(self.__lock_file_handle, LOCK_EX | LOCK_NB)
+            flock(self.__lock_file_handle, LOCK_UN)
+        except BlockingIOError:
+            lock_status = True
+
+        return lock_status
+
+    __enter__ = acquire
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.release()
+
+    def __del__(self):
+        if self.__lock_file_handle:
+            self.__lock_file_handle.close()
+
+
+class I2CDevice:
+    I2C_SLAVE = 0x0703
+
+    def __init__(self, device_path: str, device_address: int):
+        self._device_path = device_path
+        self._device_address = device_address
+
+        self._post_read_delay = 0.020
+        self._post_write_delay = 0.020
+
+        self._lock = PTLock(f"i2c_{device_address:#0{4}x}")
+
+        self._read_device = None
+        self._write_device = None
+
+    def set_delays(self, read_delay: float, write_delay: float):
+        self._post_read_delay = read_delay
+        self._post_write_delay = write_delay
+
+    def connect(self, read_test=True):
+        self._read_device = iopen(self._device_path, "rb", buffering=0)
+        self._write_device = iopen(self._device_path, "wb", buffering=0)
+
+        ioctl(self._read_device, self.I2C_SLAVE, self._device_address)
+        ioctl(self._write_device, self.I2C_SLAVE, self._device_address)
+
+        if read_test is True:
+            self._read_device.read(1)
+
+    def disconnect(self):
+        if self._write_device is not None:
+            self._write_device.close()
+
+        if self._read_device is not None:
+            self._read_device.close()
+
+    ####################
+    # WRITE OPERATIONS #
+    ####################
+    def write_n_bytes(self, register_address: int, byte_list: list):
+        """Base function to write to an I2C device."""
+        self.__run_transaction([register_address] + byte_list, 0)
+
+    def write_byte(self, register_address: int, byte_value: int):
+        if byte_value > 0xFF:
+            print(
+                "Possible unintended overflow writing value to register "
+                + hex(register_address)
+            )
+
+        self.write_n_bytes(register_address, [byte_value & 0xFF])
+
+    def write_word(
+        self,
+        register_address: int,
+        word_value: int,
+        little_endian: bool = False,
+        signed: bool = False,
+    ):
+        word_to_write = split_into_bytes(
+            word_value, 2, little_endian=little_endian, signed=signed
+        )
+        if word_to_write is None:
+            raise Exception(
+                f"Error splitting word into bytes list. Value: {word_value}"
+            )
+        else:
+            self.write_n_bytes(register_address, word_to_write)
+
+    ###################
+    # READ OPERATIONS #
+    ###################
+    def __read_n_bytes(
+        self,
+        register_address: int,
+        number_of_bytes: int,
+        signed: bool = False,
+        little_endian: bool = False,
+    ):
+        """Base function to read from an I2C device.
+
+        :param register_address: Register address to target for reading
+        :param number_of_bytes: Number of bytes to attempt to read from register address
+        :param signed: Indicates whether or not the value could potentially have a negative value, and is therefore
+        represented with a signed number representation
+        :param little_endian: Indicates whether the data to be read is in little-endian byte-order
+        :return: result: The response from the read attempt via I2C
+        """
+
+        # Read from device
+        result_array = self.__run_transaction([register_address], number_of_bytes)
+
+        # Check response length is correct
+        if len(result_array) != number_of_bytes:
+            return None
+
+        # Invert byte ordering, if appropriate
+        if little_endian:
+            result_array.reverse()
+
+        # Convert array into integer
+        result = join_bytes(result_array)
+
+        # Process signed number if appropriate
+        if signed:
+            if result & (1 << ((8 * number_of_bytes) - 1)):
+                result = -(1 << (8 * number_of_bytes)) + result
+
+        return result
+
+    # HELPER FUNCTIONS TO SIMPLIFY EXTERNAL READABILITY
+    def read_n_unsigned_bytes(
+        self, register_address: int, number_of_bytes: int, little_endian=False
+    ):
+        return self.__read_n_bytes(
+            register_address, number_of_bytes, signed=False, little_endian=little_endian
+        )
+
+    def read_unsigned_byte(self, register_address: int):
+        return self.read_n_unsigned_bytes(register_address, 1)
+
+    def read_n_signed_bytes(
+        self, register_address: int, number_of_bytes: int, little_endian=False
+    ):
+        return self.__read_n_bytes(
+            register_address, number_of_bytes, signed=True, little_endian=little_endian
+        )
+
+    def read_signed_byte(self, register_address: int):
+        return self.read_n_signed_bytes(register_address, 1)
+
+    def read_unsigned_word(self, register_address: int, little_endian=False):
+        return self.__read_n_bytes(register_address, 2, little_endian=little_endian)
+
+    def read_signed_word(self, register_address: int, little_endian=False):
+        return self.__read_n_bytes(
+            register_address, 2, signed=True, little_endian=little_endian
+        )
+
+    # HELPER FUNCTIONS TO EXTRACT BITS FROM A READ
+    def read_bits_from_byte_at_address(self, bits_to_read: int, addr_to_read: int):
+        return self.read_bits_from_n_bytes_at_address(bits_to_read, addr_to_read, 1)
+
+    def read_bits_from_n_bytes_at_address(
+        self, bits_to_read: int, addr_to_read: int, no_of_bytes_to_read: int = 1
+    ):
+        return get_bits(
+            bits_to_read, self.read_n_unsigned_bytes(addr_to_read, no_of_bytes_to_read)
+        )
+
+    ####################
+    # INTERNAL METHODS #
+    ####################
+    def __run_transaction(self, listin: list, expected_read_length: int):
+        with self._lock:
+            self.__write_data(bytearray(listin))
+            return self.__read_data(expected_read_length)
+
+    def __write_data(self, data: bytearray):
+        if self._write_device is None:
+            return
+
+        data = bytes(data)
+        self._write_device.write(data)
+        sleep(self._post_write_delay)
+
+    def __read_data(self, expected_output_size: int):
+        if self._read_device is None:
+            return
+
+        if expected_output_size == 0:
+            return 0
+
+        result_array = list()
+        data = self._read_device.read(expected_output_size)
+        sleep(self._post_read_delay)
+
+        if len(data) != 0:
+            for n in data:
+                if data is str:
+                    result_array.append(ord(n))
+                else:
+                    result_array.append(n)
+
+        return result_array
 
 
 @click.command()
-@click.option(
-    "--log-level",
-    type=int,
-    help="set logging level from 10 (more verbose) to 50 (less verbose)",
-    default=20,
-    show_default=True,
-)
 @click.option("--cleanup")
 @click.version_option()
-def main(log_level, cleanup):
-    PTLogger.setup_logging(logger_name="pt-hub-handshake", logging_level=log_level)
+def main(cleanup):
+    logger = logging.getLogger("pt-hub-handshake")
+    logger.setLevel(logging.INFO)
 
-    PTLogger.info("Loading kernel modules to perform I2C operations...")
+    logger.info("Loading kernel modules to perform I2C operations...")
     run(["/usr/sbin/modprobe", "i2c-bcm2835"])
     run(["/usr/sbin/modprobe", "i2c-dev"])
 
     if run(["i2cping", "0x11"]).returncode != 0:
-        PTLogger.warning("0x11 I2C ping did not respond - exiting...")
+        logger.warning("0x11 I2C ping did not respond - exiting...")
         return False
 
-    PTLogger.info("Connecting to I2C device...")
+    logger.info("Connecting to I2C device...")
     try:
         i2c_device = I2CDevice("/dev/i2c-1", 0x11)
         i2c_device.set_delays(0.001, 0.001)
         i2c_device.connect()
     except Exception as e:
-        PTLogger.warning("Unable to read from hub (v3) over i2c: " + str(e))
+        logger.warning("Unable to read from hub (v3) over i2c: " + str(e))
         return False
 
-    PTLogger.info("Checking device ID...")
+    logger.info("Checking device ID...")
     ID__PART_NAME_REG = 0xE5
     pi_top_4_part_name = 0x0607
 
     if hex(i2c_device.read_unsigned_word(ID__PART_NAME_REG)) != hex(pi_top_4_part_name):
-        PTLogger.warning("Device ID not correct - exiting...")
+        logger.warning("Device ID not correct - exiting...")
         return False
 
-    PTLogger.info("Correct Device ID")
+    logger.info("Correct Device ID")
 
     ID__MCU_SOFT_VERS_MAJOR = 0xE0
     if int(i2c_device.read_unsigned_byte(ID__MCU_SOFT_VERS_MAJOR)) > 3:
-        PTLogger.info("Hub: entering mode 5...")
+        logger.info("Hub: entering mode 5...")
 
         PWR__SHUTDOWN_CTRL_REG = 0xA0
         full_byte = i2c_device.read_unsigned_byte(PWR__SHUTDOWN_CTRL_REG)
@@ -67,12 +384,12 @@ def main(log_level, cleanup):
             action = "give"
             byte_change_func = set_bits_high
 
-        PTLogger.warning(f"Requesting hub to {action} OLED control to Pi...")
+        logger.warning(f"Requesting hub to {action} OLED control to Pi...")
         full_byte = i2c_device.read_unsigned_byte(CTRL__UI_OLED_CTRL_REG)
         full_byte = byte_change_func(1, full_byte)
         i2c_device.write_byte(CTRL__UI_OLED_CTRL_REG, full_byte)
 
-    PTLogger.info("Done!")
+    logger.info("Done!")
     return True
 
 
