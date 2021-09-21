@@ -10,8 +10,6 @@ parse_partition_table() {
   ROOT_DEV="/dev/${ROOT_DEV_NAME}"
   ROOT_PART_NUM=$(cat "/sys/block/${ROOT_DEV_NAME}/${ROOT_PART_NAME}/partition")
 
-  OLD_DISKID=$(fdisk -l "$ROOT_DEV" | sed -n 's/Disk identifier: 0x\([^ ]*\)/\1/p')
-
   ROOT_DEV_SIZE=$(cat "/sys/block/${ROOT_DEV_NAME}/size")
   TARGET_END=$((ROOT_DEV_SIZE - 1))
 
@@ -19,13 +17,6 @@ parse_partition_table() {
 
   EXT_PART_LINE=$(echo "$PARTITION_TABLE" | grep ":::;" | head -n 1)
   EXT_PART_NUM=$(echo "$EXT_PART_LINE" | cut -d ":" -f 1)
-}
-
-fix_partuuid() {
-  DISKID="$(fdisk -l "$ROOT_DEV" | sed -n 's/Disk identifier: 0x\([^ ]*\)/\1/p')"
-
-  sed -i "s/${OLD_DISKID}/${DISKID}/g" /etc/fstab
-  sed -i "s/${OLD_DISKID}/${DISKID}/" /boot/cmdline.txt
 }
 
 expand_filesystem() {
@@ -47,7 +38,7 @@ quit
 EOF
 
   partprobe "$ROOT_DEV"
-  fix_partuuid
+
   resize2fs "$ROOT_PART_DEV"
 
   return 0
