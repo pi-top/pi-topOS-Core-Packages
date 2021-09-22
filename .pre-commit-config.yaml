@@ -24,6 +24,7 @@ repos:
     rev: 21.9b0
     hooks:
     - id: black
+      args: ["--profile", "black"]
 
 -   repo: https://github.com/PyCQA/flake8
     rev: 3.9.2
