@@ -6,9 +6,8 @@
 # shellcheck disable=SC2091
 $(return 0 >/dev/null 2>&1) && echo "Please run directly, not as a sourced script" && return 1
 
-DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 # shellcheck disable=SC1091
-source "${DIR}/pt-os-init-source"
+source "/usr/lib/pt-os-init/source"
 
 # Mount all filesystems
 mount_all
