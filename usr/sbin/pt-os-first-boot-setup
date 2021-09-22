@@ -13,14 +13,15 @@ if [ "$#" -eq 0 ]; then
   mount_all
   make_boot_writable
   {
-    "${DIR}"/pt-hub-handshake
+    /usr/lib/pt-os-init/pt-hub-handshake
     expand
     enable_wifi_card
-    clean_cmdline
+    disable_text_redirect
     remove_init
-    "${DIR}"/pt-hub-handshake --cleanup
+    /usr/lib/pt-os-init/pt-hub-handshake --cleanup
   } >/boot/.os-setup-boot.log
   finish_and_reboot
 elif [ "$1" = "prepare" ]; then
-  prepare_init "${DIR}/${FILE}"
+  set_next_init "${DIR}/${FILE}"
+  enable_text_redirect
 fi

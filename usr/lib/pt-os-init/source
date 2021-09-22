@@ -19,31 +19,6 @@ parse_partition_table() {
   EXT_PART_NUM=$(echo "$EXT_PART_LINE" | cut -d ":" -f 1)
 }
 
-expand_filesystem() {
-  parse_partition_table
-
-  # Note the Yes in the command to confirm the message:
-  # Warning: Partition /dev/mmcblk0p2 is being used. Are you sure you want to continue?
-  # This is not required in the second call
-
-  # Resize extended partition
-  echo Yes | parted "${ROOT_DEV}" ---pretend-input-tty resizepart "${EXT_PART_NUM}" "${TARGET_END}"s
-
-  # Resize rootfs partition
-  parted "${ROOT_DEV}" ---pretend-input-tty <<EOF
-resizepart
-${ROOT_PART_NUM}
-${TARGET_END}s
-quit
-EOF
-
-  partprobe "$ROOT_DEV"
-
-  resize2fs "$ROOT_PART_DEV"
-
-  return 0
-}
-
 load_i2c_modules() {
   # Load kernel modules to perform i2c operations
   modprobe i2c-bcm2835
@@ -79,19 +54,38 @@ expand() {
   mount /boot -o remount,ro
 
   echo 1 >/proc/sys/kernel/sysrq
-  expand_filesystem >>/dev/null
+  {
+    parse_partition_table
+
+    # Note the Yes in the command to confirm the message:
+    # Warning: Partition /dev/mmcblk0p2 is being used. Are you sure you want to continue?
+    # This is not required in the second call
+
+    # Resize extended partition
+    echo Yes | parted "${ROOT_DEV}" ---pretend-input-tty resizepart "${EXT_PART_NUM}" "${TARGET_END}"s
+
+    # Resize rootfs partition
+    parted "${ROOT_DEV}" ---pretend-input-tty <<EOF
+resizepart
+${ROOT_PART_NUM}
+${TARGET_END}s
+quit
+EOF
+
+    partprobe "$ROOT_DEV"
+
+    resize2fs "$ROOT_PART_DEV"
+
+    return 0
+  } # &>/dev/null
 }
 
-remove_init() {
-  make_boot_writable
-  sed -i -e "s| init=[^ ]*||g" /boot/cmdline.txt
-}
-
-prepare_init() {
+set_next_init() {
   script_path=${1:-}
 
-  remove_init
-  echo "$(cat /boot/cmdline.txt) fbcon=map:2 init=${script_path}" >/boot/cmdline.txt
+  make_boot_writable
+  sed -i -e "s| init=[^ ]*||g" /boot/cmdline.txt
+  echo "$(cat /boot/cmdline.txt) init=${script_path}" >/boot/cmdline.txt
 }
 
 enable_wifi_card() {
@@ -113,12 +107,16 @@ update_config=1" >/boot/wpa_supplicant.conf
   fi
 }
 
-clean_cmdline() {
+enable_text_redirect() {
   make_boot_writable
 
-  if ! grep -q splash /boot/cmdline.txt; then
-    sed -i "s| quiet||g" /boot/cmdline.txt
-  fi
+  disable_text_output
+  echo "$(cat /boot/cmdline.txt) fbcon=map:2" >/boot/cmdline.txt
+}
+
+disable_text_output() {
+  make_boot_writable
+
   sed -i "s| fbcon=map:2||g" /boot/cmdline.txt
 }
 
