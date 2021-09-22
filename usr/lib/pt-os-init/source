@@ -91,7 +91,7 @@ prepare_init() {
   script_path=${1:-}
 
   remove_init
-  echo "$(cat /boot/cmdline.txt) init=${script_path}" >/boot/cmdline.txt
+  echo "$(cat /boot/cmdline.txt) fbcon=map:2 init=${script_path}" >/boot/cmdline.txt
 }
 
 enable_wifi_card() {
