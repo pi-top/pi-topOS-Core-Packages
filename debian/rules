@@ -7,3 +7,4 @@ override_dh_installsystemd:
 	dh_installsystemd --name=pt-eeprom-manager
 	dh_installsystemd --name=pt-os-memory-monitor
 	dh_installsystemd --name=pt-os-version-notify
+	dh_installsystemd --name=pt-wifi-ap-warning
