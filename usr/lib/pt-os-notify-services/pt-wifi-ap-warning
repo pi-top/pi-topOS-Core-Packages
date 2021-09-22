@@ -1,0 +1,48 @@
+#!/usr/bin/python3
+from pitop.common.notifications import (
+    NotificationActionManager,
+    NotificationUrgencyLevel,
+    send_notification,
+)
+from pitop.common.sys_info import get_ap_mode_status
+
+
+def show_warning(ssid, actions, urgency):
+    send_notification(
+        title="Watch Out! Your pi-top is vulnerable!",
+        text=f"This pi-top's Wi-Fi network ('{ssid}') is currently active."
+        "\n"
+        "This can be a security issue! Switch off if you do not need it.",
+        icon_name="dialog-warning",
+        timeout=0,
+        app_name="pi-topOS Wi-Fi Access Point Warning",
+        actions_manager=actions,
+        urgency_level=urgency,
+        capture_notification_id=False,
+    )
+
+
+def main():
+    ap_info = get_ap_mode_status()
+
+    if ap_info is None:
+        return
+
+    action_manager = NotificationActionManager()
+    action_manager.add_action(
+        "DISABLE", "sudo wifi-ap-sta disable && sudo wifi-ap-sta stop"
+    )
+    action_manager.add_action(
+        "Learn More", "x-www-browser https://knowledgebase.pi-top.com/wifi-ap-sta"
+    )
+
+    if ap_info["state"] == "active":
+        show_warning(
+            ap_info["ssid"],
+            action_manager,
+            NotificationUrgencyLevel.critical,
+        )
+
+
+if __name__ == "__main__":
+    main()
