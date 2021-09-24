@@ -31,7 +31,7 @@ Package: pt-device-support
 Architecture: all
 Depends:
  ${misc:Depends},
- pt-device-manager,
+ pi-topd,
  python3-pitop,
 # Additional hardware support
  pt-display-port,
