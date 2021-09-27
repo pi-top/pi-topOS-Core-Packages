@@ -107,17 +107,35 @@ update_config=1" >/boot/wpa_supplicant.conf
   fi
 }
 
-enable_text_redirect() {
+add_to_cmdline_txt() {
   make_boot_writable
 
-  disable_text_output
-  echo "$(cat /boot/cmdline.txt) fbcon=map:2" >/boot/cmdline.txt
+  echo "$(cat /boot/cmdline.txt) ${1}" >/boot/cmdline.txt
 }
 
-disable_text_output() {
+remove_from_cmdline_txt() {
   make_boot_writable
 
-  sed -i "s| fbcon=map:2||g" /boot/cmdline.txt
+  sed -i "s| ${1}||g" /boot/cmdline.txt
+}
+
+enable_text_redirect() {
+  remove_from_cmdline_txt "${1}"
+  add_to_cmdline_txt "fbcon=map:2"
+}
+
+disable_text_redirect() {
+  remove_from_cmdline_txt "fbcon=map:2"
+}
+
+remove_init() {
+  make_boot_writable
+  sed -i -e "s| init=[^ ]*||g" /boot/cmdline.txt
+}
+
+add_init() {
+  remove_init
+  add_to_cmdline_txt "init=${1}"
 }
 
 finish_and_reboot() {
