@@ -120,7 +120,7 @@ remove_from_cmdline_txt() {
 }
 
 enable_text_redirect() {
-  remove_from_cmdline_txt "${1}"
+  remove_from_cmdline_txt "fbcon=map:2"
   add_to_cmdline_txt "fbcon=map:2"
 }
 
