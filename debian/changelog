@@ -1,3 +1,20 @@
+pt-os-core (5.2.0-2) bullseye; urgency=medium
+
+  * Fix Mode 5 mask
+  * Init: better hub communication + refactor (#52)
+  * Update black version
+  * Drop unnecessary DISPLAY environment in services
+  * Drop unnecessary PTLogger
+  * Fix pre-commit
+  * Add AP warning (#51)
+  * Add pt-wifi-ap-warning to rules file
+  * Source from /usr/lib/pt-os-init
+  * Add 'fbcon=map:2' on prepare
+  * Move hub handshake to lib
+  * pt-device-manager --> pi-topd (#53)
+
+ -- pi-top <deb-maintainers@pi-top.com>  Mon, 27 Sep 2021 12:59:41 +0000
+
 pt-os-core (5.2.0-1) bullseye; urgency=medium
 
   * Add additional packages for improving maintainability (#47)
