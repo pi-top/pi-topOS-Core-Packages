@@ -1,3 +1,13 @@
+pt-os-core (5.3.0-1) bullseye; urgency=medium
+
+  * Init: better hub communication + refactor (#52)
+  * Init: Add 'fbcon=map:2' on prepare
+  * Add AP warning (#51)
+  * pt-device-manager --> pi-topd (#53)
+  * Drop unnecessary DISPLAY environment in services
+
+ -- pi-top <deb-maintainers@pi-top.com>  Mon, 27 Sep 2021 12:59:41 +0000
+
 pt-os-core (5.2.0-1) bullseye; urgency=medium
 
   * Add additional packages for improving maintainability (#47)
