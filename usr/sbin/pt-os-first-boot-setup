@@ -1,4 +1,6 @@
-#!/bin/bash -x
+#!/bin/bash
+
+set -x
 
 # shellcheck disable=SC2091
 $(return 0 >/dev/null 2>&1) && echo "Please run directly, not as a sourced script" && return 1
@@ -19,7 +21,7 @@ if [ "$#" -eq 0 ]; then
     disable_text_redirect
     remove_init
     /usr/lib/pt-os-init/pt-hub-handshake --cleanup
-  } >/boot/.os-setup-boot.log
+  } 2>&1 | tee /boot/.os-setup-boot.log
   finish_and_reboot
 elif [ "$1" = "prepare" ]; then
   set_next_init "${DIR}/${FILE}"
