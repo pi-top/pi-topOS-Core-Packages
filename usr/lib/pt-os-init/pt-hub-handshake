@@ -332,7 +332,7 @@ class I2CDevice:
 
 
 @click.command()
-@click.option("--cleanup")
+@click.option("--cleanup", is_flag=True)
 @click.version_option()
 def main(cleanup):
     logger = logging.getLogger("pt-hub-handshake")
