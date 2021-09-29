@@ -51,8 +51,6 @@ mount_all() {
 }
 
 expand() {
-  mount /boot -o remount,ro
-
   echo 1 >/proc/sys/kernel/sysrq
   {
     parse_partition_table
