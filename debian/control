@@ -39,9 +39,6 @@ Depends:
 # Software updaters
  pt-firmware-updater,
  pt-touchscreen,
-# Recommend screen blanking dependency
-# (only suggested by device manager to support headless configurations)
- xprintidle,
 Description: pi-top Device Support
  This metapackage contains dependencies required to install and configure
  low-level device-related components for using pi-top hardware.
@@ -84,6 +81,8 @@ Package: pt-os-desktop
 Architecture: all
 Depends:
  ${misc:Depends},
+# Desktop components of desktop support
+ pi-topd-extra,
 # systemd services
  pt-os-notify-services,
 # Only suggested by device manager to support headless configurations
