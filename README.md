@@ -21,7 +21,6 @@ The remaining dependencies are dummy packages for installing the various parts o
 * `pt-os-dev-tools`
 * `pt-os-networking`
 * `pt-os-onboarding`
-* `pt-os-ui`
 * `pt-os-user-libs`
 
 See [`debian/control`](debian/control) for more detail about what packages are installed.

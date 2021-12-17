@@ -21,7 +21,6 @@ Recommends:
  pt-os-dev-tools,
  pt-os-networking,
  pt-os-onboarding,
- pt-os-ui,
  pt-os-user-libs,
 # Required for ssh login motd (see OS build)
  neofetch,
@@ -104,6 +103,13 @@ Depends:
  pi-topd-extra,
 # systemd services
  pt-os-notify-services,
+ autorandr,
+ notify-send-ng,
+ pt-os-bootsplash,
+ pt-os-icon-theme,
+ pt-os-ui-mods,
+ pt-os-web-portal-desktop,
+ xfce4-notifyd,
 # Only suggested by device manager to support headless configurations
  xprintidle,
 Description: pi-topOS Desktop
@@ -186,21 +192,6 @@ Description: pi-topOS Notification Services
  contains a background memory usage monitor, a service to notify users when they
  are using a preview build of pi-topOS and a service to ensure that Raspberry Pi
  4s that are in use with a pi-top [4] have their EEPROM configured correctly.
-
-Package: pt-os-ui
-Architecture: all
-Provides: pt-os-notifications
-Depends:
- ${misc:Depends},
- autorandr,
- notify-send-ng,
- pt-os-bootsplash,
- pt-os-ui-mods,
- pt-os-web-portal-desktop,
- xfce4-notifyd,
-Description: pi-topOS UI
- This metapackage contains the files and dependencies required
- to install and configure pi-topOS' UI-related components.
 
 Package: pt-os-user-libs
 Architecture: all
