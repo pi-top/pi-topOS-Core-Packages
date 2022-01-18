@@ -23,7 +23,7 @@ def split_into_bytes(
         no_of_bytes = ceil(data / 255)
     try:
         byte_string = data.to_bytes(
-            no_of_bytes, byteorder=byteorder_indicator, signed=signed
+            no_of_bytes, byteorder=byteorder_indicator, signed=signed  # type: ignore
         )
     except OverflowError as e:
         print(str(e))
