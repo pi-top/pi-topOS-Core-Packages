@@ -19,6 +19,7 @@ Recommends:
  pt-os-apps,
  pt-os-desktop,
  pt-os-dev-tools,
+ pt-os-hostname,
  pt-os-networking,
  pt-os-onboarding,
  pt-os-ui,
@@ -223,3 +224,15 @@ Depends:
 Description: pi-topOS Version
  This package provides an easy-to-parse text file providing the current pi-topOS
  version.
+
+Package: pt-os-hostname
+Architecture: all
+Depends:
+ ${misc:Depends},
+# 'hostname' command
+ hostname,
+# Required to run on boot
+ systemd,
+Description: pi-topOS Hostname
+ This package sets the device hostname based in the Raspberry Pi serial code,
+ so that every pi-top has an unique identifier.
