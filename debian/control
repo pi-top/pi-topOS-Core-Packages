@@ -230,7 +230,7 @@ Architecture: all
 Depends:
  ${misc:Depends},
 # 'hostname' command
- hostname,
+ hostname (>=3.0),
 # Required to run on boot
  systemd,
 Description: pi-topOS Hostname
