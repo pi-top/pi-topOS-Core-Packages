@@ -24,7 +24,7 @@ set_hostname() {
     echo "Setting hostname to '${NEW_HOSTNAME}'"
 
     # update hostname
-    echo "${NEW_HOSTNAME}" > /proc/sys/kernel/hostname
+    hostname "${NEW_HOSTNAME}"
     echo "${NEW_HOSTNAME}" > /etc/hostname
 
     # update /etc/hosts
