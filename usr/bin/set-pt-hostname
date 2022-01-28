@@ -29,7 +29,7 @@ set_hostname() {
 
     # update /etc/hosts
     sed -i '/^127.0.1.1/d' /etc/hosts
-    echo -e "127.0.1.1\tpi-top.local\t${NEW_HOSTNAME}" | tee -a /etc/hosts
+    echo -e "127.0.1.1\tpi-top\t${NEW_HOSTNAME}" | tee -a /etc/hosts
 }
 
 
