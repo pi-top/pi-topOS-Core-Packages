@@ -1,2 +1,3 @@
 usr/bin/set-pt-hostname
 lib/systemd/system/systemd-hostnamed.service.d
+lib/systemd/system/avahi-daemon.service.d
