@@ -33,12 +33,35 @@ set_hostname() {
 }
 
 
-main() {
-	if [[ "${command}" == "set" ]]; then
-		do_set
-	elif [[ "${command}" == "publish" ]]; then
-		do_publish
-    fi
+wait_for() {
+    command="$1"
+    until eval "${command}" &> /dev/null
+    do
+        sleep 1
+    done
+}
+
+wait_for_avahi_daemon() {
+    echo "Waiting for avahi-daemon daemon ..."
+    wait_for "/usr/sbin/avahi-daemon -c"
+}
+
+
+wait_for_usb_interface() {
+    echo "Waiting for USB interface to become active..."
+    wait_for "ip a l ptusb0"
+    echo "Waiting for USB to get an IP address ..."
+    wait_for "[ ! -z $(ip a l ptusb0 | sed -En -e 's/.*inet ([0-9.]+).*/\1/p') ]"
+}
+
+
+do_publish() {
+    wait_for_avahi_daemon
+    wait_for_usb_interface
+
+    local USB_IFACE_IP
+    USB_IFACE_IP=$(ip a l ptusb0 | sed -En -e 's/.*inet ([0-9.]+).*/\1/p')
+    /usr/bin/avahi-publish -a -R pi-top.local "${USB_IFACE_IP}" &
 }
 
 
@@ -50,42 +73,38 @@ do_set() {
 }
 
 
-do_publish() {
-    until /usr/sbin/avahi-daemon -c &> /dev/null
-    do
-        echo "Waiting for avahi-daemon daemon ..."
-        sleep 1
-    done
+main() {
+    if [[ "$EUID" -ne 0 ]]; then
+        echo "Please run as root"
+        exit 1
+    fi
 
-    USB_IFACE_IP=$(ip a l ptusb0 | sed -En -e 's/.*inet ([0-9.]+).*/\1/p')
-    /usr/bin/avahi-publish -a -R pi-top.local "${USB_IFACE_IP}"
+    if [[ "${command}" == "set" ]]; then
+        do_set
+    elif [[ "${command}" == "publish" ]]; then
+        do_publish
+    fi
 }
 
 
 usage_and_exit() {
-	echo "Application that sets up the pi-top hostname."
-	echo ""
-	echo -e "Usage:\\n\\t${0} {set,publish}"
-	echo "where:"
-	echo -e "\\tset\\t: set the machine hostname based on the Raspberry Pi serial number."
-	echo -e "\\tpublish\\t: publish pi-top.local hostname using avahi."
-	exit 1
+    echo "Application that sets up the pi-top hostname."
+    echo ""
+    echo -e "Usage:\\n\\t${0} {set,publish}"
+    echo "where:"
+    echo -e "\\tset\\t: set the machine hostname based on the Raspberry Pi serial number."
+    echo -e "\\tpublish\\t: publish pi-top.local hostname using avahi."
+    exit 1
 }
-
-
-if [[ "$EUID" -ne 0 ]]; then
-	echo "Please run as root"
-	exit 1
-fi
 
 
 command=${1:-}
 valid_commands=("set" "publish")
 if [[ -z "${command}" ]] || [[ ! "${valid_commands[*]}" =~ ${command} ]]; then
-	# shellcheck disable=SC2145
-	echo "Invalid argument: accepted values are: ${valid_commands[@]}."
-	echo ""
-	usage_and_exit
+    # shellcheck disable=SC2145
+    echo "Invalid argument: accepted values are: ${valid_commands[@]}."
+    echo ""
+    usage_and_exit
 fi
 
 
