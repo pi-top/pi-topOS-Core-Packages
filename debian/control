@@ -229,9 +229,12 @@ Package: pt-os-hostname
 Architecture: all
 Depends:
  ${misc:Depends},
+# Support exposing multiple hostnames in a network
+ avahi-daemon,
+ avahi-utils,
 # 'hostname' command
  hostname (>=3.0),
-# Required to run on boot
+# Required for hostnamed service
  systemd,
 Description: pi-topOS Hostname
  This package sets the device hostname based in the Raspberry Pi serial code,
