@@ -1,4 +1,4 @@
-pt-os-core (5.3.0-3) bullseye; urgency=medium
+pt-os-core (5.4.0-1) bullseye; urgency=medium
 
   * Add `pi-topd-extra` (#60)
   * Add `pt-os-lite` package (#59)
