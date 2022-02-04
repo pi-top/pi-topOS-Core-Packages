@@ -92,6 +92,7 @@ Recommends:
  sonic-pi,
  touche,
  vlc,
+ wpagui,
 Description: pi-topOS Applications
  This package contains the files and dependencies required
  to install and configure pi-topOS' GUI applications.
