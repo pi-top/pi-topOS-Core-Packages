@@ -1,3 +1,10 @@
+pt-os-core (5.4.0-1) bullseye; urgency=medium
+
+  * Add `pi-topd-extra` (#60)
+  * Add `pt-os-lite` package (#59)
+
+ -- pi-top <deb-maintainers@pi-top.com>  Fri, 04 Feb 2022 12:10:14 +0000
+
 pt-os-core (5.3.0-2) bullseye; urgency=medium
 
   * Fix Mode 5 mask
