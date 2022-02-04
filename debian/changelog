@@ -1,16 +1,7 @@
 pt-os-core (5.3.0-3) bullseye; urgency=medium
 
   * Add `pi-topd-extra` (#60)
-  * [pre-commit.ci] pre-commit autoupdate (#62)
   * Add `pt-os-lite` package (#59)
-  * [pre-commit.ci] pre-commit autoupdate (#63)
-  * [pre-commit.ci] pre-commit autoupdate (#64)
-  * Updated master workflow files
-  * Add signing key and passphrase to deb_release workflow
-  * [pre-commit.ci] pre-commit autoupdate (#65)
-  * [pre-commit.ci] pre-commit autoupdate (#67)
-  * Add pull request template
-  * Update PR template to track Github issues
 
  -- pi-top <deb-maintainers@pi-top.com>  Fri, 04 Feb 2022 12:10:14 +0000
 
