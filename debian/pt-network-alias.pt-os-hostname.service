@@ -1,0 +1,12 @@
+[Unit]
+Description=Publish 'pi-top.local' as alias for %H.local using mDNS
+Documentation=https://knowledgebase.pi-top.com/knowledge
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/pt-hostname publish
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

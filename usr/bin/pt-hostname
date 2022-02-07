@@ -57,9 +57,9 @@ do_publish() {
     wait_for_avahi_daemon
     wait_for_usb_interface
 
-    local USB_IFACE_IP
-    USB_IFACE_IP=$(ip a l ptusb0 | sed -En -e 's/.*inet ([0-9.]+).*/\1/p')
-    /usr/bin/avahi-publish -a -R pi-top.local "${USB_IFACE_IP}" &
+    local PTUSB_IP
+    PTUSB_IP=$(ip a l ptusb0 | sed -En -e 's/.*inet ([0-9.]+).*/\1/p')
+    avahi-publish -a -R pi-top.local "${PTUSB_IP}"
 }
 
 
