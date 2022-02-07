@@ -37,6 +37,7 @@ wait_for() {
     do
         sleep 1
     done
+    echo "Finished waiting ..."
 }
 
 wait_for_avahi_daemon() {
@@ -49,7 +50,7 @@ wait_for_usb_interface() {
     echo "Waiting for USB interface to become active..."
     wait_for "ip a l ptusb0"
     echo "Waiting for USB to get an IP address ..."
-    wait_for "[ ! -z $(ip a l ptusb0 | sed -En -e 's/.*inet ([0-9.]+).*/\1/p') ]"
+    wait_for "ip a l ptusb0 | grep -q -e '.*inet [0-9.]*'"
 }
 
 
@@ -59,6 +60,7 @@ do_publish() {
 
     local PTUSB_IP
     PTUSB_IP=$(ip a l ptusb0 | sed -En -e 's/.*inet ([0-9.]+).*/\1/p')
+    echo "Publishing 'pi-top.local' as an alias for ${PTUSB_IP} ..."
     avahi-publish -a -R pi-top.local "${PTUSB_IP}"
 }
 
