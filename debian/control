@@ -101,7 +101,7 @@ Architecture: all
 Depends:
  ${misc:Depends},
 # Desktop components of desktop support
- pi-topd,
+ pi-topd-extra,
 # systemd services
  pt-os-notify-services,
 # Only suggested by device manager to support headless configurations
