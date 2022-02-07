@@ -9,12 +9,10 @@ IFS=$'\n\t'
 
 
 produce_hostname() {
-    local RPI_SERIAL;
-    local RPI_ID;
-    RPI_SERIAL=$(grep -e "Serial" /proc/cpuinfo | awk '{print $3}')
-    RPI_SERIAL="${RPI_SERIAL:-12345678}"
-    RPI_ID=$(echo "${RPI_SERIAL: -4}" | tr '[:lower:]' '[:upper:]')
-    echo "pi-top-${RPI_ID}"
+    local PI_TOP_SERIAL;
+    PI_TOP_SERIAL=$(cat /run/pt_hub_serial)
+    PI_TOP_SERIAL="${PI_TOP_SERIAL:-12345678}"
+    echo "pi-top-${PI_TOP_SERIAL: -4}"
 }
 
 
