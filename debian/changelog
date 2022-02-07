@@ -1,3 +1,9 @@
+pt-os-core (5.4.0-3) bullseye; urgency=medium
+
+  * Update dependency: pi-topd -> pi-topd-extra (#71)
+
+ -- pi-top <deb-maintainers@pi-top.com>  Mon, 07 Feb 2022 16:48:18 +0000
+
 pt-os-core (5.4.0-2) bullseye; urgency=medium
 
   * pi-topd-extra -> pi-topd (#68)
