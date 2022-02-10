@@ -1,6 +1,5 @@
-pt-os-core (5.4.0-4) bullseye; urgency=medium
+pt-os-core (5.5.0-1) bullseye; urgency=medium
 
-  * [pre-commit.ci] pre-commit autoupdate (#73)
   * Update path to recovery partition (#74)
   * Add wpagui to pt-os-apps (#70)
 
