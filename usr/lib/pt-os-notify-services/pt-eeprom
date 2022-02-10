@@ -69,13 +69,15 @@ force_conf_entry() {
 
 set_eeprom_installation_directory() {
   bootfs_entry="/boot"
-  [[ -d "/recovery" ]] && bootfs_entry="/recovery"
+  [[ -d "/boot/.recovery" ]] && bootfs_entry="/boot/.recovery"
   force_conf_entry BOOTFS "${bootfs_entry}" "/etc/default/rpi-eeprom-update"
 }
 
 patch_eeprom() {
+  echo "Patching EEPROM configuration"
   force_conf_entry WAKE_ON_GPIO 0 "${tmp_dir}/boot.conf"
   force_conf_entry POWER_OFF_ON_HALT 1 "${tmp_dir}/boot.conf"
+  echo "Applying EEPROM configuration"
   rpi-eeprom-config --apply "${tmp_dir}/boot.conf"
 }
 
@@ -108,12 +110,10 @@ set_eeprom_installation_directory
 if board_revision_requires_patched_eeprom; then
   echo "Board revision requires patched EEPROM"
   read_eeprom_settings
-  if eeprom_needs_patching; then
-    if [ -z $force ]; then
-      show_notification
-    else
-      patch_eeprom
-    fi
+  if [ -n "${force}" ]; then
+    patch_eeprom
+  elif eeprom_needs_patching; then
+    show_notification
   else
     echo "EEPROM does not require patching - doing nothing"
   fi
