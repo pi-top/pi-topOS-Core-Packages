@@ -93,6 +93,9 @@ Recommends:
  touche,
  vlc,
  wpagui,
+Conflicts:
+# menu is recommended by wpa_gui and makes unwanted additions to the start menu
+ menu,
 Description: pi-topOS Applications
  This package contains the files and dependencies required
  to install and configure pi-topOS' GUI applications.
