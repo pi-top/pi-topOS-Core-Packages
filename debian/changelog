@@ -1,3 +1,9 @@
+pt-os-core (5.5.0-2) bullseye; urgency=medium
+
+  * pt-os-apps doesn't Conflict with 'menu' (#76)
+
+ -- pi-top <deb-maintainers@pi-top.com>  Fri, 11 Feb 2022 15:11:27 +0000
+
 pt-os-core (5.5.0-1) bullseye; urgency=medium
 
   * Update path to recovery partition (#74)
