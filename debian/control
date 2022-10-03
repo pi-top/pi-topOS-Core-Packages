@@ -177,7 +177,7 @@ Depends:
 # so we hard-code
 # ${python3:Depends},
  python3,
- python3-pitop,
+ python3-pitop-common,
 # Other dependencies
  notify-send-ng,
 Recommends:
