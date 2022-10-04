@@ -1,13 +1,5 @@
-pt-os-core (5.5.0-3) bullseye; urgency=medium
+pt-os-core (5.5.1-1) bullseye; urgency=medium
 
-  * [pre-commit.ci] pre-commit autoupdate (#78)
-  * [pre-commit.ci] pre-commit autoupdate (#80)
-  * Updated master workflow files
-  * Updated master workflow files
-  * [pre-commit.ci] pre-commit autoupdate (#81)
-  * [pre-commit.ci] pre-commit autoupdate (#82)
-  * [pre-commit.ci] pre-commit autoupdate (#83)
-  * [pre-commit.ci] pre-commit autoupdate (#84)
   * Update dependencies to use SDK subpackages (#86)
 
  -- pi-top <deb-maintainers@pi-top.com>  Mon, 03 Oct 2022 17:22:02 +0000
