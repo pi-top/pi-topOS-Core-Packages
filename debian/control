@@ -33,34 +33,44 @@ Architecture: all
 Conflicts: pt-os
 Depends:
  ${misc:Depends},
+ pt-device-support-lite,
+ pt-os-networking,
  pt-os-sys-mods,
  pt-os-version,
 Recommends:
- pt-device-support,
  pt-os-dev-tools,
- pt-os-networking,
  pt-os-onboarding,
- pt-os-user-libs,
 # Required for ssh login motd (see OS build)
  neofetch,
 Description: pi-topOS Lite top-level dummy package
  The root package of pi-topOS modifications to Raspberry Pi OS Lite.
 
-Package: pt-device-support
+Package: pt-device-support-lite
 Architecture: all
 Depends:
  ${misc:Depends},
  pi-topd,
- python3-pitop,
 # Additional hardware support
  pt-display-port,
  pt-miniscreen,
+Description: pi-top Device Support Lite
+ This metapackage contains minimal dependencies required to install and configure
+ low-level device-related components for using pi-top hardware.
+
+Package: pt-device-support
+Architecture: all
+Depends:
+ ${misc:Depends},
+ pt-device-support-lite,
+ python3-pitop,
 # Software updaters
  pt-firmware-updater,
  pt-touchscreen,
 Description: pi-top Device Support
  This metapackage contains dependencies required to install and configure
  low-level device-related components for using pi-top hardware.
+ .
+ This includes desktop features, such as notifications and touch events.
 
 Package: pt-os-apps
 Architecture: all
