@@ -38,7 +38,6 @@ Depends:
  pt-os-sys-mods,
  pt-os-version,
 Recommends:
- pt-os-dev-tools,
  pt-os-onboarding,
 # Required for ssh login motd (see OS build)
  neofetch,
