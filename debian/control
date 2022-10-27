@@ -54,8 +54,8 @@ Depends:
  pt-display-port,
  pt-miniscreen,
 Description: pi-top Device Support Lite
- This metapackage contains minimal dependencies required to install and configure
- low-level device-related components for using pi-top hardware.
+ This metapackage contains minimal dependencies required to install and
+ configure low-level device-related components for using pi-top hardware.
 
 Package: pt-device-support
 Architecture: all
