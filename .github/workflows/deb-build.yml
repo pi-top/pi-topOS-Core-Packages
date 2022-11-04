@@ -40,7 +40,7 @@ jobs:
     needs: check-architecture
     runs-on: ubuntu-20.04
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix: ${{fromJSON(needs.check-architecture.outputs.matrix)}}
     steps:
       - name: Checkout code
