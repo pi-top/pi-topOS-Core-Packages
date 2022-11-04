@@ -35,10 +35,10 @@ Depends:
  ${misc:Depends},
  pt-device-support-lite,
  pt-os-networking,
+ pt-os-onboarding,
  pt-os-sys-mods,
  pt-os-version,
 Recommends:
- pt-os-onboarding,
 # Required for ssh login motd (see OS build)
  neofetch,
 Description: pi-topOS Lite top-level dummy package
