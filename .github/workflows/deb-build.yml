@@ -26,13 +26,14 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      # If architecture is 'all', then it can be compiled on host architecture
+      # If any packages define architecture as other than 'all'
+      # then it can't be compiled on host architecture
       - id: set-matrix
         run: |
-          if grep '^Architecture:' debian/control | grep -q 'all'; then
-            echo "matrix=$HOST_COMPILE" >>$GITHUB_OUTPUT
-          else
+          if grep '^Architecture:' debian/control | grep -q -v 'all'; then
             echo "matrix=$X_COMPILE" >>$GITHUB_OUTPUT
+          else
+            echo "matrix=$HOST_COMPILE" >>$GITHUB_OUTPUT
           fi
 
   build-debian-package:
