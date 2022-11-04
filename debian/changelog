@@ -1,3 +1,10 @@
+pt-os-core (5.5.1-2) bullseye; urgency=medium
+
+  * Reduce size of `pt-os-lite` install (#88)
+  * pt-os-lite installs pt-os-onboarding (#90)
+
+ -- pi-top <deb-maintainers@pi-top.com>  Fri, 04 Nov 2022 13:02:02 +0000
+
 pt-os-core (5.5.1-1) bullseye; urgency=medium
 
   * Update dependencies to use SDK subpackages (#86)
