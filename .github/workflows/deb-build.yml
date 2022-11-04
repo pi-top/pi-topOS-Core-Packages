@@ -22,6 +22,7 @@ env:
 
 jobs:
   check-architecture:
+    runs-on: ubuntu-20.04
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
