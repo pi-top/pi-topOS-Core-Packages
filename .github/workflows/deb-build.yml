@@ -26,9 +26,15 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      # If any packages define architecture as other than 'all'
-      # then it can't be compiled on host architecture
-      - id: set-matrix
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Determine target architecture
+        id: set-matrix
+        # If any packages define architecture as other than 'all'
+        # then it can't be compiled on host architecture
         run: |
           if grep '^Architecture:' debian/control | grep -q -v 'all'; then
             echo "matrix=$X_COMPILE" >>$GITHUB_OUTPUT
