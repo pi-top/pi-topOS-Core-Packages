@@ -21,6 +21,10 @@ env:
 jobs:
   build-debian-package:
     runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: true
+      matrix:
+        architecture: ["armhf", "arm64"]
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -39,15 +43,12 @@ jobs:
           snapshot_number: ${{ steps.version.outputs.distance }}
           since: ${{ steps.version.outputs.tag_latest }}
 
-      # We only want ARM builds. This step is here to provide the option of
-      # using a strategy matrix if additional builds (e.g. `arm64`) are desired
       - name: Determine architecture to use from package info
         # If architecture is 'all', then it can be compiled on host architecture
-        # All other pi-topOS cases require 'armhf'
         run: |
           target_architecture=amd64
           if grep '^Architecture:' debian/control | grep -q -v 'all'; then
-            target_architecture=armhf
+            target_architecture=${{ matrix.architecture }}
           fi
           echo "TARGET_ARCHITECTURE=${target_architecture}" >> $GITHUB_ENV
 
