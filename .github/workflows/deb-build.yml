@@ -37,7 +37,6 @@ jobs:
 
   build-debian-package:
     needs: check-architecture
-    if: needs.check-architecture.outputs.status == 'success'
     runs-on: ubuntu-20.04
     strategy:
       fail-fast: true
