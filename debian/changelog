@@ -1,4 +1,4 @@
-pt-os-core (5.5.1-2) bullseye; urgency=medium
+pt-os-core (5.5.2-1) bullseye; urgency=medium
 
   * Reduce size of `pt-os-lite` install (#88)
   * pt-os-lite installs pt-os-onboarding (#90)
