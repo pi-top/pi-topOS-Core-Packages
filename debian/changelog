@@ -1,6 +1,6 @@
 pt-os-core (5.5.2-2) bullseye; urgency=medium
 
-  * pt-os-apps depends on python grove libs (#92)
+  * pt-os-apps depends on grove python library (#92)
 
  -- pi-top <deb-maintainers@pi-top.com>  Mon, 19 Dec 2022 19:18:16 +0000
 
