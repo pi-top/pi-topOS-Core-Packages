@@ -1,11 +1,6 @@
-pt-os-core (5.6.0-2) bullseye; urgency=medium
+pt-os-core (5.7.0-1) bullseye; urgency=medium
 
-  * Updated master workflow files
-  * Updated master workflow files
-  * pt-os-apps depends on python3-godirect (#95)
-  * Updated master workflow files
   * Add pi-top-usb-setup dependency (#96)
-  * Remove python3-godirect dependency
 
  -- pi-top <deb-maintainers@pi-top.com>  Tue, 31 Oct 2023 17:31:38 +0000
 
