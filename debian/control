@@ -96,7 +96,6 @@ Recommends:
  mtpaint,
  mu-editor,
  python3-grove.py,
- python3-godirect,
  python3-minecraftpi,
  realvnc-vnc-viewer,
  scratch3,
