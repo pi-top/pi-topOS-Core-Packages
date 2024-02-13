@@ -67,8 +67,7 @@ jobs:
       - name: Patch lintian-overrides
         if: matrix.distro  == 'bullseye'
         run:
-          cp debian/bullseye-overrides/*.lintian-overrides debian/ || true
-          ls -lR debian
+          cp -r debian/bullseye-overrides/* debian/
 
       - name: Build Debian package
         uses: pi-top/debian-package-build-action@master
