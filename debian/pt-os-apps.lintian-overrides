@@ -1,1 +1,1 @@
-pt-os-apps: no-manual-page usr/bin/sonic-pi-server
+pt-os-apps: no-manual-page [usr/bin/sonic-pi-server]
