@@ -1,3 +1,11 @@
+pt-os-core (5.7.1-2) bullseye; urgency=medium
+
+  * Build for bookworm (#97)
+  * New changelog entry: v5.7.1-1 (#98)
+  * Patch lintian-overrides on release (#99)
+
+ -- pi-top <deb-maintainers@pi-top.com>  Tue, 13 Feb 2024 19:54:32 +0000
+
 pt-os-core (5.7.1-1) bullseye; urgency=medium
 
   * Build for bookworm (#97)
