@@ -1,4 +1,4 @@
-pt-os-core (5.7.0-2) bullseye; urgency=medium
+pt-os-core (5.7.1-1) bullseye; urgency=medium
 
   * Build for bookworm (#97)
 
