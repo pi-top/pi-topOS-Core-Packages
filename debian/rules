@@ -3,8 +3,20 @@
 %:
 	dh $@
 
+distribution := $(shell (grep VERSION_CODENAME /etc/os-release | cut -d'=' -f2))
+
 override_dh_installsystemd:
 	dh_installsystemd --name=pt-eeprom-manager
 	dh_installsystemd --name=pt-os-memory-monitor
 	dh_installsystemd --name=pt-os-version-notify
 	dh_installsystemd --name=pt-os-wifi-ap-warning
+
+override_dh_gencontrol:
+ifeq ($(distribution),bookworm)
+	dh_gencontrol -- '-VptOsUiMods:version:pt-os-ui-mods (>>1.8.0)' '-VptOsUiMods:breaks:pt-os-ui-mods (<<1.8.0)'
+else
+	dh_gencontrol -- '-VptOsUiMods:version:pt-os-ui-mods (=1.7.20220210-1)' '-VptOsUiMods:breaks:pt-os-ui-mods (>>1.7.20220210-1)'
+endif
+
+
+
