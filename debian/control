@@ -202,12 +202,14 @@ Description: pi-topOS Notification Services
 Package: pt-os-ui
 Architecture: all
 Provides: pt-os-notifications
+Breaks:
+ ${ptOsUiMods:breaks},
 Depends:
  ${misc:Depends},
  autorandr,
  notify-send-ng,
  pt-os-bootsplash,
- pt-os-ui-mods,
+ ${ptOsUiMods:version},
  pt-os-web-portal-desktop,
  xfce4-notifyd,
 Description: pi-topOS UI
