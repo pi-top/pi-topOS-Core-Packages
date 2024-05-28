@@ -13,7 +13,7 @@ source "/usr/lib/pt-os-init/source"
 
 if [ "$#" -eq 0 ]; then
   mount_all
-  make_boot_writable
+  mount_fs_rw
   {
     /usr/lib/pt-os-init/pt-hub-handshake
     expand
