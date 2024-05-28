@@ -35,7 +35,7 @@ Adds first-time init logic:
 
 ### `/usr/sbin/pt-os-first-boot-setup`
 
-Handles modifying `/boot/cmdline.txt` for handling first time boot.
+Handles modifying `cmdline.txt` for handling first time boot.
 During first boot:
 * prevent pi-top [4] from showing 'connect SD card' animation
 * expand file system

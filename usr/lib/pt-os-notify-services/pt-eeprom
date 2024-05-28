@@ -67,8 +67,17 @@ force_conf_entry() {
   echo "${field}=${value}" >>"${file}"
 }
 
+find_boot_mount_point() {
+  # don't consider '.recovery' partition
+  BOOT_MOUNTPOINTS=$(grep /boot /etc/fstab 2>/dev/null | grep -v '.recovery' | awk '{print $2}' || true)
+  if [ -z "$BOOT_MOUNTPOINTS" ]; then
+    BOOT_MOUNTPOINTS="/boot"
+  fi
+  echo "$BOOT_MOUNTPOINTS" | head -n1
+}
+
 set_eeprom_installation_directory() {
-  bootfs_entry="/boot"
+  bootfs_entry=$(find_boot_mount_point)
   [[ -d "/boot/.recovery" ]] && bootfs_entry="/boot/.recovery"
   force_conf_entry BOOTFS "${bootfs_entry}" "/etc/default/rpi-eeprom-update"
 }

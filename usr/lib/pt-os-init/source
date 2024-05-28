@@ -19,6 +19,15 @@ parse_partition_table() {
   EXT_PART_NUM=$(echo "$EXT_PART_LINE" | cut -d ":" -f 1)
 }
 
+find_boot_mount_point() {
+  # don't consider '.recovery' partition
+  BOOT_MOUNTPOINTS=$(grep /boot /etc/fstab 2>/dev/null | grep -v '.recovery' | awk '{print $2}' || true)
+  if [ -z "$BOOT_MOUNTPOINTS" ]; then
+    BOOT_MOUNTPOINTS="/boot"
+  fi
+  echo "$BOOT_MOUNTPOINTS" | head -n1
+}
+
 load_i2c_modules() {
   # Load kernel modules to perform i2c operations
   modprobe i2c-bcm2835
@@ -36,13 +45,18 @@ mount_virtual_fs() {
 }
 
 mount_fs() {
-  mount /boot
   mount / -o remount,ro
+  [ -z "${BOOT_MOUNTPOINT}" ] && BOOT_MOUNTPOINT=$(find_boot_mount_point)
+  mkdir -p "${BOOT_MOUNTPOINT}"
+  mount "${BOOT_MOUNTPOINT}"
   sync
 }
 
-make_boot_writable() {
-  mount /boot -o remount,rw
+mount_fs_rw() {
+  mount / -o remount,rw
+  [ -z "${BOOT_MOUNTPOINT}" ] && BOOT_MOUNTPOINT=$(find_boot_mount_point)
+  mkdir -p "${BOOT_MOUNTPOINT}"
+  mount "${BOOT_MOUNTPOINT}" -o remount,rw
 }
 
 mount_all() {
@@ -81,40 +95,45 @@ EOF
 set_next_init() {
   script_path=${1:-}
 
-  make_boot_writable
-  sed -i -e "s| init=[^ ]*||g" /boot/cmdline.txt
-  echo "$(cat /boot/cmdline.txt) init=${script_path}" >/boot/cmdline.txt
+  mount_fs_rw
+  [ -z "${BOOT_MOUNTPOINT}" ] && BOOT_MOUNTPOINT=$(find_boot_mount_point)
+
+  sed -i -e "s| init=[^ ]*||g" "${BOOT_MOUNTPOINT}"/cmdline.txt
+  echo "$(cat ${BOOT_MOUNTPOINT}/cmdline.txt) init=${script_path}" >"${BOOT_MOUNTPOINT}"/cmdline.txt
 }
 
 enable_wifi_card() {
-  # This function creates a wpa_suppplicant.conf file in /boot.
+  # This function creates a wpa_suppplicant.conf file in $BOOT_MOUNTPOINT.
   # This will cause 'raspberrypi-net-mods' systemd service to be triggered on
   # boot, copying over the file to /etc/wpa_supplicant and most importantly,
   # enabling the wireless card so that AP mode runs on first boot.
 
-  make_boot_writable
-  mount / -o remount,ro
+  mount_fs_rw
+  [ -z "${BOOT_MOUNTPOINT}" ] && BOOT_MOUNTPOINT=$(find_boot_mount_point)
 
-  if [ ! -f /boot/wpa_supplicant.conf ]; then
+
+  if [ ! -f "${BOOT_MOUNTPOINT}"/wpa_supplicant.conf ]; then
     if [ -f /etc/wpa_supplicant/wpa_supplicant.conf ]; then
-      cp /etc/wpa_supplicant/wpa_supplicant.conf /boot/wpa_supplicant.conf
+      cp /etc/wpa_supplicant/wpa_supplicant.conf "${BOOT_MOUNTPOINT}"/wpa_supplicant.conf
     else
       echo "ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-update_config=1" >/boot/wpa_supplicant.conf
+update_config=1" >"${BOOT_MOUNTPOINT}"/wpa_supplicant.conf
     fi
   fi
 }
 
 add_to_cmdline_txt() {
-  make_boot_writable
+  mount_fs_rw
+  [ -z "${BOOT_MOUNTPOINT}" ] && BOOT_MOUNTPOINT=$(find_boot_mount_point)
 
-  echo "$(cat /boot/cmdline.txt) ${1}" >/boot/cmdline.txt
+  echo "$(cat ${BOOT_MOUNTPOINT}/cmdline.txt) ${1}" >"${BOOT_MOUNTPOINT}"/cmdline.txt
 }
 
 remove_from_cmdline_txt() {
-  make_boot_writable
+  mount_fs_rw
+  [ -z "${BOOT_MOUNTPOINT}" ] && BOOT_MOUNTPOINT=$(find_boot_mount_point)
 
-  sed -i "s| ${1}||g" /boot/cmdline.txt
+  sed -i "s| ${1}||g" "${BOOT_MOUNTPOINT}"/cmdline.txt
 }
 
 enable_text_redirect() {
@@ -127,8 +146,10 @@ disable_text_redirect() {
 }
 
 remove_init() {
-  make_boot_writable
-  sed -i -e "s| init=[^ ]*||g" /boot/cmdline.txt
+  mount_fs_rw
+  [ -z "${BOOT_MOUNTPOINT}" ] && BOOT_MOUNTPOINT=$(find_boot_mount_point)
+
+  sed -i -e "s| init=[^ ]*||g" "${BOOT_MOUNTPOINT}"/cmdline.txt
 }
 
 add_init() {
@@ -137,7 +158,8 @@ add_init() {
 }
 
 finish_and_reboot() {
-  umount /boot
+  [ -z "${BOOT_MOUNTPOINT}" ] && BOOT_MOUNTPOINT=$(find_boot_mount_point)
+  umount "${BOOT_MOUNTPOINT}"
   mount / -o remount,ro
   sync
   reboot -f
