@@ -77,8 +77,6 @@ Architecture: all
 Depends:
  ${misc:Depends}
 Recommends:
-# Disk Usage Analyzer
- baobab,
 # Keep display alive
  caffeine,
  chromium-browser,
