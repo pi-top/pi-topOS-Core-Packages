@@ -79,14 +79,9 @@ Depends:
 Recommends:
 # Disk Usage Analyzer
  baobab,
-# Keyboard and mouse sharing
- barrier,
 # Keep display alive
  caffeine,
  chromium-browser,
-# VS Code
- code,
- gimp,
 # Multi-touch friendly calculator
  gnome-calculator,
  htop,
@@ -99,7 +94,6 @@ Recommends:
  python3-minecraftpi,
  realvnc-vnc-viewer,
  scratch3,
- smartsim,
  sonic-pi,
  touche,
  vlc,
@@ -128,11 +122,10 @@ Depends:
  ${misc:Depends},
 Recommends:
  aptitude,
- asciinema,
  debtree,
  graphviz,
+# Used by recovery
  p7zip-full,
- silversearcher-ag,
  squashfs-tools,
  tree,
  vim,
