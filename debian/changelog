@@ -1,3 +1,9 @@
+pt-os-core (5.7.1-6) bullseye; urgency=medium
+
+  * Remove unnecessary recommended apps (#108)
+
+ -- pi-top <deb-maintainers@pi-top.com>  Tue, 18 Jun 2024 20:33:26 +0000
+
 pt-os-core (5.7.1-5) bullseye; urgency=medium
 
   * Find boot mount point using /etc/fstab (#106)
