@@ -121,7 +121,6 @@ Architecture: all
 Depends:
  ${misc:Depends},
 Recommends:
- aptitude,
  debtree,
  graphviz,
 # Used by recovery
