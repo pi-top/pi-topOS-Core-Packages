@@ -1,3 +1,10 @@
+pt-os-core (5.7.1-7) bullseye; urgency=medium
+
+  * Update workflows
+  * Pass correct argument when expanding filesystem (#113)
+
+ -- pi-top <deb-maintainers@pi-top.com>  Mon, 29 Jul 2024 21:39:53 +0000
+
 pt-os-core (5.7.1-6) bullseye; urgency=medium
 
   * Remove unnecessary recommended apps (#108)
