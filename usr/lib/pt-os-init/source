@@ -80,6 +80,7 @@ expand() {
     parted "${ROOT_DEV}" ---pretend-input-tty <<EOF
 resizepart
 ${ROOT_PART_NUM}
+yes
 ${TARGET_END}s
 quit
 EOF
