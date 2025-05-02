@@ -1,3 +1,9 @@
+pt-os-core (5.7.1-9) bullseye; urgency=medium
+
+  * Add pt-os-update-monitor as pt-os dependency (#117)
+
+ -- pi-top <deb-maintainers@pi-top.com>  Fri, 02 May 2025 15:55:56 +0000
+
 pt-os-core (5.7.1-8) bullseye; urgency=medium
 
   * Update OS version (#112)
