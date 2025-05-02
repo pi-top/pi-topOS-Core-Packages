@@ -20,12 +20,12 @@ env:
 
 jobs:
   check-architecture:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     outputs:
       architecture: ${{ steps.set-arch.outputs.architecture }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: true
 
@@ -43,12 +43,12 @@ jobs:
           echo "architecture=$architecture">>$GITHUB_OUTPUT
 
   check-distro:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     outputs:
       distros: ${{ steps.set-distros.outputs.distros }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: true
           fetch-depth: 0
@@ -73,7 +73,7 @@ jobs:
 
   set-build-matrix:
     needs: [check-distro, check-architecture]
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
@@ -85,14 +85,14 @@ jobs:
           echo "matrix=$matrix">>$GITHUB_OUTPUT
 
   build-debian-package:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: set-build-matrix
     strategy:
       fail-fast: false
       matrix: ${{fromJSON(needs.set-build-matrix.outputs.matrix)}}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: true
 
@@ -135,19 +135,19 @@ jobs:
           echo "ARTIFACT_PREFIX=$(basename -s .dsc "$(find . -name "*.dsc")")" >> $GITHUB_ENV
 
       - name: Upload binary package artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.distro }}-${{ env.ARTIFACT_PREFIX }}.deb
           path: ./artifacts/*.deb
 
       - name: Upload source package artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.distro }}-${{ env.ARTIFACT_PREFIX }}.deb-src
           path: ./artifacts/*.tar.xz
 
       - name: Upload package build metadata artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ env.ARTIFACT_PREFIX }}.metadata
           path: |
