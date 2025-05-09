@@ -62,7 +62,7 @@ jobs:
           fi
 
           # if pull request to bullseye branch or current branch is bullseye, build only for bullseye
-          if [ $(echo ${{ github.head_ref }} | grep -qE "bullseye$") ] || [ ${{ github.ref }} = 'refs/heads/bullseye' ]; then
+          if [[ "${{ github.head_ref }}" =~ bullseye$ ]] || [ "${{ github.ref }}" = 'refs/heads/bullseye' ]; then
             distros="\"distro\":[\"bullseye\"]"
           fi
 

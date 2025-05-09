@@ -8,7 +8,7 @@ on:
 env:
   CHANGELOG_AUTHOR_NAME: "pi-top"
   CHANGELOG_AUTHOR_EMAIL: "deb-maintainers@pi-top.com"
-  COMMIT_MESSAGE_PREFIX: "New changelog entry:"
+  COMMIT_MESSAGE_PREFIX: "[bullseye]New changelog entry:"
 
 jobs:
   bump-changelog-on-pr:
