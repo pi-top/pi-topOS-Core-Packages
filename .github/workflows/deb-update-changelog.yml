@@ -3,7 +3,7 @@ name: Update Debian Package Changelog
 on:
   push:
     branches:
-      - master
+      - bullseye
 
 env:
   CHANGELOG_AUTHOR_NAME: "pi-top"
@@ -49,4 +49,5 @@ jobs:
           commit-message: "${{ env.COMMIT_MESSAGE_PREFIX }} v${{ steps.bump_changelog.outputs.version }}"
           branch: bump-changelog
           title: "${{ env.COMMIT_MESSAGE_PREFIX }} v${{ steps.bump_changelog.outputs.version }}"
-          body: ""
+          body: "Bullseye release"
+          base: bullseye
