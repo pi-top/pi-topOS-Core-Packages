@@ -4,7 +4,6 @@ on:
   workflow_dispatch:
   pull_request:
     branches:
-      - master
       - bullseye
     types: [closed]
 
@@ -19,12 +18,12 @@ env:
 
 jobs:
   check-architecture:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     outputs:
       architecture: ${{ steps.set-arch.outputs.architecture }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: true
 
@@ -42,12 +41,12 @@ jobs:
           echo "architecture=$architecture">>$GITHUB_OUTPUT
 
   check-distro:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     outputs:
       distros: ${{ steps.set-distros.outputs.distros }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: true
           fetch-depth: 0
@@ -72,7 +71,7 @@ jobs:
 
   set-build-matrix:
     needs: [check-distro, check-architecture]
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
@@ -85,12 +84,12 @@ jobs:
 
   check-versions:
     if: github.event_name == 'workflow_dispatch' || (github.event.pull_request.merged && github.head_ref == 'bump-changelog')
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     outputs:
       CURRENT_VERSION: ${{ steps.current_version.outputs.CURRENT_VERSION }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: true
           fetch-depth: 0
@@ -119,14 +118,14 @@ jobs:
 
   release:
     needs: [set-build-matrix, check-versions]
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     if: github.event_name == 'workflow_dispatch' || (github.event.pull_request.merged && github.head_ref == 'bump-changelog')
     strategy:
       fail-fast: false
       matrix: ${{fromJSON(needs.set-build-matrix.outputs.matrix)}}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: true
           fetch-depth: 0
@@ -154,7 +153,7 @@ jobs:
             PYTHON_PACKAGE_VERSION="${{ needs.check-versions.outputs.CURRENT_VERSION }}"
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: "dsc"
           path: "./artifacts"
