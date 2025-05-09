@@ -85,8 +85,6 @@ Recommends:
  gnome-calculator,
  htop,
  imagemagick,
- libreoffice-common,
- libreoffice-pi,
  mtpaint,
  mu-editor,
  python3-grove.py,
