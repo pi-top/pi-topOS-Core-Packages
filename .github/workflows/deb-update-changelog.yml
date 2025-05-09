@@ -47,7 +47,7 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           commit-message: "${{ env.COMMIT_MESSAGE_PREFIX }} v${{ steps.bump_changelog.outputs.version }}"
-          branch: bump-changelog
+          branch: bump-changelog-bullseye
           title: "${{ env.COMMIT_MESSAGE_PREFIX }} v${{ steps.bump_changelog.outputs.version }}"
           body: "Bullseye release"
           base: bullseye
