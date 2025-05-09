@@ -1,3 +1,11 @@
+pt-os-core (5.7.1-7) bullseye; urgency=medium
+
+  * Update workflows
+  * Update workflows for bullseye (#120)
+  * Add bullseye suffix to bump-changelog pr
+
+ -- pi-top <deb-maintainers@pi-top.com>  Fri, 09 May 2025 23:11:21 +0000
+
 pt-os-core (5.7.1-6) bullseye; urgency=medium
 
   * Remove unnecessary recommended apps (#108)
