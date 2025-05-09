@@ -1,3 +1,9 @@
+pt-os-core (5.7.1-10) bullseye; urgency=medium
+
+  * Remove libreoffice as dependency (#115)
+
+ -- pi-top <deb-maintainers@pi-top.com>  Fri, 09 May 2025 23:21:34 +0000
+
 pt-os-core (5.7.1-9) bullseye; urgency=medium
 
   * Add pt-os-update-monitor as pt-os dependency (#117)
