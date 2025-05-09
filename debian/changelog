@@ -1,4 +1,4 @@
-pt-os-core (5.7.1-7) bullseye; urgency=medium
+pt-os-core (5.7.1-10) bullseye; urgency=medium
 
   * Update workflows for bullseye
   * Remove libreoffice as dependency (#116)
