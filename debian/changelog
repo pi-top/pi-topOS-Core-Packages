@@ -1,6 +1,6 @@
 pt-os-core (5.7.1-10) bullseye; urgency=medium
 
-  * Update workflows for bullseye
+  * Update workflows
   * Remove libreoffice as dependency (#116)
 
  -- pi-top <deb-maintainers@pi-top.com>  Fri, 09 May 2025 23:18:35 +0000
