@@ -24,6 +24,7 @@ Recommends:
  pt-os-ui,
  pt-os-user-libs,
  pi-top-usb-setup,
+ pt-os-update-monitor,
 # Required for ssh login motd (see OS build)
  neofetch,
 Description: pi-topOS top-level dummy package
