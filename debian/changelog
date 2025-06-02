@@ -1,3 +1,16 @@
+pt-os-core (5.7.1-11) bullseye; urgency=medium
+
+  * Update workflows
+  * Update workflows for bullseye (#120)
+  * Add bullseye suffix to bump-changelog pr
+  * Use different bump-changelog branch for bullseye
+  * [bullseye]New changelog entry: v5.7.1-10 (#122)
+  * Remove libreoffice dependency (#123)
+  * [bullseye]New changelog entry: v5.7.1-10 (#124)
+  * Add pt-os-update-monitor as pt-os dependency (#125)
+
+ -- pi-top <deb-maintainers@pi-top.com>  Mon, 02 Jun 2025 14:28:01 +0000
+
 pt-os-core (5.7.1-10) bullseye; urgency=medium
 
   * Update workflows
