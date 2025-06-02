@@ -1,5 +1,6 @@
 pt-os-core (5.7.1-10) bullseye; urgency=medium
 
+  * Add pt-os-update-monitor as pt-os dependency (#125)
   * Update workflows
   * Remove libreoffice as dependency (#116)
 
