@@ -16,14 +16,6 @@ show_notification() {
     --action="Update and Reboot:env SUDO_ASKPASS=/usr/lib/pt-os-notify-services/pwdpte.sh sudo -A /usr/lib/pt-os-notify-services/pt-eeprom -f && env SUDO_ASKPASS=/usr/lib/pt-os-notify-services/pwdpte.sh sudo -A /sbin/reboot"
 }
 
-is_pi_top_4() {
-  if [[ "$(pi-top devices hub --name-only)" == "pi-top [4]" ]]; then
-    return 0
-  else
-    return 1
-  fi
-}
-
 is_root() {
   [ "${EUID}" -eq 0 ] && return 0
   return 1

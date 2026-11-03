@@ -100,7 +100,7 @@ set_next_init() {
   [ -z "${BOOT_MOUNTPOINT}" ] && BOOT_MOUNTPOINT=$(find_boot_mount_point)
 
   sed -i -e "s| init=[^ ]*||g" "${BOOT_MOUNTPOINT}"/cmdline.txt
-  echo "$(cat ${BOOT_MOUNTPOINT}/cmdline.txt) init=${script_path}" >"${BOOT_MOUNTPOINT}"/cmdline.txt
+  echo "$(cat "${BOOT_MOUNTPOINT}"/cmdline.txt) init=${script_path}" >"${BOOT_MOUNTPOINT}"/cmdline.txt
 }
 
 enable_wifi_card() {
@@ -127,7 +127,7 @@ add_to_cmdline_txt() {
   mount_fs_rw
   [ -z "${BOOT_MOUNTPOINT}" ] && BOOT_MOUNTPOINT=$(find_boot_mount_point)
 
-  echo "$(cat ${BOOT_MOUNTPOINT}/cmdline.txt) ${1}" >"${BOOT_MOUNTPOINT}"/cmdline.txt
+  echo "$(cat "${BOOT_MOUNTPOINT}"/cmdline.txt) ${1}" >"${BOOT_MOUNTPOINT}"/cmdline.txt
 }
 
 remove_from_cmdline_txt() {
