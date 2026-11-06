@@ -162,7 +162,6 @@ Depends:
  ${misc:Depends},
  pt-os-init,
 # Required for openbox xdg autostart
-# as part of onboarding on Bullseye
  python3-xdg,
 Conflicts:
  piwiz,
