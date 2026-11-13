@@ -1,3 +1,14 @@
+pt-os-core (5.7.2-1) bookworm; urgency=medium
+
+  * Regenerate Debian workflows: drop bullseye, move off the dead runner (#127)
+  * Remove debian/bullseye-overrides (#129)
+  * Create releases with the workflow's own token (#130)
+  * Fix the shellcheck findings (#131)
+  * Remove bullseye onboarding note from python3-xdg dependency (#132)
+  * Allow running the changelog bump by hand (#133)
+
+ -- pi-top <deb-maintainers@pi-top.com>  Fri, 13 Nov 2026 14:15:27 +0000
+
 pt-os-core (5.7.1-10) bullseye; urgency=medium
 
   * Remove libreoffice as dependency (#115)
