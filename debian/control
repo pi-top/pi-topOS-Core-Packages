@@ -87,7 +87,6 @@ Recommends:
  imagemagick,
  mtpaint,
  mu-editor,
- python3-grove.py,
  python3-minecraftpi,
  realvnc-vnc-viewer,
  scratch3,
@@ -211,8 +210,6 @@ Depends:
 Recommends:
 # Useful for graphing
  python3-matplotlib,
-# Sonic Pi with Python
- python3-sonic,
 Description: pi-topOS User Libraries
  This metapackage contains optional libraries (primarily Python) for pi-topOS.
 
