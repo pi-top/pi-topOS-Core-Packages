@@ -1,4 +1,4 @@
-pt-os-core (6.0.0-1) bookworm; urgency=medium
+pt-os-core (5.8.0-1) bookworm; urgency=medium
 
   * Regenerate Debian workflows: drop bullseye, move off the dead runner (#127)
   * Remove debian/bullseye-overrides (#129)
