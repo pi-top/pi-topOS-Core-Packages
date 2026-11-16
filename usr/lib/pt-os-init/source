@@ -93,6 +93,12 @@ EOF
   } # &>/dev/null
 }
 
+regenerate_ssh_host_keys() {
+  # Keys made while building the image would be the same on every device
+  rm -f /etc/ssh/ssh_host_*_key*
+  ssh-keygen -A
+}
+
 set_next_init() {
   script_path=${1:-}
 
