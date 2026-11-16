@@ -1,0 +1,54 @@
+#!/bin/bash
+# Replaces SSH host keys that came inside a pi-topOS image: every device
+# flashed from that image would otherwise share them.
+
+set -u
+
+KNOWN_KEYS="/usr/lib/pt-os-init/baked-ssh-host-keys"
+
+image_build_date() {
+  local issue
+  for issue in /boot/firmware/pt-issue.txt /boot/pt-issue.txt; do
+    if [ -f "${issue}" ]; then
+      grep -oE '_D[0-9]{4}-[0-9]{2}-[0-9]{2}_' "${issue}" | head -n1 | sed 's/^_D//; s/_$//'
+      return
+    fi
+  done
+}
+
+baked_key_reason() {
+  local build_date day_after pub fingerprint key_date
+  build_date="$(image_build_date)"
+  [ -n "${build_date}" ] && day_after="$(date -u -d "${build_date} + 1 day" +%F)"
+
+  for pub in /etc/ssh/ssh_host_*_key.pub; do
+    [ -f "${pub}" ] || continue
+    fingerprint="$(ssh-keygen -lf "${pub}" 2>/dev/null | awk '{print $2}')"
+    if [ -n "${fingerprint}" ] && grep -qxF "${fingerprint}" "${KNOWN_KEYS}"; then
+      echo "${pub} is a known pi-topOS image key"
+      return
+    fi
+    if [ -n "${build_date}" ]; then
+      key_date="$(date -u -r "${pub}" +%F)"
+      if [ "${key_date}" = "${build_date}" ] || [ "${key_date}" = "${day_after}" ]; then
+        echo "${pub} was created on the image build date (${build_date})"
+        return
+      fi
+    fi
+  done
+}
+
+main() {
+  local reason
+  reason="$(baked_key_reason)"
+  [ -n "${reason}" ] || exit 0
+
+  echo "Replacing the SSH host keys that came with the pi-topOS image: ${reason}"
+  rm -f /etc/ssh/ssh_host_*_key /etc/ssh/ssh_host_*_key.pub
+  ssh-keygen -A
+  if systemctl is-active --quiet ssh 2>/dev/null; then
+    systemctl reload ssh || systemctl restart ssh
+  fi
+}
+
+main "$@"
