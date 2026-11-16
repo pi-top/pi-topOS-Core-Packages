@@ -1,3 +1,9 @@
+pt-os-core (5.8.1-1) bookworm; urgency=medium
+
+  * Regenerate SSH host keys on first boot (#135)
+
+ -- pi-top <deb-maintainers@pi-top.com>  Mon, 16 Nov 2026 15:33:28 +0000
+
 pt-os-core (5.8.0-1) bookworm; urgency=medium
 
   * Regenerate Debian workflows: drop bullseye, move off the dead runner (#127)
