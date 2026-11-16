@@ -1,0 +1,9 @@
+#!/bin/sh
+set -e
+
+if [ "$1" = "configure" ]; then
+  /usr/lib/pt-os-init/replace-baked-ssh-host-keys ||
+    echo "pt-os-init: could not check the SSH host keys" >&2
+fi
+
+#DEBHELPER#
