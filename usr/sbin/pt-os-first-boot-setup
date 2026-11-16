@@ -17,6 +17,7 @@ if [ "$#" -eq 0 ]; then
   {
     /usr/lib/pt-os-init/pt-hub-handshake
     expand
+    regenerate_ssh_host_keys
     enable_wifi_card
     disable_text_redirect
     remove_init
