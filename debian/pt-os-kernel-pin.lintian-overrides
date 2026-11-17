@@ -1,0 +1,2 @@
+# Pinning the kernel is this package's purpose
+pt-os-kernel-pin: package-installs-apt-preferences [etc/apt/preferences.d/pt-os-kernel-pin]
