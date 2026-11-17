@@ -1,3 +1,10 @@
+pt-os-core (5.9.0-1) bookworm; urgency=medium
+
+  * Name GitHub releases after their tag and add changelog notes (#137)
+  * Install only pi-top-approved kernels (#142)
+
+ -- pi-top <deb-maintainers@pi-top.com>  Tue, 17 Nov 2026 19:45:00 +0000
+
 pt-os-core (5.8.2-1) bookworm; urgency=medium
 
   * Replace SSH host keys that shipped inside a pi-topOS image (#138)
