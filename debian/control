@@ -51,6 +51,7 @@ Architecture: all
 Depends:
  ${misc:Depends},
  pi-topd,
+ pt-os-kernel-pin,
 # Additional hardware support
  pt-display-port,
  pt-miniscreen,
@@ -146,6 +147,15 @@ Description: pi-topOS init processes
  This package handles all of the init files for pi-topOS. In particular, this
  provides pi-topOS's first boot setup script, which does things such as
  expanding the filesystem.
+
+Package: pt-os-kernel-pin
+Architecture: all
+Depends:
+ ${misc:Depends},
+Description: pi-topOS approved kernel and boot firmware
+ Pins the Raspberry Pi kernel, boot firmware and EEPROM packages to the versions
+ published in pi-top's repositories, which are tested on pi-top hardware before
+ release. Newer versions from archive.raspberrypi.com are not installed.
 
 Package: pt-os-networking
 Architecture: all

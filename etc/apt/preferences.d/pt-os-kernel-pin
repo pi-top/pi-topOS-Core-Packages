@@ -1,0 +1,12 @@
+# Kernel, boot firmware and EEPROM versions come only from pi-top's
+# repositories, where each is published once tested on pi-top hardware.
+
+# First: when Raspberry Pi publishes the same version, the first matching entry
+# decides. Names without :arm64 only match armhf packages.
+Package: linux-image-rpi-* linux-headers-rpi-* linux-image-rpi-*:arm64 linux-headers-rpi-*:arm64 raspi-firmware rpi-eeprom
+Pin: origin packages.pi-top.com
+Pin-Priority: 500
+
+Package: linux-image-rpi-* linux-headers-rpi-* linux-image-rpi-*:arm64 linux-headers-rpi-*:arm64 raspi-firmware rpi-eeprom
+Pin: release o=Raspberry Pi Foundation
+Pin-Priority: -1
