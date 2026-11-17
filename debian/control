@@ -152,10 +152,10 @@ Package: pt-os-kernel-pin
 Architecture: all
 Depends:
  ${misc:Depends},
-Description: pi-topOS approved kernel and boot firmware
- Pins the Raspberry Pi kernel, boot firmware and EEPROM packages to the versions
- published in pi-top's repositories, which are tested on pi-top hardware before
- release. Newer versions from archive.raspberrypi.com are not installed.
+Description: pi-topOS approved kernel
+ Pins the Raspberry Pi kernel packages to the versions published in pi-top's
+ repositories, which are tested on pi-top hardware before release. Newer
+ kernels from archive.raspberrypi.com are not installed.
 
 Package: pt-os-networking
 Architecture: all

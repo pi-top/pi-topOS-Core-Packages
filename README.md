@@ -48,7 +48,7 @@ Additional files:
 
 ## `pt-os-kernel-pin`
 
-`/etc/apt/preferences.d/pt-os-kernel-pin` stops apt installing the kernel (`linux-image-rpi-*`, `linux-headers-rpi-*`), `raspi-firmware` or `rpi-eeprom` from archive.raspberrypi.com. Approved versions are copied into pi-top's repositories by [pi-topOS-Upstream-Package-Build](https://github.com/pi-top/pi-topOS-Upstream-Package-Build) and released like any other package, so automatic updates and the web portal Updater install only those.
+`/etc/apt/preferences.d/pt-os-kernel-pin` stops apt installing the kernel (`linux-image-rpi-*`, `linux-headers-rpi-*`) from archive.raspberrypi.com. Approved versions are copied into pi-top's repositories by [pi-topOS-Upstream-Package-Build](https://github.com/pi-top/pi-topOS-Upstream-Package-Build) and released like any other package, so automatic updates and the web portal Updater install only those.
 
 ## `pt-os-notify-services`
 Simple utilities used by pi-topOS, provided by systemd services. This package contains a background memory usage monitor, a service to notify users when they are using a preview build of pi-topOS and a service to ensure that Raspberry Pi 4s that are in use with a pi-top [4] have their EEPROM configured correctly.
