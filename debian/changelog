@@ -1,4 +1,4 @@
-pt-os-core (5.8.3-1) bookworm; urgency=medium
+pt-os-core (5.9.0-1) bookworm; urgency=medium
 
   * Name GitHub releases after their tag and add changelog notes (#137)
   * Install only pi-top-approved kernels (#142)
